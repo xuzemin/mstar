@@ -1,0 +1,2 @@
+Si2190 FW   Si2190_firmware_1_1_build_4
+I2C V3.4.1 (Silabs_L0_Connection.cpp)

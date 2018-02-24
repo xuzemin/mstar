@@ -1,0 +1,6 @@
+# This file is for CheckBinSize.sh
+# Case1 format: bin_file, mmap_file, define_name
+# Case2 format: bin_file, imm_value
+Case1,  ./tv-ap/dvb/ui2/res1366x768x565/osdcomposer/osdbin/ZUI_strings.bin, ./project/mmap/MMAP_ATVMM_NASA_64_R2.h, STRING_START_LEN
+Case2,  ./tv-ap/dvb/ui2/logo/mp3.mp3, 56000
+

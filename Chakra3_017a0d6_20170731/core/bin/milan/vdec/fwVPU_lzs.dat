@@ -1,0 +1,8 @@
+bin2hex.pl by Chami.com
+
+usage:
+  perl bin2hex.pl  
+
+   : path to the binary file
+   : 0 = Perl, 1 = C/C++/Java, 2 = Pascal/Delphi
+

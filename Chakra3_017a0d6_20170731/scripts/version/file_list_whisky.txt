@@ -1,0 +1,162 @@
+// There are three method to retrieve version from a CI (configuration items)
+// 1. Txt : Captre version from the first line of a txt file
+// 2. Elf : Embedded version by using binutility:
+//    Insert : arm-none-linux-gnueabi-objcopy --add-section .mmodule_version=version_info libXXXXX.so
+//    Readelf: readelf --string-dump=.mmodule_version libXXXXX.so
+// 3. MSIF: Embedded a binary string into a binary. And this string has a pre-defined format.
+//           'M','S','I','F',                /* Version ID Header */\
+//           '0','3',                          /* Info Class Code */\
+//           0x0000,                               /* Customer ID */\
+//           0x0000,                                 /* Module ID */\
+//           0x0000,                                   /* Chip ID */\
+//           '0',                                          /* CPU */\
+//           'S','N','_','_'                     /* Library Code */\
+//           '0','0',                              /* Library Ver */\
+//           '0','1',                             /* Build Number */\
+//           '0','0','1','2','3','4','5','5', /* P4 Change Number */\
+//           '2'                                            /* OS */\
+
+
+
+
+
+//SBOOT
+#sboot.bin(MSIF)
+boot/sboot/bin/BD_MST222B_D01A_S/sboot.bin
+#sboot.bin(MSIF)
+boot/sboot/bin/BD_MST084B_10AHB_15043/sboot.bin
+
+
+
+
+//Middleware
+#libci_aeonR2.a(MSIF)
+core/middleware/ci/libci_aeonR2.a
+#libcc_nos_a_r2.a(MSIF)
+core/middleware/closedcaption/atsc/libcc_nos_a_r2.a
+#libdvbepgdb_aeonR2.a(MSIF)
+core/middleware/epg/dvb/libdvbepgdb_aeonR2.a
+#libdvbsi_aeonR2.a(MSIF)
+core/middleware/si/dvb/libdvbsi_aeonR2.a
+#libsub_aeonR2.a(MSIF)
+core/middleware/subtitle/libsub_aeonR2.a
+#libttx_core_aeonR2.a(MSIF)
+core/middleware/teletext/core/libttx_core_aeonR2.a
+#vdplayer.bin(MSIF)
+core/bin/whisky/cape/vdplayer.bin
+
+
+
+//Utopia
+#Utopia(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libnos.a
+#Utopia_ACE(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiACE.a
+#Utopia_AUDIOApi(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiAUDIO.a
+#Utopia_CEC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiCEC.a
+#Utopia_DLC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiDLC.a
+#Utopia_DMX(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiDMX.a
+#Utopia_GFX(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiGFX.a
+#Utopia_GOP(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiGOP.a
+#Utopia_JPEG(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiJPEG.a
+#Utopia_MHL(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiMHL.a
+#Utopia_PNL(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiPNL.a
+#Utopia_SWI2C(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiSWI2C.a
+#Utopia_VDEC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiVDEC.a
+#Utopia_XC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libapiXC.a
+#Utopia_cashmere(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libcashmere.a
+#Utopia_AESDMA(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvAESDMA.a
+#Utopia_AUDIODrv(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvAUDIO.a
+#Utopia_AUDSP(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvAUDSP.a
+#Utopia_AVD(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvAVD.a
+#Utopia_BDMA(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvBDMA.a
+#Utopia_CPU(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvCPU.a
+#Utopia_DDC2BI(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvDDC2BI.a
+#Utopia_DEMOD(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvDEMOD.a
+#Utopia_DSCMB(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvDSCMB.a
+#Utopia_GPIO(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvGPIO.a
+#Utopia_HWI2C(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvHWI2C.a
+#Utopia_IPAUTH(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvIPAUTH.a
+#Utopia_IR(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvIR.a
+#Utopia_IRQ(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvIRQ.a
+#Utopia_MBX(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMBX.a
+#Utopia_MFC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMFC.a
+#Utopia_MIU(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMIU.a
+#Utopia_MMIO(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMMIO.a
+#Utopia_MSPI(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMSPI.a
+#Utopia_MVOP(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvMVOP.a
+#Utopia_PCMCIA(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvPCMCIA.a
+#Utopia_PM(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvPM.a
+#Utopia_PWM(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvPWM.a
+#Utopia_PWS(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvPWS.a
+#Utopia_RTC(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvRTC.a
+#Utopia_SAR(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvSAR.a
+#Utopia_SEM(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvSEM.a
+#Utopia_SERFLASH.s(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvSERFLASH.a
+#Utopia_SYS(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvSYS.a
+#Utopia_TSP(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvTSP.a
+#Utopia_UART(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvUART.a
+#Utopia_USB_HID_P1(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvUSB_HID_P1.a
+#Utopia_USB_HID_P2(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvUSB_HID_P2.a
+#Utopia_USB_HOST_P1(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvUSB_HOST_P1.a
+#Utopia_USB_HOST_P2(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvUSB_HOST_P2.a
+#Utopia_VBI(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvVBI.a
+#Utopia_VE(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvVE.a
+#Utopia_VIF(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvVIF.a
+#Utopia_WBLE(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvWBLE.a
+#Utopia_WDT(Elf)
+core/drv_bsp/whisky_nos_r2m/lib/libdrvWDT.a
+#secu_r2.bin.128.sign(MSIF)
+core/bin/whisky/SecurityR2/secu_r2.bin.128.sign

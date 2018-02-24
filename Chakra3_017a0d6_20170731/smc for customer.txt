@@ -1,0 +1,30 @@
+1.  cp config.tmpl .config
+
+2.  choose your project and board
+    V56:melody
+      V56RUU PROJ=R2_MELODY_ATV_MM_64MB   BOARD_TYPE_SEL ?= BD_MST096B_10ARU_15384
+      V56RB PROJ=R2_MELODY_ATV_MM_64MB   BOARD_TYPE_SEL ?= BD_MST097B_10ARB_15384
+      V56RUUL  PROJ=R2_MELODY_ATV_MM_32MB  BOARD_TYPE_SEL ?= BD_MST096B_10ARU_15384
+      v56RJ  PROJ=R2_MELODY_ATV_MM_32MB   BOARD_TYPE_SEL ?= BD_MST094B_20ARJ_16234
+    3463:milan
+      3463GU PROJ=MIPS_MILAN_ZUI_MM_64MB_ALL_SZ   
+      3463GSA PROJ=MIPS_MILAN_ZUI_MM_128MB_ALL_SZ  
+    3553:whisky
+      choose project according to the volume of RAM and FLASH
+      128PIN:BD_MST090B_10ANU_15213    
+      156PIN:BD_MST089B_10ANB_15213
+    3458:maya
+      choose project according to DTV standard    default board
+    3663:marlon
+       3663LSA   PROJ=MIPS_MARLON_128M_DVBT_SZ    BOARD_TYPE_SEL ?= BD_MST120B_10ALS
+       3663LUHA PROJ=MIPS_MARLON_128M_DVBT_SZ   BOARD_TYPE_SEL ?= BD_MST118B_10ALU
+       3663LUA   PROJ=MIPS_MARLON_64M_DVBT_SZ
+       3663LUH   PROJ=MIPS_MARLON_128M_ISDB_SZ
+       3663LU     PROJ=MIPS_MARLON_64M_ISDB_SZ
+3. make    
+        burn MERGE.bin into  FLASH
+        
+Note: you must apply to sales for Hash Key filling in softeware
+
+
+

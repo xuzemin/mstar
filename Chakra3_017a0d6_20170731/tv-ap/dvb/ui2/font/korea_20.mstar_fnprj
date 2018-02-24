@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mstar_fnprj version="1.0" width="23" height="23" grayscale="2" fonttype="0">
+  <fonts>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">8.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">20.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">18.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">10.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">15.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>1</align-to-right-while-with-negx>
+      <size-info point="true">12.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">12.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>Bitstream Cyberbit</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">8.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">12.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">16.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">14.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">20.000000</size-info>
+      <weight>92</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="true">14.000000</size-info>
+      <weight>92</weight>
+      <style>90</style>
+      <facename>NanumGothic_Coding</facename>
+    </font>
+  </fonts>
+  <items>
+    <item value="0x20" fn="12">
+      <commands>
+        <bb-min/>
+      </commands>
+    </item>
+    <range>0x21 0xff</range>
+    <item value="0xac00" up="1"/>
+    <range>0xac01 0xd7af</range>
+  </items>
+</mstar_fnprj>

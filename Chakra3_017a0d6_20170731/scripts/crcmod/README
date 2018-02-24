@@ -1,0 +1,120 @@
+----------------------------------------------------------------------------
+Copyright (c) 2004  Raymond L. Buvel
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+----------------------------------------------------------------------------
+
+The software in this package is a Python module for generating objects that
+compute the Cyclic Redundancy Check (CRC).  There is no attempt in this package
+to explain how the CRC works.  There are a number of resources on the web that
+give a good explanation of the algorithms.  Just do a Google search for "crc
+calculation" and browse till you find what you need.  Another resource can be
+found in chapter 20 of the book "Numerical Recipes in C" by Press et. al.
+
+This package allows the use of any 8, 16, 24, 32, or 64 bit CRC.  You can
+generate a Python function for the selected polynomial or an instance of the
+Crc class which provides the same interface as the md5 and sha modules from the
+Python standard library.  A Crc class instance can also generate C/C++ source
+code that can be used in another application.
+
+----------
+Guidelines
+----------
+
+If you are simply looking for something to compute a strong checksum (typically
+referred to as a message digest) over some data, I strongly suggest you use the
+md5 module.  As shown in the timing study below, the MD5 algorithm has about
+the same performance as a 32-bit CRC generated with this module.  In addition,
+MD5 is a cryptographically strong message digest.  As discussed in RFC 1321,
+the probability of having the same digest for two data sets is 2^-64 which is
+the same as a 64-bit CRC.  A CRC can be fooled into generating the same value
+by simply adding any multiple of the generator polynomial to the original
+message.  This is very difficult to do with the MD5 algorithm.
+
+If you are still interested in this module, you have an application that
+requires the use of a CRC.  Documentation is available from the doc strings.
+It is up to you to decide what polynomials to use in your application.  If
+someone has not specified the polynomials to use, you will need to do some
+research to find one suitable for your application.  Examples are available in
+the unit test script test_crcmod.py and the timing script timing_test.py.
+
+If you need to generate code for another language, I suggest you subclass the
+Crc class and replace the method generateCode.  Use generateCode as a model
+for the new version.
+
+------------
+Installation
+------------
+
+The crcmod package is installed using distutils.  If you have the tools
+installed to build a Python extension module, run the following command.
+
+python setup.py install
+
+If you don't have the tools to build an extension module, you will need to
+install the pure Python version using the following command.
+
+python setup_py.py install
+
+------------
+Unit Testing
+------------
+
+The script test_crcmod.py is the unit test for crcmod.  When you first install
+the package, you should run this test to make sure everything is installed
+properly.  This script performs a number of tests including a comparison to the
+direct method which uses a class implementing polynomials over the integers
+mod 2.
+
+The unit test script also demonstrates how to use the code generator.  The
+result of this is written out to the file examples.c.  The generated code was
+checked to make sure it compiles with the GCC compiler.
+
+------
+Timing
+------
+
+A few timing measurements were taken using the timeit module in the Python
+standard library.  The Python implementation is compared to the extension
+module, the md5 module in the standard library, and the crc32 function from the
+binascii module.  These measurements were taken on my development system which
+is a 3GHz Pentium IV with hyper threading running the Debian Sarge distribution
+of Linux with the 2.6.6 version of the kernel.  The Python version is 2.3.3.
+
+The following result was obtained by running the timing_test.py script twice.
+Once with the Python version and once with the extension module.
+
+Timing in microseconds per iteration
+min and max of 10 repetitions
+  CRC:  14981.4,  15035.8   Python implementation
+  CRC:     64.2,     64.4   extension module
+  md5:     59.0,     59.3
+crc32:     87.2,     87.4
+
+It is interesting that on this system, the md5 module is slightly faster than a
+32-bit CRC even though the message digest is 128-bits and is cryptographically
+more secure.  This is surprising since the MD5 code looks a lot more complex.
+I tried unrolling the inner loop and using the function interface instead of
+the class interface.  These changes only got the result down to where the MD5
+and CRC took about the same amount of time.
+
+Note: the crc32 is slower because it includes a mask operation to get the low
+order byte of a 32-bit word.  A cast is used in the CRC module to accomplish
+the same thing.
+

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mstar_fnprj version="1.0" width="48" height="56" grayscale="4" fonttype="0">
+  <fonts>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">0.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">15.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">18.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">20.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">19.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">17.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+    <font>
+      <glyph-offset>0 0</glyph-offset>
+      <align-to-right-while-with-negx>0</align-to-right-while-with-negx>
+      <size-info point="false">16.000000 54.000000</size-info>
+      <weight>90</weight>
+      <style>90</style>
+      <facename>DejaVu Sans</facename>
+    </font>
+  </fonts>
+  <items>
+    <item value="0x20" fn="4"/>
+    <item value="0x21" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x25" fn="4">
+      <commands>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x28" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x29" up="1"/>
+    <item value="0x2c" up="1"/>
+    <range>0x2d 0x2e</range>
+    <item value="0x2f" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x30" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x31" up="1"/>
+    <item value="0x32" fn="-1">
+      <![CDATA[8 11 2 +1 8 13 1 8 14 0 +1 8 16 1 8 17 2 +1 9 8 2 9 9 1 9 10 0 +9 10 3 0 10 7 1 10 8 0 +12 10 21 2 11 3 0 11 7 1 11 8 0 +13 11 22 2 12 3 0 12 7 1 12 8 0 +2 12 11 2 +1 12 18 1 12 19 0 +3 13 3 0 13 7 1 13 8 0 13 9 2 13 19 2 13 20 0 +2 13 23 2 14 3 2 14 7 2 14 20 1 14 21 0 +1 14 23 1 15 20 2 15 21 0 +1 15 23 1 16 21 0 +2 16 24 2 17 21 0 +2 17 24 2 18 21 0 +2 18 24 2 19 21 0 +2 20 20 2 20 21 0 +1 20 23 1 21 20 1 21 21 0 +1 21 23 1 22 20 0 +2 22 23 2 23 19 2 23 20 0 +2 24 18 2 24 19 0 +2 24 22 1 25 18 1 25 19 0 +2 25 22 2 26 17 2 26 18 0 +2 26 21 2 27 16 2 27 17 0 +2 27 20 1 28 15 2 28 16 0 +3 29 15 1 29 16 0 +2 29 19 2 30 14 1 30 15 0 +2 30 18 2 31 13 2 31 14 0 +2 31 17 1 32 12 2 32 13 0 +2 32 16 1 33 11 2 33 12 0 +2 33 15 1 34 11 0 +3 34 15 2 35 10 1 35 11 0 +2 35 14 2 36 9 1 36 10 0 +2 36 13 1 37 8 2 37 9 0 +2 37 12 1 38 3 2 38 7 2 38 8 0 +2 38 11 1 39 3 0 39 7 1 39 8 0 +15 39 24 2 40 3 0 40 7 1 40 8 0 +15 40 24 2 41 3 0 41 7 1 41 8 0 +15 41 24 2 42 3 0 42 7 1 42 8 0 +15 42 24 2 ]]>
+      <commands>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 10</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 11</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 12</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 13</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 14</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 38</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 39</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 40</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 41</dot>
+        </paint>
+        <paint>
+          <BB>0 0 48 56</BB>
+          <dot>3 3 42</dot>
+        </paint>
+        <bb-min/>
+        <align-onestep-left step="1"/>
+        <align-onestep-left step="1"/>
+        <align-onestep-left step="1"/>
+        <align-onestep-left step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x33" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <range>0x34 0x3a</range>
+    <item value="0x3f" up="1"/>
+    <item value="0x41" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x42" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <range>0x43 0x49</range>
+    <item value="0x4a" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x4b" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <range>0x4c 0x53</range>
+    <item value="0x54" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x55" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x56" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x57" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x58" up="1"/>
+    <item value="0x59" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x5a" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x61" up="1"/>
+    <range>0x62 0x69</range>
+    <item value="0x6a" fn="4">
+      <commands>
+        <bb-min/>
+        <align-onestep-right step="1"/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <item value="0x6b" fn="4">
+      <commands>
+        <bb-min/>
+        <bb-inflate-left step="1"/>
+        <bb-inflate-right step="1"/>
+        <bb-min/>
+      </commands>
+    </item>
+    <range>0x6c 0x7a</range>
+  </items>
+</mstar_fnprj>

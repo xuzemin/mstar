@@ -1,0 +1,96 @@
+AVL6211 Firmware Patch 1.0.29   1/17/2012
+	What's new:
+		1. Fixed Hardware Sleep bug.
+		2. Fixed ADC Reset bug.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+		
+AVL6211 Firmware Patch 1.0.26   12/06/2011
+	What's new:
+		1. Improved phase noise detection in 8PSK Pilot-Off mode.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+		
+AVL6211 Firmware Patch 1.0.25   10/13/2011
+	What's new:
+		1. Added support for DVB-S and DVB-S2 manual lock mode.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+		
+AVL6211 Firmware Patch 1.0.24   08/01/2011
+	What's new:
+		1. Improved the acquisition time at low symbol rates.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+AVL6211 Firmware Patch 1.0.21   06/02/2011
+	What's new:
+		1. Improved the behaviour of channel lock operation at low symbol rates.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.19   04/15/2011
+	What's new:
+		1. Improved the behaviour of MPEG persistent and continuous modes.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.8   02/25/2011
+	What's new:
+		1. Added the capability to indicate sleep-wake status of the receiver to SDK.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.7   01/24/2011
+	What's new:
+		1. Improved acquisition time for DVBS-2 standard in auto spectrum detection mode when MPEG 
+		   persistent mode is turned on.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.6   12/30/2010
+	What's new:
+		1. Improved performance at low symbol rates.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.2   8/05/2010
+	What's new:
+		1. Improved power consumption of AVL6211 in sleep mode.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.1   8/03/2010
+	What's new:
+		1. Improved packet error rate performance in DVBS mode for symbol rates < 3Msps.
+	
+	Modified files:
+		1. \AVL6211_patch.dat, AVL6211_patch.dat.c
+
+
+AVL6211 Firmware Patch 1.0.0   6/04/2010
+	What's new:
+		1. Initial Firmware Patch Release.
+	
+	 Modified files:
+		1. All files are new.
+
+			
+
+

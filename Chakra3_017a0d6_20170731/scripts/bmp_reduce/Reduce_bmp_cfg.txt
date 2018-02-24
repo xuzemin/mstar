@@ -1,0 +1,3 @@
+./tv-ap/dvb/ui2/res1366x768x565/osdcomposer/include/ZUI_bitmap_EnumIndex.h[bitmap enum file]
+./tv-ap/dvb/ui2/res1366x768x565/osdcomposer/osdbin/ZUI_bitmap_SW_LOAD.bin[input binary name]
+./tv-ap/dvb/ui2/res1366x768x565/osdcomposer/osdbin/ZUI_bitmap_SW_LOAD_no_POP.bin[output binary name]

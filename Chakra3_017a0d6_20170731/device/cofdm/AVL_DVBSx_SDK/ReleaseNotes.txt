@@ -1,0 +1,12 @@
+SDK 1.0.0   6/04/2010
+	What's new:
+		Initial SDK release.
+
+        Modified files:
+		All files are new.
+
+      
+
+
+
+

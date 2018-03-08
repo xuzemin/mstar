@@ -1311,7 +1311,7 @@ INTERFACE enumMPlayerRet MApp_MPlayer_StartCaptureBootUpMusic(void);
 INTERFACE enumMPlayerRet MApp_MPlayer_EndCaptureBootUpMusic(void);
 INTERFACE enumMPlayerRet MApp_MPlayer_GotoMenuState(void);
 INTERFACE enumMPlayerRet MApp_MPlayer_ScaleVideo(void);
-INTERFACE enumMPlayerRet MApp_MPlayer_SetPlayPosition(U32 u32TimeInMS);
+INTERFACE enumMPlayerRet MApp_MPlayer_SetPlayPosition(U32 u32TimeInMS, BOOL IsResumePlay);
 INTERFACE enumMPlayerRet MApp_MPlayer_SetFileDecodedFail(U16 u16FileIdx, U8 bFailed, enumMPlayerMediaType MediaType, enumMPlayerPlayMode PlayMode);
 INTERFACE BOOLEAN MApp_MPlayer_GetFileDecodedFail(U16 u16FileIdx, enumMPlayerMediaType MediaType, enumMPlayerPlayMode PlayMode);
 

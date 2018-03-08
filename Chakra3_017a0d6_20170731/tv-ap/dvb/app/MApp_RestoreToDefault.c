@@ -1967,7 +1967,7 @@ static T_MS_WHITEBALANCE code astDefaultWhiteBalanceDataTbl[DATA_INPUT_SOURCE_NU
         }
     },
 #endif
-#if (INPUT_YPBPR_VIDEO_COUNT == 2)
+#if (INPUT_YPBPR_VIDEO_COUNT >= 2)
     {// YPBPR2
         0,//CS
         {

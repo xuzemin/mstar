@@ -422,8 +422,9 @@
 #define SOUNDMODE                           SOUNDMODE_TONE
 #define SOUND_EQMODE_ENABLE					DISABLE//ENABLE
 #define ENABLE_BRAZIL_CC_DETECT_FLAG        DISABLE
-
 #define EANBLE_V56_IO_KEY					DISABLE //gchen @ 20180202 //IO Key Control
+#define ENABLE_CHINESE                    DISABLE//ENABLE   //wht121020_2
+#define ENABLE_CHINESE_TRADITIONAL DISABLE//ENABLE  //wht121130_1
 /***************************************************************************************/
 
 //Note: for demo only!! we use LANGUAGE_SPANISH to display arabic UI, default set to DISABLE.

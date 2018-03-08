@@ -2454,7 +2454,7 @@ void MApp_PreInit_Logo_Init(void)
 	//Optical_YangMing_RGBCurrent();
 	
 	Optical_SetRes_854x480();
-
+	MsOS_DelayTask(500);
 	Optical_Led_OpenANDClose(1);
 #if (DISPLAY_LOGO)
 

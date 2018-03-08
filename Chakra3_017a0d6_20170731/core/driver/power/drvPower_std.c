@@ -427,14 +427,15 @@ void MDrv_Power_StandbyPowerOff(void)
 
     // new M12 standby mode code base
     //MApp_Audio_Set_AmpMute(AUDIO_AMP_MUTE_ON);
-
+	MUTE_Off(); //gchen @ 20180207 //power off mute off
     Panel_VCC_OFF();
     Panel_Backlight_VCC_OFF();
 
 	//<<gchen  @ 20171222 //adayo power off 
 	Optical_Led_OpenANDClose(0);
 	printf("=> StandBy 22\n");
-	MsOS_DelayTask(20*1000);
+
+	//MsOS_DelayTask(15*1000);
 	printf("=> StandBy 33\n");
 	//Power_Off();
 	//>>gchen  @ 20171222 //adayo power off 

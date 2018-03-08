@@ -891,7 +891,7 @@ INTERFACE BOOLEAN MApp_VDPlayer_WMDRMPD_QueryHeader(U32 *u32Addr, U32 *u32Size);
 INTERFACE BOOLEAN MApp_VDPlayer_WMDRMPD_GetLicense(void);
 #endif
 
-INTERFACE BOOLEAN MApp_VDPlayer_SetPlayPosition(U32 timeInMs);
+INTERFACE BOOLEAN MApp_VDPlayer_SetPlayPosition(U32 timeInMs, BOOL IsResumePlay);
 INTERFACE BOOLEAN MApp_VDPlayer_SetAudioTrackID(U8 u8TrackId);
 #if ENBALE_PARENTALRATING_MM
 INTERFACE void MApp_VDPlayer_SetRatingLimitation(U8 u8RatingLimit);

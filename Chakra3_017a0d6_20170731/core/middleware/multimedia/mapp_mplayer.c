@@ -13938,37 +13938,31 @@ enumMPlayerRet MApp_MPlayer_EndCaptureBootUpMusic(void)
 /// This function go to the user specified position of playing file in milliseconds.
 /// @return enumMPlayerRet
 //******************************************************************************
-enumMPlayerRet MApp_MPlayer_SetPlayPosition(U32 u32TimeInMS)
+enumMPlayerRet MApp_MPlayer_SetPlayPosition(U32 u32TimeInMS, BOOL IsResumePlay)
 {
     enumMPlayerRet eRet=E_MPLAYER_RET_FAIL;
 
     switch(m_eMediaType)
     {
-#if ENABLE_MPLAYER_MOVIE
     case E_MPLAYER_TYPE_MOVIE:
         if(MApp_VDPlayer_GetInfo(E_VDPLAYER_INFO_MAX_FB_SPEED) != 0)
         {
-            if(MApp_VDPlayer_SetPlayPosition(u32TimeInMS))
+            if(MApp_VDPlayer_SetPlayPosition(u32TimeInMS,IsResumePlay))
             {
-                if(E_MPLAYER_KNL_FLG1_SUBTITLE_EXTERNAL & m_MPlayerInfo[E_MPLAYER_FOREGROUND_PLAYER].eKnlFlag1)
-                {
-                #if (ENABLE_SUBTITLE_SUBIDX)
-                    if(m_eExternalSubtitleType == E_MPLAYER_SUBTITLE_SUBIDX)
-                    {
-                        _MApp_MPlayer_SetMpegSubtitle();
-                    }
-                #endif
-                #if (ENABLE_SMALL_BUF_SUBTITLE)
-                    MApp_MPlayer_EnableReloadAppositeSubtitleBuf(TRUE);
-                #endif
-                }
                 eRet = E_MPLAYER_RET_OK;
             }
         }
         break;
-#else
-    UNUSED(u32TimeInMS);
-#endif
+		//>>wht120614_1
+	    case E_MPLAYER_TYPE_MUSIC: 
+		{
+            if(MApp_VDPlayer_SetPlayPosition(u32TimeInMS, FALSE))
+            {
+                eRet = E_MPLAYER_RET_OK;
+            }
+		}
+		break;
+		//<<wht120614_1
     default:
         break;
     }

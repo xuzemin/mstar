@@ -1279,6 +1279,12 @@ BOOLEAN MApp_ZUI_ACT_ExecuteExpertMenuAction(U16 act)
         case EN_EXE_CLOSE_CURRENT_OSD:
             MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_PAGE_FADE_OUT, E_ZUI_STATE_TERMINATE);
             _enTargetOSDPageState = STATE_OSDPAGE_CLEAN_UP;
+			#if ENABLE_DMP
+            if(UI_INPUT_SOURCE_DMP == UI_INPUT_SOURCE_TYPE)
+            {
+                _enTargetOSDPageState = STATE_OSDPAGE_GOTO_DMP;
+            }
+            #endif
             return TRUE;
 
 

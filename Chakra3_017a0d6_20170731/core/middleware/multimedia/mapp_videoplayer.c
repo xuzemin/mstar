@@ -852,14 +852,16 @@ typedef enum
 #if SUPPORT_ONE_FILE_HANDLE_APP_BUT_DEMUX_USE_2_FILE_HANDLE
 #define AV_FILE_HANDLE                          0
 #endif
+static U32 u32OrgDivPlusPTS;
 
+#define MAX_TEXT_SUBTITLE_TAG_COUNT             16
 #if ENABLE_DIVX_PLUS
 U8 g_u8TitleId = 0;
 U8 g_u8EditionId = 0;
 extern BOOL g_bChangeFile;
 //extern enumMPlayerMoviePlayMode g_eMoviePlayMode;
 extern U32 g_u32DivxPlusPTS;
-static U32 u32OrgDivPlusPTS;
+
 #endif
 #if ENABLE_DRM
     U8 u8DRM_LastData[DIVX_KEY_LEN] ={0};
@@ -4122,7 +4124,7 @@ U32 MApp_VDPlayer_GetStrmHandleByIdx(U8 u8HdlIdx)
 /// Processed by Aeon. And need to wait Ack message
 ///
 //-------------------------------------------------------------------------------------------------
-BOOLEAN MApp_VDPlayer_SetPlayPosition(U32 timeInMs)
+BOOLEAN MApp_VDPlayer_SetPlayPosition(U32 timeInMs, BOOL IsResumePlay)
 {
 #if ENABLE_DVD
     if (bIsDVD)
@@ -4131,43 +4133,26 @@ BOOLEAN MApp_VDPlayer_SetPlayPosition(U32 timeInMs)
         return TRUE;
     }
 #endif
-    m_eVDPlayerAckFlags=(m_eVDPlayerAckFlags|E_ACKFLG_WAIT_SET_SET_PLAYER_POSITION);
     //==> Send mail.
     VDPLAYER_MAILBOX_SEND(E_MBX_CLASS_VDPLAYER_FS
     /*Index*/           ,MB_VDPLAYER_SET_PLAYER_POSITION
     /*MsgType*/         ,E_MBX_MSG_TYPE_NORMAL
-    /*ParameterCount*/  ,5
+    /*ParameterCount*/  ,8
     /*p1*/              ,(U8)((timeInMs&0xFF000000)>>24)
     /*p2*/              ,(U8)((timeInMs&0x00FF0000)>>16)
     /*p3*/              ,(U8)((timeInMs&0x0000FF00)>>8)
     /*p4*/              ,(U8)((timeInMs&0x000000FF))
     /*p5*/              ,0
-    /*p6*/              ,0
-    /*p7*/              ,0
-    /*p8*/              ,0
+    /*p6*/              ,IsResumePlay
+    /*p7*/              ,(U8)((u32OrgDivPlusPTS&0xFF000000)>>24)
+    /*p8*/              ,(U8)((u32OrgDivPlusPTS&0x00FF0000)>>16)
     /*p9*/              ,0
     /*p10*/             ,0);
 
-    {
-        u32VDPlayerLoopWdtTimer = msAPI_Timer_GetTime0();
-        do
-        {
-            VDPLAYER_DBG(printf("wait MApp_VDPlayer_SetPlayPosition coprocessor ack ing... \n"));
-            MApp_VDPlayer_MailBoxHandler();
-        }
-        while((m_eVDPlayerAckFlags&E_ACKFLG_WAIT_SET_SET_PLAYER_POSITION) &&
-            (msAPI_Timer_DiffTimeFromNow(u32VDPlayerLoopWdtTimer)<5000));
+    MApp_VDPlayer_TextSubtitleInit();
+    _Mapp_VDPlayer_SetShareMemData(E_SHAREMEM_CURRENT_SUBTITLE_TAGCOUNT, MAX_TEXT_SUBTITLE_TAG_COUNT);
 
-        if (m_eVDPlayerAckFlags&E_ACKFLG_WAIT_SET_SET_PLAYER_POSITION)
-        {
-            Remove_enumVDPlayerAckFlags(m_eVDPlayerAckFlags, E_ACKFLG_WAIT_SET_SET_PLAYER_POSITION);
-            return FALSE;
-        }
-        else
-        {
-            return TRUE;
-        }
-    }
+    return TRUE;
 }
 
 

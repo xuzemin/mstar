@@ -204,6 +204,8 @@
 #undef ENABLE_SW_CEC_WAKEUP
 #endif
 
+#define ENABLE_LANGUAGE_SWITCH_LIST_MENU                  ENABLE //ENABLE    //smc.chy 2011/02/25
+
 #define ENABLE_CEC                      DISABLE // ENABLE //gchen @ 20171221 
 
 #if ENABLE_CEC

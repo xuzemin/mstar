@@ -374,7 +374,8 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuCommonDialogAction(U16 act)
             MApp_ZUI_API_ShowWindow(HWND_MENU_DLG_COMMON, SW_HIDE);
             MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
             MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
-            MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_OPTION_PAGE_LIST, HWND_MENU_OPTION_DIVX);
+            //MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_OPTION_PAGE_LIST, HWND_MENU_OPTION_DIVX);
+			MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_UPGRADE);
             MApp_UsbDownload_Exit();
             return TRUE;
 
@@ -991,7 +992,8 @@ S32 MApp_ZUI_ACT_MenuCommonDialogRootWinProc(HWND hwnd, PMSG msg)
                     MApp_ZUI_API_ShowWindow(HWND_MENU_DLG_COMMON, SW_HIDE);
 					MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
 					MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
-					MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_OPTION_PAGE_LIST, HWND_MENU_OPTION_DIVX);
+					//MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_OPTION_PAGE_LIST, HWND_MENU_OPTION_DIVX);
+					MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_UPGRADE);
                 }
                 else if(_eCommonDlgMode == EN_COMMON_DLG_MODE_DIVX
                     || _eCommonDlgMode == EN_COMMON_DLG_MODE_DEACTIVATION

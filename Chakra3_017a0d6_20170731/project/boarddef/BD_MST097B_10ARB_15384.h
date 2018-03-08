@@ -534,7 +534,7 @@
 #define POWER_DOWN_SEQ                  1
 #define POWER_SAVING_T                  0
 #define SCREENSAVER_ENABLE              1
-#define NO_SIGNAL_AUTO_SHUTDOWN         1
+#define NO_SIGNAL_AUTO_SHUTDOWN         0
 #define STANDBY_MODE                    POWERMODE_S3
 #define POWERUP_MODE                    PUMODE_WORK
 #define ENABLE_POWER_GOOD_DETECT        1

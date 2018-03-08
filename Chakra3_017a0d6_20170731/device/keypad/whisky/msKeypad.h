@@ -1,0 +1,167 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2006-2009 MStar Semiconductor, Inc.
+// All rights reserved.
+//
+// Unless otherwise stipulated in writing, any and all information contained
+// herein regardless in any format shall remain the sole proprietary of
+// MStar Semiconductor Inc. and be kept in strict confidence
+// (¡§MStar Confidential Information¡¨) by the recipient.
+// Any unauthorized act including without limitation unauthorized disclosure,
+// copying, use, reproduction, sale, distribution, modification, disassembling,
+// reverse engineering and compiling of the contents of MStar Confidential
+// Information is unlawful and strictly prohibited. MStar hereby reserves the
+// rights to any and all damages, losses, costs and expenses resulting therefrom.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef _MSKEYPAD_H_
+#define _MSKEYPAD_H_
+
+#include "c_pm_riubase.h"
+#include "Board.h"
+#include "datatype.h"
+
+#ifdef  _MSKEYPAD_C_
+#define INTERFACE
+#else
+#define INTERFACE extern
+#endif
+
+#define KEYPAD_USE_ISR 0
+#define KEYPAD_USE_NEW_CHECK 0// 1
+
+
+//#define KeypadRepeatTimerCount 1 //100ms based
+typedef void ( *KeypadCbHandler ) (void);  ///< Timer callback function  u32StTimer: not used; u32TimerID: Timer ID
+#define KEYPAD_LV_STABLE_COUNT 10 //used in drvisr
+#define KEYPAD_LV_FIRSTTIME_ELASPED_COUNT (KEYPAD_LV_STABLE_COUNT+38)//used in drvisr
+
+enum KEYPAD_ADC_CHANNEL
+{
+    KEYPAD_ADC_CHANNEL_1 = 0,
+    KEYPAD_ADC_CHANNEL_2,
+    KEYPAD_ADC_CHANNEL_3,
+    KEYPAD_ADC_CHANNEL_4,
+    KEYPAD_ADC_CHANNEL_5,
+    KEYPAD_ADC_CHANNEL_6,
+    KEYPAD_ADC_CHANNEL_7,
+    KEYPAD_ADC_CHANNEL_8,
+};
+
+#define SAR_SIGNAL_CH                   KEYPAD_ADC_CHANNEL_5
+//------------------------------------------------------------------------------
+// SAR define
+#define REG_SAR_CTRL0                   (RIUBASE_PM_SAR+0x00)
+    #define SAR_SINGLE_CH_MSK           (BIT2|BIT1|BIT0)//[2:0] //select channel for single channel modech0~ch7
+    #define SAR_LEVEL_TRIGGER           (BIT3) //keypad level trigger enable. 0:  use edge trigger, 1:  use level trigger
+    #define SAR_SINGLE_CH_EN            (BIT4) //enable single channel mode. 0: disable1: enable
+    #define SAR_MODE_FREERUN            (BIT5) //select sar digital operation mode. 0: one-shot, 1: freerun
+    #define SAR_DIGITAL_PWRDN           (BIT6) //sar digital power down
+    #define SAR_START                   (BIT7) //sar start signal
+#define REG_SAR_CTRL1                   (RIUBASE_PM_SAR+0x01)
+    #define SAR_ADC_PWRDN               (BIT0)
+    #define SAR_ADC_FREERUN             (BIT1)
+#define REG_SAR_SELCH                   (RIUBASE_PM_SAR+0x01)
+    #define SAR_SEL                     (BIT2)
+    #define SAR_NCH_EN                  (BIT3)
+#define REG_SAR_CKSAMP_PRD              (RIUBASE_PM_SAR+0x02)
+#define REG_SAR1_UPB                    (RIUBASE_PM_SAR+0x0A)
+#define REG_SAR1_LOB                    (RIUBASE_PM_SAR+0x0B)
+#define REG_SAR2_UPB                    (RIUBASE_PM_SAR+0x0C)
+#define REG_SAR2_LOB                    (RIUBASE_PM_SAR+0x0D)
+#define REG_SAR3_UPB                    (RIUBASE_PM_SAR+0x0E)
+#define REG_SAR3_LOB                    (RIUBASE_PM_SAR+0x0F)
+#define REG_SAR4_UPB                    (RIUBASE_PM_SAR+0x10)
+#define REG_SAR4_LOB                    (RIUBASE_PM_SAR+0x11)
+#define REG_SAR5_UPB                    (RIUBASE_PM_SAR+0x12)
+#define REG_SAR5_LOB                    (RIUBASE_PM_SAR+0x13)
+#define REG_SAR6_UPB                    (RIUBASE_PM_SAR+0x14)
+#define REG_SAR6_LOB                    (RIUBASE_PM_SAR+0x15)
+#define REG_SAR7_UPB                    (RIUBASE_PM_SAR+0x16)
+#define REG_SAR7_LOB                    (RIUBASE_PM_SAR+0x17)
+#define REG_SAR8_UPB                    (RIUBASE_PM_SAR+0x18)
+#define REG_SAR8_LOB                    (RIUBASE_PM_SAR+0x19)
+#define REG_SAR_ADCOUT1                 (RIUBASE_PM_SAR+0x1A)
+#define REG_SAR_ADCOUT2                 (RIUBASE_PM_SAR+0x1B)
+#define REG_SAR_ADCOUT3                 (RIUBASE_PM_SAR+0x1C)
+#define REG_SAR_ADCOUT4                 (RIUBASE_PM_SAR+0x1D)
+#define REG_SAR_ADCOUT5                 (RIUBASE_PM_SAR+0x1E)
+#define REG_SAR_ADCOUT6                 (RIUBASE_PM_SAR+0x1F)
+#define REG_SAR_ADCOUT7                 (RIUBASE_PM_SAR+0x20)
+#define REG_SAR_ADCOUT8                 (RIUBASE_PM_SAR+0x21)
+    #define MASK_SAR_ADCOUT             (0xFF)
+#define REG_SAR_AISEL                   (RIUBASE_PM_SAR+0x22)
+    #define SAR_AISEL_MSK               (0x1F)
+    #define SAR_AISEL_CH0_MSK           (BIT0)
+    #define SAR_AISEL_CH1_MSK           (BIT1)
+    #define SAR_AISEL_CH2_MSK           (BIT2)
+    #define SAR_AISEL_CH3_MSK           (BIT3)
+    #define SAR_AISEL_CH4_MSK           (BIT4)
+
+#define REG_SAR_GPIOOEN                 (RIUBASE_PM_SAR+0x23)
+    #define SAR_GPIOOEN_MSK             (0x1F)
+    #define SAR_GPIOOEN_CH0_MSK         (BIT0)
+    #define SAR_GPIOOEN_CH1_MSK         (BIT1)
+    #define SAR_GPIOOEN_CH2_MSK         (BIT2)
+    #define SAR_GPIOOEN_CH3_MSK         (BIT3)
+    #define SAR_GPIOOEN_CH4_MSK         (BIT4)
+
+#define REG_SAR_INT_MASK                (RIUBASE_PM_SAR+0x28)
+    #define SAR_INT_MASK                (BIT0)
+
+#define REG_SAR_INT_CLR                 (RIUBASE_PM_SAR+0x28)
+    #define SAR_INT_CLR                 (BIT1)
+
+#define REG_SAR_INT_FORCE               (RIUBASE_PM_SAR+0x28)
+    #define SAR_INT_FORCE               (BIT2)
+
+#define REG_SAR_INT_STATUS              (RIUBASE_PM_SAR+0x28)
+    #define SAR_INT_STATUS              (BIT3)
+
+//PM_SLEEP
+#define REG_PM_WK_IRQ_MSK               (RIUBASE_PM_SLEEP+0x10)
+    #define PM_WK_IRQ_CEC               (BIT0)
+    #define PM_WK_IRQ_SAR               (BIT1)
+    #define PM_WK_IRQ_SYNCDET           (BIT3)
+    #define PM_WK_IRQ_RTC0              (BIT4)
+    #define PM_WK_IRQ_DDC               (BIT5)
+    #define PM_WK_IRQ_AVLINK            (BIT6)
+    #define PM_WK_IRQ_RTC1              (BIT7)
+
+
+#if (KEYPAD_TYPE_SEL == KEYPAD_TYPE_NONE)
+
+#define msKeypad_Init()                 _FUNC_NOT_USED()
+#define msKeypad_Get_ADC_Channel(Channel, pvalue)   _FUNC_NOT_USED()
+#define msKeypad_GetKey(pkey, pflag)    MSRET_ERROR
+#define MDrv_Power_CheckPowerOnKeyPad() FALSE
+#define msKeypad_ClearBuffer()          _FUNC_NOT_USED()
+#else
+
+#if KEYPAD_USE_NEW_CHECK
+INTERFACE U16 g_ucKeyPadRepeatTimer;
+#endif
+
+INTERFACE void  msKeypad_Init(void);
+INTERFACE U8    msKeypad_Get_ADC_Channel(U8 Channel, U8 *pvalue);
+INTERFACE BOOLEAN msKeypad_GetKey(U8 *pkey, U8 *pflag);
+INTERFACE BOOLEAN MDrv_Power_CheckPowerOnKeyPad(void);
+INTERFACE void msKeypad_ClearBuffer(void);
+INTERFACE U8 KEYPAD_LV_CHANNEL[ADC_KEY_CHANNEL_NUM];
+INTERFACE U8 KEYPAD_PREVIOUS_LV_CHANNEL[ADC_KEY_CHANNEL_NUM];
+INTERFACE U8 KEYPAD_LV_COUNT_CHANNEL[ADC_KEY_CHANNEL_NUM];
+INTERFACE void msKeypad_ClearBuffer(void);
+
+INTERFACE BOOLEAN msKeypad_CheckFactoryModeKey(void);
+
+#if( POWER_KEY_PAD_BY_INTERRUPT )
+INTERFACE U8 msKeypad_Get_PwrKey_IntFlag(void);
+INTERFACE void msKeypad_Set_PwrKey_IntFlag(U8 u8Val);
+#endif
+
+#endif
+
+#undef INTERFACE
+
+#endif

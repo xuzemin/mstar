@@ -140,7 +140,7 @@
 #include "MApp_ZUI_ACTtuneconfirmfunc.h"
 #include "MApp_ZUI_ACTmenudlgfunc.h"
 #include "MApp_ZUI_ACTsublang.h"
-
+#include "MApp_OSDPage_Main.h"
 #if ENABLE_RIKS_TV_IRD_SETTING
 #include "MApp_ZUI_ACTinstall.h"
 #endif
@@ -356,6 +356,7 @@ BOOLEAN bNeedShowtuning = FALSE;
 #endif
 
 extern BOOLEAN bOriginalSrcIsDvbc;
+static U16 _u16FactoryKeys;
 
 ST_OSD_SELECTION_STRING_MAPPING_LIST _ZUI_TBLSEG _app_items[] =
 {
@@ -2196,6 +2197,41 @@ void MApp_ZUI_ACT_MainPageMenuKey(void)
         MApp_ZUI_API_SetFocus(HWND_MENU_PICTURE_PIP);
     }
 #endif
+	else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_PICTURE_MODE_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_MODE_PAGE, SW_HIDE);
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_PAGE, SW_SHOW);
+        MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_PICTURE);
+        MApp_ZUI_API_SetFocus(HWND_MENU_PICTURE_PICMODE);
+    }
+	else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_PICTURE_KEYSTONE_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_KEYSTONE_PAGE, SW_HIDE);
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_PAGE, SW_SHOW);
+        MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_PICTURE);
+        MApp_ZUI_API_SetFocus(HWND_MENU_PICTURE_KEYSTONE_TYPE);
+    }
+    else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_PICTURE_COLOR_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_COLOR_PAGE, SW_HIDE);
+        MApp_ZUI_API_ShowWindow(HWND_MENU_PICTURE_PAGE, SW_SHOW);
+        MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_PICTURE);
+        MApp_ZUI_API_SetFocus(HWND_MENU_PICTURE_COLOR_TEMP);
+    }
+	else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_SOUND_MODE_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_SOUND_MODE_PAGE, SW_HIDE);
+        MApp_ZUI_API_ShowWindow(HWND_MENU_SOUND_PAGE, SW_SHOW);
+        MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_SOUND);
+        MApp_ZUI_API_SetFocus(HWND_MENU_SOUND_SNDMODE);
+    }
+    else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_SOUND_EQ_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_SOUND_EQ_PAGE, SW_HIDE);
+        MApp_ZUI_API_ShowWindow(HWND_MENU_SOUND_PAGE, SW_SHOW);
+        MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_SOUND);
+        MApp_ZUI_API_SetFocus(HWND_MENU_SOUND_EQMODE);
+    }
     else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_COMMON_ADJ_PAGE, MApp_ZUI_API_GetFocus()))
     {
 
@@ -2326,6 +2362,63 @@ void MApp_ZUI_ACT_MainPageMenuKey(void)
         MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
         MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_OPTION_PAGE_LIST, HWND_MENU_OPTION_HDMI_CEC);
 
+    }
+
+	else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_OPTIONLIST_COMMON_PAGE, MApp_ZUI_API_GetFocus()))
+    {
+        MApp_ZUI_API_ShowWindow(HWND_MENU_OPTIONLIST_COMMON_PAGE, SW_HIDE);
+#ifdef NETWORK_CONFIG
+        MApp_ZUI_API_ShowWindow(HWND_MENU_CHECK_NETWORK, SW_HIDE);//must
+#endif
+        switch(_eCommonOptionMode)
+        {
+            case EN_COMMON_OPTIONLIST_NETWORK_DNS:
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTIONLIST_COMMON_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_OPTIONLIST_ITEM5);
+                _eCommonOptionMode = EN_COMMON_OPTIONLIST_NETWORK_CONFIG;
+                return;
+            case EN_COMMON_OPTIONLIST_NETWORK_GW:
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTIONLIST_COMMON_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_OPTIONLIST_ITEM4);
+                _eCommonOptionMode = EN_COMMON_OPTIONLIST_NETWORK_CONFIG;
+                return;
+            case EN_COMMON_OPTIONLIST_NETWORK_IP:
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTIONLIST_COMMON_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_OPTIONLIST_ITEM2);
+                _eCommonOptionMode = EN_COMMON_OPTIONLIST_NETWORK_CONFIG;
+                return;
+            case EN_COMMON_OPTIONLIST_NETWORK_NETMASK:
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTIONLIST_COMMON_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_OPTIONLIST_ITEM3);
+                _eCommonOptionMode = EN_COMMON_OPTIONLIST_NETWORK_CONFIG;
+                return;
+            case EN_COMMON_OPTIONLIST_NETWORK_CONFIG:
+                MS_DEBUG_MSG(printf("setting network config\n"));
+              #ifdef NETWORK_CONFIG
+                MApp_Network_Config();
+              #endif
+
+                MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
+                //MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_NET_CONFIG);
+                break;
+
+            case EN_COMMON_OPTIONLIST_SOUND_BALANCE:
+                MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_SOUND);
+                MApp_ZUI_API_ShowWindow(HWND_MENU_SOUND_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_SOUND_BALANCE);
+                break;
+#if 0
+            case EN_COMMON_OPTIONLIST_KEYSTONE_CORRECTION:
+                MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
+                MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
+                MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_KEYSTONE);
+                break;
+#endif
+            default:
+               break;
+        }
+        _eCommonOptionMode = EN_COMMON_OPTIONLIST_INVALID;
     }
 
     else if(MApp_ZUI_API_IsSuccessor(HWND_MENU_HDMI_CEC_DEVICE_LIST_PAGE, MApp_ZUI_API_GetFocus()))
@@ -2645,6 +2738,34 @@ BOOLEAN MApp_ZUI_ACT_HandleMainPageKey(VIRTUAL_KEY_CODE key)
             }
         }
     }
+	if(HWND_MENU_KEYSTONE_VALUE == MApp_ZUI_API_GetFocus() || 
+	MApp_ZUI_API_IsSuccessor(HWND_MENU_PICTURE_KEYSTONE_PAGE_LIST, MApp_ZUI_API_GetFocus()))
+	{
+		if(key == VK_UP || key == VK_DOWN){
+			_u16FactoryKeys = (_u16FactoryKeys<<4)|(key - VK_UP);
+			switch (_u16FactoryKeys)
+				{
+				case 0x0044:
+					MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_CLOSE, E_ZUI_STATE_TERMINATE);
+					_enTargetMenuState = STATE_MENU_GOTO_OSDPAGE;
+					MApp_OSDPage_SetOSDPage(E_OSD_FACTORY_MENU);				
+					//MApp_ZUI_ACT_ExecuteInputSourceAction(EN_EXE_GOTO_FACTORY_MENU);
+					break;
+				case 0x4400:
+					//MS_DEBUG_MSG(printf("MDrv_PQ_StoreCurrentValue\n"));
+					//MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_STORE_PQ, NULL, NULL);
+					MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_CLOSE, E_ZUI_STATE_TERMINATE);
+					_enTargetMenuState = STATE_MENU_GOTO_OSDPAGE;
+					MApp_OSDPage_SetOSDPage(E_OSD_EXPERT_MENU);
+					//MApp_ZUI_ACT_ExecuteInputSourceAction(EN_EXE_GOTO_EXPERT_MENU);
+					break;
+				}
+		}else{
+			_u16FactoryKeys = 0xFFFF;
+		}
+	}else{
+			_u16FactoryKeys = 0xFFFF;
+	}
 
     switch(key)
     {

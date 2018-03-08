@@ -478,7 +478,7 @@
 #endif
 
 #ifndef TXTFONT_ZOOM2X
-#define TXTFONT_ZOOM2X         DISABLE
+#define TXTFONT_ZOOM2X         ENABLE
 #endif
 
 #ifndef ENABLE_NEW_AUTO_NR

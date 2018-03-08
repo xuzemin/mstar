@@ -214,7 +214,6 @@
 #define INIT_VIDEO_COLOR_TEMP_USER_G_SCALE      0x80 //must refer INIT_VIDEO_COLOR_TEMP_USER_G, for example: 0x80 -> 0x32
 #define INIT_VIDEO_COLOR_TEMP_USER_B_SCALE      0x80 //must refer INIT_VIDEO_COLOR_TEMP_USER_B, for example: 0x80 -> 0x32
 
-
 #else
 
 #define INIT_VIDEO_COLOR_TEMP_COOL_R            0x00

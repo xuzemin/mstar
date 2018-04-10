@@ -29,7 +29,7 @@
 #define G_DRIVE_CURRENT       	0x13
 #define B_DRIVE_CURRENT          0x14
 #define READ_REG_SELECT          0x15
-#define RGB_DRIVER_ENABLE      	0x52//16
+#define RGB_DRIVER_ENABLE      	0x16//0x52//16
 
 //AGC registers
 #define AGC_SAFETY_MARGIN        	0x17

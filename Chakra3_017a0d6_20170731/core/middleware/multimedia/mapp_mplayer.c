@@ -14134,14 +14134,16 @@ U16 MApp_MPlayer_QueryCurrentPlayingFileIndex(void)
         ePlayerIdx = E_MPLAYER_BACKGROUND_PLAYER;
     }
 #endif  // #if ENABLE_MPLAYER_MUSIC
+  #if !EN_DMP_SEARCH_ALL
     if((MApp_MPlayer_QueryPlayMode() == E_MPLAYER_PLAY_SELECTED) ||
        (MApp_MPlayer_QueryPlayMode() == E_MPLAYER_PLAY_SELECTED_FROM_CURRENT))
     {
         return MApp_MPlayer_QueryCurrentPlayingListFileIndex();
     }
     else
-    {
-        if(m_eMediaType == E_MPLAYER_TYPE_PHOTO)
+ #endif
+{
+        /*if(m_eMediaType == E_MPLAYER_TYPE_PHOTO)
         {
             if(m_u32PhotoCurrentDisplayedIdx == 0)
             {
@@ -14151,7 +14153,7 @@ U16 MApp_MPlayer_QueryCurrentPlayingFileIndex(void)
             {
                 return (U16)m_u32PhotoCurrentDisplayedIdx;
             }
-        }
+        }*/
         return m_MPlayerInfo[ePlayerIdx].u16PlayingIdx;
     }
 }

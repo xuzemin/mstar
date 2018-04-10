@@ -259,6 +259,9 @@ INTERFACE BOOLEAN gbKeyPress;
 INTERFACE BOOLEAN gbReadyTimingMonitorFlag;
 INTERFACE U32 gU32ChChangeTime;
 #endif
+#if (ENABLE_EAR_PHONE_VALUME_LINE)
+INTERFACE U8 gU8EarPhoneChangeFlag; //add by gchen @ 20111021 //ear phone volume line
+#endif
 
 
 #if(ENABLE_SWITCH_CHANNEL_TIME)

@@ -343,7 +343,7 @@ void MApp_UsbDownload_Init(U8 u8PortNo, pZUIDrawCB ZUIDrawPercentage)
 #endif
 
     U8      u8FlashID = 0x0; // 0x0: flash ID0, 0x1: flash ID1
-    U8      pu8FileName[20] = "MP332.BIN";//"MERGE.BIN"; //gchen @ 20190130
+    U8      pu8FileName[20] = "MP333.BIN";//"MERGE.BIN"; //gchen @ 20190130 
     U32     u32FlashSize = 0;
 
 

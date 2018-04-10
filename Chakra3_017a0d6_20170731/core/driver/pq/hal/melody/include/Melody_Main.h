@@ -17,8 +17,8 @@
 //   Quality Map CodeGen Version 4.0
 // 1920
 // Melody
-// 8/25/2016  2:10:00 PM
-// 42607.5902778
+// 4/9/2018  3:20:48 PM
+// 39630.43853
 //****************************************************
 
 #ifndef _MELODY_MAIN_H_
@@ -2038,6 +2038,7 @@ PQ_IP_VIP_Pre_Yoffset_0xF4_Main,
 PQ_IP_VIP_Pre_Yoffset_0xF6_Main,
 PQ_IP_VIP_Pre_Yoffset_0xF7_Main,
 PQ_IP_VIP_Pre_Yoffset_0xFA_Main,
+PQ_IP_VIP_Pre_Yoffset_0xF0_1_Main,
 PQ_IP_VIP_Pre_Yoffset_NUMS_Main
 } PQ_IP_VIP_Pre_Yoffset_Group_Main;
 
@@ -2391,6 +2392,7 @@ PQ_IP_VIP_IHC_CRD_SRAM_15win3_stronggain_Main,
 PQ_IP_VIP_IHC_CRD_SRAM_15win5_stronggain_Main,
 PQ_IP_VIP_IHC_CRD_SRAM_7wins_stronggain_3_Main,
 PQ_IP_VIP_IHC_CRD_SRAM_15wins3_Main,
+PQ_IP_VIP_IHC_CRD_SRAM_15win3_SX_Main,
 PQ_IP_VIP_IHC_CRD_SRAM_NUMS_Main
 } PQ_IP_VIP_IHC_CRD_SRAM_Group_Main;
 
@@ -2433,6 +2435,7 @@ typedef enum
 PQ_IP_VIP_ICC_OFF_Main,
 PQ_IP_VIP_ICC_ON_Main,
 PQ_IP_VIP_ICC_ON_Sram_Main,
+PQ_IP_VIP_ICC_ON_1_Main,
 PQ_IP_VIP_ICC_NUMS_Main
 } PQ_IP_VIP_ICC_Group_Main;
 
@@ -2464,6 +2467,7 @@ PQ_IP_VIP_ICC_CRD_SRAM_15win3_stronggain_Main,
 PQ_IP_VIP_ICC_CRD_SRAM_15win4_stronggain_Main,
 PQ_IP_VIP_ICC_CRD_SRAM_15win5_stronggain_Main,
 PQ_IP_VIP_ICC_CRD_SRAM_15wins3_Main,
+PQ_IP_VIP_ICC_CRD_SRAM_15win3_SX_Main,
 PQ_IP_VIP_ICC_CRD_SRAM_NUMS_Main
 } PQ_IP_VIP_ICC_CRD_SRAM_Group_Main;
 
@@ -2632,6 +2636,7 @@ PQ_IP_VIP_BLE_0x86_0x40_Main,
 PQ_IP_VIP_BLE_0x88_0x40_Main,
 PQ_IP_VIP_BLE_0x88_0x60_Main,
 PQ_IP_VIP_BLE_0x8A_0x40_Main,
+PQ_IP_VIP_BLE_0x70_0x7C_Main,
 PQ_IP_VIP_BLE_NUMS_Main
 } PQ_IP_VIP_BLE_Group_Main;
 
@@ -2680,6 +2685,7 @@ PQ_IP_VIP_Post_Cgain_OFF_Main,
 PQ_IP_VIP_Post_Cgain_0x44_Main,
 PQ_IP_VIP_Post_Cgain_0x46_Main,
 PQ_IP_VIP_Post_Cgain_0x48_Main,
+PQ_IP_VIP_Post_Cgain_OFF_1_Main,
 PQ_IP_VIP_Post_Cgain_NUMS_Main
 } PQ_IP_VIP_Post_Cgain_Group_Main;
 

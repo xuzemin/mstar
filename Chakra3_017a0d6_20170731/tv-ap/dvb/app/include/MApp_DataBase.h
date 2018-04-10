@@ -140,6 +140,9 @@ INTERFACE void MApp_DB_QuickDatabaseMonitor(void);
 #if (HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
 void MApp_DB_LoadHDCP_KEY(MS_U8 *u8HdcpKey);
 void MApp_DB_SaveHDCP_KEY( U32 u16Offset);
+INTERFACE U16 MApp_DB_LoadHDCP_KEY_For_331(void);
+INTERFACE void MApp_DB_SaveHDCP_KEY_For_331( U32 u32Offset,U8 *pu32HdcpKey);
+void MApp_DB_FLASH_AddressErase_For_331(void);
 #endif
 
 INTERFACE void MApp_DB_EraseHDCPBank(void);

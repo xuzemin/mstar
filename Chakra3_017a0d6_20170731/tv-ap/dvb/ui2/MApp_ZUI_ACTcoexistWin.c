@@ -231,6 +231,19 @@ extern void _MApp_ZUI_API_ConvertTextComponentToDynamic(U16 u16TextOutIndex, DRA
 #define ARC_GWIN_H    58
 #endif
 
+#if 1//ENABLE_TEMPERATURE_DETECT
+#define TEMP_DET_GWIN_X   380
+#define TEMP_DET_GWIN_Y   190
+#define TEMP_DET_GWIN_W   95
+#define TEMP_DET_GWIN_H   100
+#endif
+
+#define BAT_LOW_GWIN_X   331//240
+#define BAT_LOW_GWIN_Y   195//190
+#define BAT_LOW_GWIN_W  192//374
+#define BAT_LOW_GWIN_H  90//100
+extern U8 bPowerLowFlag ; 
+
 #if (ENABLE_EASMONITOR)
 #if (UI_SKIN_SEL == UI_SKIN_1920X1080X565)
 #define EAS_GWIN_X    0
@@ -291,7 +304,6 @@ static U32 ARCDiscTime = 0;
 #if (ENABLE_EASMONITOR)
 static ZUI_MUTE_MirrorInfo sEASMirInfo;
 #endif
-static void MApp_UiMenu_MuteWin_Create(void);
 
 extern void _MApp_ZUI_API_DrawStyleList(const GRAPHIC_DC * pdc, const RECT * rect, const DRAWSTYLE * style_list);
 
@@ -602,37 +614,47 @@ void MApp_ZUI_ACTcoexist_Enable(BOOLEAN bEnable)
 }
 
 //============================================================================
-static void MApp_UiMenu_MuteWin_Create(void)
+//static void MApp_UiMenu_MuteWin_Create(void)  //wht120713_3 remove
+ void MApp_UiMenu_MuteWin_Create(void)
 {
-    GRAPHIC_DC Wdc = {0, 0, 0};
+    GRAPHIC_DC Wdc;
     RECT    Wrect;
     WINDOWPOSDATA *t_GUI_WPT;
-    ///DRAWSTYLE * _Zui_Volume_Mute_Pane_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_PANE].pNormalStyle;
+#if (MirrorEnable)
+    GOP_GwinInfo sGWININfo;
+#endif
+    BOOLEAN  bCreateOk=FALSE;
+
+    DRAWSTYLE * _Zui_Volume_Mute_Pane_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_PANE].pNormalStyle;
     DRAWSTYLE * _Zui_Volume_Mute_Icon_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON].pNormalStyle;
     DRAWSTYLE * _Zui_Volume_Mute_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_TEXT].pNormalStyle;
     DRAWSTYLE * _Zui_Volume_Mute_BG_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON_BG].pNormalStyle;
     //DRAWSTYLE * _Zui_Volume_Mute_BG_R_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON_BG_R].pNormalStyle;
-#if(ENABLE_OSD_SUBTITLE_EXCLUSIVE == ENABLE)
-    #if (ENABLE_SUBTITLE)
-        if (IsDTVInUse())
+#if (ATSC_CC == ATV_CC)
+    if ((IsATVInUse()||IsAVInUse()||IsSVInUse())&& stGenSetting.g_SysSetting.enATVCaptionType != ATV_CAPTION_TYPE_OFF)
+    {
+        if ( MApp_CC_GetInfo(CC_SELECTOR_STATUS_CODE) == STATE_CAPTION_PARSER)
         {
-            if (( MApp_Subtitle_GetStatus() == STATE_SUBTITLE_DECODING)
-#if(ENABLE_TTX)
-                ||(MApp_TTX_IsTeletextOn()&&stGenSetting.g_SysSetting.fEnableTTXSubTitle)
-#endif
-                )
-            {
-                 MApp_Subtitle_SetShowStatus(FALSE);
-            }
+             MApp_CC_StopParser();
+             MApp_Set_CCState(FALSE);
         }
-    #endif
+    }
 #endif
-
-    //MApp_ZUI_ACTcoexistWin_SwitchGwin();
+  //  MApp_ZUI_ACTcoexistWin_SwitchGwin();
+#if (ENABLE_UI_3D_PROCESS)
+    if(MApp_ZUI_API_Is_UI_3D_Mode_ON())
+    {
+        MApp_ZUI_API_Set_CoexistWin_Half(TRUE);
+    }
+#endif
 
     MApp_ZUI_ACTcoexist_Delete();
-    MApp_ZUI_ACTcoexist_Create(COWIN_ID_MUTE, MUTE_GWIN_X, MUTE_GWIN_Y, MUTE_GWIN_W, MUTE_GWIN_H);
-
+    bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_MUTE, MUTE_GWIN_X, MUTE_GWIN_Y, MUTE_GWIN_W, MUTE_GWIN_H);
+    if(bCreateOk==FALSE)
+    {
+        printf(" MuteWin_Create  fail\n");
+        return;
+    }
 #if (ENABLE_UI_3D_PROCESS)
     if(MApp_ZUI_API_Is_UI_3D_Mode_ON())
     {
@@ -641,7 +663,7 @@ static void MApp_UiMenu_MuteWin_Create(void)
     else
 #endif
     {
-        Wdc.u8FbID = CoexistWin.u8FBID;
+    Wdc.u8FbID = CoexistWin.u8FBID;
     }
 
     u8MuteFBID = CoexistWin.u8FBID;
@@ -650,8 +672,8 @@ static void MApp_UiMenu_MuteWin_Create(void)
     t_GUI_WPT = g_GUI_WindowPositionList;
     g_GUI_WindowPositionList = _GUI_WindowPositionList_Zui_Audio_Volume;
 
-    //MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_PANE,&Wrect);
-    //_MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Pane_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_PANE,&Wrect);
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Pane_Normal_DrawStyle);
     MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON_BG,&Wrect);
     _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_BG_Normal_DrawStyle);
     //MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON_BG_R,&Wrect);
@@ -668,8 +690,17 @@ static void MApp_UiMenu_MuteWin_Create(void)
     {
         MApp_ZUI_API_DeleteDC(Wdc);
     }
+    MApp_ZUI_API_Set_CoexistWin_Half(FALSE);
 #endif
 
+#if (MirrorEnable)
+    MApi_GOP_GWIN_GetWinInfo(CoexistWin.u8GwinID, &sGWININfo);
+    sMuteMirInfo.u32NonMirrorFBAdr = sGWININfo.u32DRAMRBlkStart;
+    sMuteMirInfo.u16NonMirrorHEnd = sGWININfo.u16DispHPixelEnd;
+    sMuteMirInfo.u16NonMirrorHStr = sGWININfo.u16DispHPixelStart;
+    sMuteMirInfo.u16NonMirrorVStr = sGWININfo.u16DispVPixelStart;
+    sMuteMirInfo.u16NonMirrorVEnd = sGWININfo.u16DispVPixelEnd;
+#endif
     //MApp_ZUI_ACTcoexistWin_RestoreGwin();
 }
 
@@ -1089,6 +1120,190 @@ void MApp_KeyProc_Mute(void)
     #endif
     }
 #endif
+}
+
+#if 1
+static void MApp_UiMenu_TempDetWin_Create(void)
+{
+    printf("MApp_UiMenu_BatLowWin_Create \n"); 
+    GRAPHIC_DC Wdc;
+    RECT    Wrect;
+    WINDOWPOSDATA *t_GUI_WPT;
+
+    BOOLEAN  bCreateOk=FALSE;
+
+    DRAWSTYLE * _Zui_Temp_Det_Warning_Window_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Det[HWND_TEMP_DET_WARNING_WINDOW].pNormalStyle;
+    DRAWSTYLE * _Zui_Temp_Det_Hint_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Det[HWND_TEMP_DET_HINT1_TEXT].pNormalStyle;
+    DRAWSTYLE * _Zui_Temp_Det_Charge_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Det[HWND_TEMP_DET_HINT2_TEXT].pNormalStyle;
+
+	
+    printf(" MApp_ZUI_ACTcoexist_Delete 1 \n");
+    MApp_ZUI_ACTcoexist_Delete(); 
+    //bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_BAT_LOW, MUTE_GWIN_X, MUTE_GWIN_Y, MUTE_GWIN_W, MUTE_GWIN_H);
+    bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_TEMP_DET, TEMP_DET_GWIN_X, TEMP_DET_GWIN_Y, TEMP_DET_GWIN_W, TEMP_DET_GWIN_H);
+    if(bCreateOk==FALSE)
+    {
+        printf(" BatLowWarning_Create  fail\n"); 
+        return;
+    }
+	
+    
+    Wdc.u8FbID = CoexistWin.u8FBID;
+     
+    u8MuteFBID = CoexistWin.u8FBID;
+    Wdc.u8ConstantAlpha = 0xFF;
+
+    t_GUI_WPT = g_GUI_WindowPositionList;
+    g_GUI_WindowPositionList = _GUI_WindowPositionList_Zui_Temp_Det;
+
+    MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_DET_WARNING_WINDOW,&Wrect);
+ 
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Det_Warning_Window_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_DET_HINT1_TEXT,&Wrect);
+
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Det_Hint_Text_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_DET_HINT2_TEXT,&Wrect);
+
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Det_Charge_Text_Normal_DrawStyle);
+
+    g_GUI_WindowPositionList = t_GUI_WPT;
+	u8CoexistWinType = COWIN_ID_TEMP_DET;
+    //MApp_ZUI_ACTcoexistWin_RestoreGwin();
+}
+void MApp_UiMenu_TempDetWin_Show(void)
+{
+		if(//(MApp_ZUI_GetActiveOSD() == E_OSD_BAT_PERCENTAGE)||
+	   	(MApp_ZUI_GetActiveOSD() == E_OSD_SCREEN_SAVER))
+	   	   MApp_ZUI_ACT_ExecuteWndAction(EN_EXE_CLOSE_CURRENT_OSD);
+		   
+        if(u8CoexistWinType != COWIN_ID_TEMP_DET)
+        {
+            printf("u8CoexistWinType != COWIN_ID_BAT_LOW \n"); //change by gchen @ 20110714
+            MApp_UiMenu_TempDetWin_Create(); 
+			MApp_ZUI_ACTcoexist_Enable(TRUE);
+			//bTempHighFlag = 1;
+        }
+		else
+		{
+
+		}      
+	
+}
+
+void MApp_UiMenu_TempDetWin_Hide(void)
+{
+     U8 u8FBID=0XFF;
+
+    if(u8CoexistWinType == COWIN_ID_TEMP_DET)
+    {
+        MApp_ZUI_ACTcoexist_Enable(FALSE);
+        u8FBID=MApi_GOP_GWIN_GetFBfromGWIN(CoexistWin.u8GwinID);
+        MApi_GOP_GWIN_DeleteFB(u8FBID);
+        CoexistWin.u8FBID = 0xFF;
+        u8CoexistWinType = COWIN_ID_NONE;
+		//bTempHighFlag = 0;
+    }
+}
+#endif
+
+static void MApp_UiMenu_BatLowWin_Create(void)
+{
+    printf("MApp_UiMenu_BatLowWin_Create \n"); 
+    GRAPHIC_DC Wdc;
+    RECT    Wrect;
+    WINDOWPOSDATA *t_GUI_WPT;
+
+    BOOLEAN  bCreateOk=FALSE;
+
+    #if 0
+    DRAWSTYLE * _Zui_Volume_Bat_Low_Alert_Win_Normal_DrawStyle = _GUI_WindowsDrawStyleList_Zui_Message_Box[HWND_MSG_ALERT_WINDOW].pNormalStyle;
+    DRAWSTYLE * _Zui_Volume_Bat_Low_Alert_Icon_Normal_DrawStyle = _GUI_WindowsDrawStyleList_Zui_Message_Box[HWND_MSG_ALERT_ICON].pNormalStyle;
+    DRAWSTYLE * _Zui_Volume_Bat_Low_Alert_Text_Normal_DrawStyle = _GUI_WindowsDrawStyleList_Zui_Message_Box[HWND_MSG_ALERT_STRING].pNormalStyle;
+    #elif 0
+    DRAWSTYLE * _Zui_Volume_Mute_Pane_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_PANE].pNormalStyle;
+    DRAWSTYLE * _Zui_Volume_Mute_Icon_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON].pNormalStyle;
+    DRAWSTYLE * _Zui_Volume_Mute_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_TEXT].pNormalStyle;
+    #else
+    DRAWSTYLE * _Zui_Bat_Low_Warning_Window_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Bat_Low[HWND_BAT_LOW_WARNING_WINDOW].pNormalStyle;
+    DRAWSTYLE * _Zui_Bat_Low_Hint_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Bat_Low[HWND_BAT_LOW_HINT_TEXT].pNormalStyle;
+    DRAWSTYLE * _Zui_Bat_Low_Charge_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Bat_Low[HWND_BAT_LOW_CHARGE_TEXT].pNormalStyle;
+    #endif
+  //  MApp_ZUI_ACTcoexistWin_SwitchGwin();
+    printf(" MApp_ZUI_ACTcoexist_Delete 1 \n"); //test by gchen @ 20110714
+    MApp_ZUI_ACTcoexist_Delete(); //change by gchen @ 20110714
+    //bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_BAT_LOW, MUTE_GWIN_X, MUTE_GWIN_Y, MUTE_GWIN_W, MUTE_GWIN_H);
+
+    bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_BAT_LOW, BAT_LOW_GWIN_X, BAT_LOW_GWIN_Y, BAT_LOW_GWIN_W, BAT_LOW_GWIN_H);
+    if(bCreateOk==FALSE)
+    {
+        printf(" BatLowWarning_Create  fail\n"); 
+        return;
+    }
+	
+    
+    Wdc.u8FbID = CoexistWin.u8FBID;
+     
+    u8MuteFBID = CoexistWin.u8FBID;
+    Wdc.u8ConstantAlpha = 0xFF;
+
+    t_GUI_WPT = g_GUI_WindowPositionList;
+    g_GUI_WindowPositionList = _GUI_WindowPositionList_Zui_Bat_Low;
+    #if 0
+    MApp_ZUI_API_GetWindowInitialRect(HWND_MSG_ALERT_WINDOW,&Wrect);
+    printf("\r\n HWND_MSG_ALERT_WINDOW Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Bat_Low_Alert_Win_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_MSG_ALERT_ICON,&Wrect);
+    printf("\r\n HWND_MSG_ALERT_ICON Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Bat_Low_Alert_Icon_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_MSG_ALERT_STRING,&Wrect);
+    printf("\r\n HWND_MSG_ALERT_STRING Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Bat_Low_Alert_Text_Normal_DrawStyle);
+    #else
+    MApp_ZUI_API_GetWindowInitialRect(HWND_BAT_LOW_WARNING_WINDOW,&Wrect);
+    printf("\r\n HWND_BAT_LOW_WARNING_WINDOW Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Bat_Low_Warning_Window_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_BAT_LOW_HINT_TEXT,&Wrect);
+    printf("\r\n HWND_BAT_LOW_HINT_TEXT Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Bat_Low_Hint_Text_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_BAT_LOW_CHARGE_TEXT,&Wrect);
+    printf("\r\n HWND_BAT_LOW_CHARGE_TEXT Wrect x = %d, y = %d, w = %d, h = %d", Wrect.left, Wrect.top, Wrect.width, Wrect.height); //test by gchen @ 20110719
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Bat_Low_Charge_Text_Normal_DrawStyle);
+    #endif
+    g_GUI_WindowPositionList = t_GUI_WPT;
+
+    //MApp_ZUI_ACTcoexistWin_RestoreGwin();
+}
+
+void MApp_UiMenu_BatLowWin_Show(void)
+{
+		printf("MApp_UiMenu_BatLowWin_Show \n"); 
+	   if(//(MApp_ZUI_GetActiveOSD() == E_OSD_BAT_PERCENTAGE)||
+	   	(MApp_ZUI_GetActiveOSD() == E_OSD_SCREEN_SAVER))
+	   	   MApp_ZUI_ACT_ExecuteWndAction(EN_EXE_CLOSE_CURRENT_OSD);
+	   	
+        if(u8CoexistWinType != COWIN_ID_BAT_LOW)
+        {
+            printf("u8CoexistWinType != COWIN_ID_BAT_LOW \n"); 
+            MApp_UiMenu_BatLowWin_Create(); 
+        }
+
+        MApp_ZUI_ACTcoexist_Enable(TRUE);
+		bPowerLowFlag = TRUE;
+}
+
+void MApp_UiMenu_BatLowWin_Hide(void)
+{
+     U8 u8FBID=0XFF;
+
+    if(u8CoexistWinType == COWIN_ID_BAT_LOW)
+    {
+        MApp_ZUI_ACTcoexist_Enable(FALSE);
+        u8FBID=MApi_GOP_GWIN_GetFBfromGWIN(CoexistWin.u8GwinID);
+        MApi_GOP_GWIN_DeleteFB(u8FBID);
+        CoexistWin.u8FBID = 0xFF;
+        u8CoexistWinType = COWIN_ID_NONE;
+		bPowerLowFlag = FALSE;
+    }
 }
 
 //============================================================================

@@ -131,7 +131,7 @@ extern BOOLEAN _MApp_ZUI_API_AllocateVarData(void);
 
 void MApp_ZUI_ACT_AppShowAudioVolume(void)
 {
-    HWND wnd;
+    //HWND wnd;
     RECT rect;
     E_OSD_ID osd_id = E_OSD_AUDIO_VOLUME;
 
@@ -163,11 +163,13 @@ void MApp_ZUI_ACT_AppShowAudioVolume(void)
         return;
     }
 
-    for (wnd = 0; wnd < HWND_MAX; wnd++)
+    /*for (wnd = 0; wnd < HWND_MAX; wnd++)
     {
         //printf("create msg: %lu\n", (U32)wnd);
         MApp_ZUI_API_SendMessage(wnd, MSG_CREATE, 0);
-    }
+    }*/
+	
+	MApp_ZUI_API_SendMessage(HWND_AUDIO_VOLUME_CONFIG_PANE,MSG_CREATE, 0);
 	
     MApp_ZUI_API_ShowWindow(HWND_MAINFRAME, SW_SHOW);
     MApp_ZUI_API_ShowWindow(HWND_VOLUME_MUTE_PANE, SW_HIDE);
@@ -244,6 +246,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteAudioVolumeAction(U16 act)
         case EN_EXE_DEC_AUDIO_VOLUME:
         case EN_EXE_INC_AUDIO_VOLUME:
         {
+			MApp_ZUI_API_ResetTimer(HWND_AUDIO_VOLUME_CONFIG_PANE, 0);
             U8 tempflag = (act==EN_EXE_INC_AUDIO_VOLUME);
             MApp_FuncExec_AudioVolume(EN_FUNC_AUDIO_VOLUME_ADJ_VOLUME,&tempflag);
         #if ENABLE_KEY_TO_SPEECH
@@ -255,6 +258,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteAudioVolumeAction(U16 act)
                     MApp_KTS_Say(EN_KTS_VOLUME_DOWN);
             }
         #endif
+			MsOS_DelayTask(200);//(150); //gchen_20170904 //volume long key delay //MP333
             return TRUE;
         }
 

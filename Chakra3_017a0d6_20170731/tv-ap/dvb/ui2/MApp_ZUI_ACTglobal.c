@@ -451,6 +451,10 @@ VIRTUAL_KEY_CODE _MApp_ZUI_ACT_MapToVirtualKeyCode(U8 IR_key_code)
 {
     switch(IR_key_code)
     {
+#if 1
+        case KEY_TEMP_DET:			 return VK_TEMP_DET; 
+#endif
+		case KEY_BAT_LOW:			 return VK_BAT_LOW;//wht141014_8
         //case KEY_TV_RADIO:            return VK_TV_RADIO;
         //case KEY_CHANNEL_LIST:        return VK_CHANNEL_LIST;
         case KEY_CHANNEL_FAV_LIST:  return VK_CHANNEL_FAV_LIST;

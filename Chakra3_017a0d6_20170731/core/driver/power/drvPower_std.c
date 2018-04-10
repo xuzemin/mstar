@@ -120,6 +120,8 @@
 #include "MApp_Sleep.h"
 #include "MApp_IR.h"
 
+#include "MApp_ZUI_ACTcoexistWin.h" //gchen @ 20180320 //MP333
+
 #include "Dlp_Optical.h" //gchen @ 20171222
 
 extern void MDrv_Power_SetMode(U8 u8Mode);
@@ -417,7 +419,14 @@ static void _MDrv_IR_ConfigWakeUp(void)
 // standby
 void MDrv_Power_StandbyPowerOff(void)
 {
-    printf("=> StandBy \n");
+    //printf("=> StandBy 2222\n");
+	
+	MUTE_On(); //gchen @ 20180207 //power off mute off //MP333
+	LEDPWR_DISABLE();
+	printf("=> StandBy 22A\n");
+	//MApp_UiMenu_BatLowWin_Show(); //gchen @ 20180320 //MP333
+	//printf("=> StandBy 1B \n");
+	//MsOS_DelayTask(1000);
 
     MDrv_Power_Standby_CheckWakeupDevice();
     msAPI_Power_SetWakeUpDevice();
@@ -427,16 +436,16 @@ void MDrv_Power_StandbyPowerOff(void)
 
     // new M12 standby mode code base
     //MApp_Audio_Set_AmpMute(AUDIO_AMP_MUTE_ON);
-	MUTE_Off(); //gchen @ 20180207 //power off mute off
-    Panel_VCC_OFF();
-    Panel_Backlight_VCC_OFF();
 
 	//<<gchen  @ 20171222 //adayo power off 
-	Optical_Led_OpenANDClose(0);
-	printf("=> StandBy 22\n");
+	//Optical_Led_OpenANDClose(0);
+	//dpp2600_config_blank(false);//MP333
+	
 
 	//MsOS_DelayTask(15*1000);
-	printf("=> StandBy 33\n");
+	
+	printf("=> StandBy 33A\n");
+	
 	//Power_Off();
 	//>>gchen  @ 20171222 //adayo power off 
 	
@@ -478,6 +487,8 @@ void MDrv_Power_StandbyPowerOff(void)
 
     // R2 run code in PM.bin
     msAPI_CheckBootFromSPI();
+	printf("=> StandBy 44A\n");
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -652,8 +663,10 @@ static void MDrv_Power_Standby_ConfigWakeupDevice(void)
 // standby
 void MDrv_Power_StandbyPowerOff(void)
 {
-    printf("=> StandBy \n");
-
+    printf("=> StandBy 1111\n");
+	MApp_UiMenu_BatLowWin_Show(); //gchen @ 20180320 //MP333
+	printf("=> StandBy 1A \n");
+	//MsOS_DelayTask(2000);
     //configure wakeup devices
     MDrv_Power_Standby_CheckWakeupDevice();
     MDrv_Power_Standby_ConfigWakeupDevice();
@@ -665,9 +678,9 @@ void MDrv_Power_StandbyPowerOff(void)
     Panel_Backlight_VCC_OFF();
 
 	//<<gchen  @ 20171222 //adayo power off 
-	Optical_Led_OpenANDClose(0);
+	//Optical_Led_OpenANDClose(0);
 	printf("=> StandBy 2\n");
-	MsOS_DelayTask(20*1000);
+	//MsOS_DelayTask(20*1000);
 	printf("=> StandBy 3\n");
 	//Power_Off();
 	//>>gchen  @ 20171222 //adayo power off 

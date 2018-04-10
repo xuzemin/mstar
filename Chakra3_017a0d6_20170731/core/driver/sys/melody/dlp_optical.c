@@ -747,7 +747,7 @@ void SetOpticalCurrent(U32 uCurrValue)
 
 	//printf("\nu8Data[0] = %4x\n",u8Data[0]);
 	//printf("\nu8Data[1] = %4x\n",u8Data[1]);
-	for(i=0;i<2;i++)
+	for(i=0;i<6;i++)
 	{
 		write_dpp2600_i2c(DPP2600_DEV_ADDR, ICP_DATA, 0x00000003+i, 0);
 		MsOS_DelayTask(10);
@@ -1142,12 +1142,12 @@ void devOPE_Long_Axis_Flip(U8 OnOff)
 {
 	if(OnOff)
 	{
-		write_dpp2600_i2c(DPP2600_DEV_ADDR,B_DRIVE_CURRENT,0x01 ,0); 
+		write_dpp2600_i2c(DPP2600_DEV_ADDR,LONG_FLIP,0x01 ,0); //MP333
 		//MsOS_DelayTask(50);
 	}
 	else
 	{
-		write_dpp2600_i2c(DPP2600_DEV_ADDR,B_DRIVE_CURRENT,0x00 ,0); 
+		write_dpp2600_i2c(DPP2600_DEV_ADDR,LONG_FLIP,0x00 ,0); //MP333
 		//MsOS_DelayTask(50);
 	}
 }
@@ -1159,12 +1159,12 @@ void devOPE_Short_Axis_Flip(U8 OnOff)
 {
 	if(OnOff)
 	{
-		write_dpp2600_i2c(DPP2600_DEV_ADDR,B_DRIVE_CURRENT,0x01 ,0); 
+		write_dpp2600_i2c(DPP2600_DEV_ADDR,SHORT_FLIP,0x01 ,0); //MP333
 		//MsOS_DelayTask(50);
 	}
 	else
 	{
-		write_dpp2600_i2c(DPP2600_DEV_ADDR,B_DRIVE_CURRENT,0x00 ,0); 
+		write_dpp2600_i2c(DPP2600_DEV_ADDR,SHORT_FLIP,0x00 ,0); //MP333
 		//MsOS_DelayTask(50);
 	}
 }
@@ -1176,81 +1176,12 @@ void devOPE_Short_Axis_Flip(U8 OnOff)
 void keystone_correction(S8 angle)
 {
 
- printf("optical keystone_correction angle = %d !!!!!!!!!!\n", angle); {
- #if 0
- U8 u8DataFreeze[2];
- U8 subaddFreeze;
- subaddFreeze = (U8) 0xdb;
- u8DataFreeze[0] =(U8)0x14;
- u8DataFreeze[1] =(U8)0x00;
- #endif
- 
- U8 iCountUnFreeze;
- iCountUnFreeze = 0;
- if(angle >=0 && angle <=39)
- {  
-  printf("optical keystone_correction angle A = %d !!!!!!!!!!\n", angle);
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x01); //gchen
-  MsOS_DelayTask(50);
-  MDrv_IIC_Write2Bytes(DPP2600_DEV_ADDR, WRITE_KEYSTONE_PROJECTION_PITCH_ANGLE, (U16)(0x00<<8 | angle ));
+ printf("optical keystone_correction angle = %d !!!!!!!!!!\n", angle); 
   
-  printf("optical keystone_correction A3 !!!!!!!!!!\n");
-  for(iCountUnFreeze = 0; iCountUnFreeze < 10; iCountUnFreeze++)
-  {
-	  MsOS_DelayTask(80);
-	  printf("optical keystone_correction A2 !!!!!!!!!!\n");
-	  if(MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00))
-	  {
-	  	printf("optical keystone_correction iCountUnFreeze = %d , result true!!!!!!!!!!\n" ,iCountUnFreeze);
-		break;
-	  } 
-	  else
-	  {
-		printf("optical keystone_correction iCountUnFreeze = %d , result false!!!!!!!!!!\n" ,iCountUnFreeze);
-	  }
-  }
-  
-  printf("optical keystone_correction A4 !!!!!!!!!!\n");
-  MsOS_DelayTask(50);
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00); //gchen
-  MsOS_DelayTask(50);
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00); //gchen
+ int iCurrent = angle*10 + 620;
+ printf("optical keystone_correction iCurrent = %d !!!!!!!!!!\n", iCurrent); 
+ //SetOpticalCurrent(iCurrent);
 
- }
- else if(angle < 0 && angle >= -39)
- {
-  printf("optical keystone_correction angle B = %d !!!!!!!!!!\n", angle);
-     angle = 255+angle;
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x01); //gchen
-  MsOS_DelayTask(50);
-  MDrv_IIC_Write2Bytes(DPP2600_DEV_ADDR, WRITE_KEYSTONE_PROJECTION_PITCH_ANGLE, (U16)(0x00<<8 | angle ));
-  printf("optical keystone_correction B3 !!!!!!!!!!\n");
-  for(iCountUnFreeze = 0; iCountUnFreeze < 10; iCountUnFreeze++)
-  {
-	  MsOS_DelayTask(80);
-	  printf("optical keystone_correction B2 !!!!!!!!!!\n" );
-	  if(MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00))
-	  {
-	  	printf("optical keystone_correction iCountUnFreeze = %d , result true!!!!!!!!!!\n" ,iCountUnFreeze);
-		break;
-	  } 
-	  else
-	  {
-		printf("optical keystone_correction iCountUnFreeze = %d , result false!!!!!!!!!!\n" ,iCountUnFreeze);
-	  }
-  }
-  printf("optical keystone_correction B4 !!!!!!!!!!\n");
-
-  MsOS_DelayTask(50);
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00); //gchen
-  MsOS_DelayTask(50);
-  MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_3435_FREEZE, 0x00); //gchen
- }
- else
- {
-	printf("optical keystone_correction angle error = %d !!!!!!!!!!\n", angle);
- }
-}
 }
 /***************************************
  *LED open and close
@@ -1328,7 +1259,16 @@ void Optical_SetRes_854x480(void)
 
 void Optical_YangMing_InputSourceSelect(void)
 {
-	MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_INPUT_SOURCE_SELECT, 0);
+	//MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_INPUT_SOURCE_SELECT, 0);
+	
+	U8 u8Data[4];
+	U8 subadd;
+	subadd = (U8) INPUT_SOURCE;
+    u8Data[0] =(U8)0x00;
+    u8Data[1] =(U8)0x00;
+    u8Data[2] =(U8)0x00;
+    u8Data[3] =(U8)0x00;
+    MDrv_IIC_WriteBytes(DPP2600_DEV_ADDR, 1, &subadd, 4, u8Data);
 }
 
 

@@ -374,6 +374,9 @@ static U8 u8MVDMonitor_FailCount = 0;
 #include "MApp_KeyToSpeech.h"
 #endif
 
+#include "msAPI_DrvInit.h" //MP333
+
+
 //
 //======================================================
 //
@@ -1846,6 +1849,53 @@ void MApp_Debug_ShowInfo_Task(void)
 
     //printf(" MApi_XC_FrameLockCheck=%u\n", MApi_XC_FrameLockCheck());
 
+#if 0//MP333
+	//<<gchen @ 20180321 //MP333
+	//check dc det 
+	if(DC_get_level())
+	{
+		printf(" DC_get_level true \n");
+
+		//if is bat det bat ad
+		Detect_BatAD();
+		//set bat led color
+		
+		//if bat ad < 5% then show bat low info 3 secs
+
+		//set g_bBatLowFlag true g_bBatLowShowFlag is true
+
+		//
+		
+		//iCountBatLowTime > 3 secs then set g_bBatLowShowFlag is false
+
+	}
+	else
+	{
+		printf(" DC_get_level false \n");
+		//if is dc not det bat
+		Detect_BatAD();
+		//if g_bBatLowShowFlag is ture hide it
+		
+	}
+
+	//check sw det
+	if(PowerOff_get_level())
+	{
+		printf(" PowerOff_get_level true \n");
+		//if sw det then power down
+		//msAPI_Power_PowerDown_EXEC();
+	}
+	else
+	{
+		printf(" PowerOff_get_level false \n");
+	}
+
+
+	//>>gchen @ 20180321 //MP333
+
+
+#endif
+
     DEBUG_HDMI_HOT_PLUG( MApi_XC_HDMI_Print_PortStatus(); );
 
 
@@ -1874,7 +1924,7 @@ void MApp_Debug_ShowInfo_Task(void)
             if( msAPI_AUD_IsAudioMuted() )
             {
                 //printf("Audio is muted\n");
-                msAPI_AUD_PrintMuteClient();
+                //msAPI_AUD_PrintMuteClient(); //MP333
             }
         }
     }
@@ -2033,19 +2083,30 @@ void MApp_MultiTasks(void)
 	  MDrv_UART2_MCU_RXD();
 #endif
 
+	#if (ENABLE_EAR_PHONE_VALUME_LINE) //MP333
+	if(EAR_PHONE_get_level() != gU8EarPhoneChangeFlag)
+	{
+		//printf(" \n");
+		printf("\ngU8EarPhoneChangeFlag2 = %d\n",gU8EarPhoneChangeFlag);
+		printf("\ngU8EarPhoneChangeFlag3 = %d\n",EAR_PHONE_get_level());
+		gU8EarPhoneChangeFlag = EAR_PHONE_get_level();
+		msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
+	}
+	#endif
+		if(EAR_PHONE_get_level())
+		{
+			//printf(" \n");
+			MUTE_Off();
+			EarPhone_ON();
+		}
+		else
+		{
+			//printf(" \n");
+			MUTE_On();
+			EarPhone_OFF();
+		}
+		
 
-	if(EAR_PHONE_get_level())//gchen @  20171218
-	{
-		//printf(" \n");
-		MUTE_Off();
-		EarPhone_ON();
-	}
-	else
-	{
-		//printf(" \n");
-		MUTE_On();
-		EarPhone_OFF();
-	}
 #if( DEBUG_MULTI_TASK_TOTAL_TIME )
     //static U32 s_MultiTask_u32LastEndTime = 0;
     static U32 s_MT_u32StartTime = 0;
@@ -2227,7 +2288,96 @@ void MApp_MultiTasks(void)
 #endif
 
     MApp_ProcessUserInput();
+    //<<gchen @ 20180321 //MP333
+    
+	//check dc det 
+	if(msAPI_Timer_DiffTimeFromNow(gU32BatCheckStartTime) >= 500)
+	{
+		gU32BatCheckStartTime = msAPI_Timer_GetTime0();
+		
+		if(DC_get_level())
+		{
+			//this is bat mode
+			Detect_BatAD();
 
+			//after bat low hint 5 mins show PowerOff Flag and Mute And Optical Off
+			if(gU8BatLowHaveShowFlag)
+			{
+				gU32BatLowDiffTime = msAPI_Timer_DiffTimeFromNow(gU32BatLowStartTime);
+				if(gU32BatLowDiffTime >= 300000)
+				{
+					if(gU8BatLowPowerOffType == 0)
+					{
+
+						gU32PowerOffStartTime = msAPI_Timer_GetTime0();
+						MApp_UiMenu_TempDetWin_Show();
+						gU8BatLowPowerOffType = 1;
+							
+					}
+					else if(gU8BatLowPowerOffType == 1)
+					{
+						if(msAPI_Timer_DiffTimeFromNow(gU32PowerOffStartTime) > 5000)
+						{
+							MApp_UiMenu_TempDetWin_Hide();
+							MUTE_On();
+							msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, 0, 0);
+							dpp2600_config_blank(FALSE);
+							gU8BatLowPowerOffType = 2;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			//this is dc mode
+			if(gU8BatLowPowerOffType == 2)
+			{
+				dpp2600_config_blank(TRUE);
+				msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
+				MUTE_Off();	
+			}
+			else if(gU8BatLowPowerOffType == 1)
+			{
+				MApp_UiMenu_TempDetWin_Hide();
+			}
+			//set led
+			BAT_LED_G_OFF();
+			BAT_LED_R_OFF();
+			gU8BatType = 0;
+			gU8BatLowHaveShowFlag = 0;
+			gU16BatLowCount = 0;
+			gU8BatLowPowerOffType = 0;
+		}
+		
+		//check bat show window
+		//if gU8BatLowShowingFlag is ture hide it
+		if(gU8BatLowShowingFlag == 1)
+		{
+			gU32BatLowDiffTime = msAPI_Timer_DiffTimeFromNow(gU32BatLowStartTime);
+			if(gU32BatLowDiffTime >= 3000)
+			{
+				MApp_UiMenu_BatLowWin_Hide();
+				gU8BatLowShowingFlag = 0;
+			}
+		}
+	}
+	
+	//check sw det
+	if(PowerOff_get_level())
+	{
+		//if sw det then power down
+		
+	}
+	else
+	{
+		printf(" PowerOff_get_level false 2\n");
+		msAPI_Power_PowerDown_EXEC();
+		printf(" PowerOff_get_level false 3\n");
+	}
+	
+	
+	//>>gchen @ 20180321 //MP333
     MT_CHECK_POINT();
 
 #if 0//nine-lattice sample code
@@ -3068,7 +3218,37 @@ void MApp_PreProcessUserInput(void)
     //*** Process Hot key ***********************
     switch(u8KeyCode)
     {
+#if 0
+    	 case KEY_TEMP_DET:
+	        if ((MApp_TopStateMachine_GetTopState() != STATE_TOP_ATV_SCAN)
+              	#if ENABLE_DTV
+                	&& (MApp_TopStateMachine_GetTopState() != STATE_TOP_DTV_SCAN)
+              	#endif
+              	#if ENABLE_DMP
+                	&& (MApp_TopStateMachine_GetTopState() != STATE_TOP_DMP)
+              	#endif
+               )
+	        {
+	              u8KeyCode = KEY_NULL;
+	              MApp_UiMenu_TempDetWin_Show();
+	        }
+		 break;
+#endif
 
+    	 case KEY_BAT_LOW:
+	        if ((MApp_TopStateMachine_GetTopState() != STATE_TOP_ATV_SCAN)
+              	#if ENABLE_DTV
+                	&& (MApp_TopStateMachine_GetTopState() != STATE_TOP_DTV_SCAN)
+              	#endif
+              	#if ENABLE_DMP
+                	&& (MApp_TopStateMachine_GetTopState() != STATE_TOP_DMP)
+              	#endif
+               )
+	        {
+	              u8KeyCode = KEY_NULL;
+	              MApp_UiMenu_BatLowWin_Show();
+	        }
+		 break;
         /*case KEY_RED://anvi
             MApp_UiMenu_ARCDiscWin_Show();
             break;//*/
@@ -3104,7 +3284,14 @@ void MApp_PreProcessUserInput(void)
           #endif
             break;
         case KEY_VOLUME_PLUS: //disable MUTE win before show volume bar
+        	//printf("KEY_VOLUME_PLUS 11111\n");
+			//MApp_UiMenu_BatLowWin_Show();
+			//LEDPWR_ENABLE();
+			//break;
         case KEY_VOLUME_MINUS:
+			//MApp_UiMenu_BatLowWin_Hide();
+			//LEDPWR_DISABLE();
+			//printf("KEY_VOLUME_MINUS 11111\n");
           #if ENABLE_DMP
             if (MApp_TopStateMachine_GetTopState() != STATE_TOP_DMP)
           #endif

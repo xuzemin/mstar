@@ -167,22 +167,29 @@ int GetEarphoneState(void) //gchen @ 20171218
 {
 	return mdrv_gpio_get_level(PIN_130) ? _LOW : _HIGH; 
 }
-int keystone_positive_get_level(void) //add by xzm @20171222
+
+int Volume_positive_get_level(void) //add by xzm @20171222
 {
-    return mdrv_gpio_get_level( PIN_106 ) ? _HIGH : _LOW; 
+    return mdrv_gpio_get_level( PIN_103 ) ? _HIGH : _LOW; 
 }
-int keystone_negative_get_level(void) //add by xzm @20171222
+int Volume_negative_get_level(void) //add by xzm @20171222
 {
-    return mdrv_gpio_get_level( PIN_105 ) ? _HIGH : _LOW;
+    return mdrv_gpio_get_level( PIN_104 ) ? _HIGH : _LOW;
 }
-#if ENABLE_JABIL
- void PowerKey_set_input(void)
+
+int Opt_Check_get_level(void) //MP333
 {
-    mdrv_gpio_set_input(PIN_107 );
+	return mdrv_gpio_get_level( PIN_64 ) ? _HIGH : _LOW;
 }
- int PowerKey_get_level(void)
+
+//MP333 Power Off det PIN_108
+int PowerOff_get_level(void)
+{
+	return mdrv_gpio_get_level( PIN_108 ) ? _HIGH : _LOW;
+}
+
+int DC_get_level(void)
 {
     return mdrv_gpio_get_level( PIN_107) ? _HIGH : _LOW;
 }
- #endif
 //others move to drvPower_std.c

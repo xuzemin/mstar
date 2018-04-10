@@ -184,6 +184,9 @@
 #include "Mstar_USBScript.h"
 #include "MApp_GlobalFunction.h"
 
+#include "FSUtil.h" //gchen @ 20180319 //MP333
+
+
 // extern void SET_Default_TW_DTV_CH(void);
 
 
@@ -7261,7 +7264,7 @@ LPTSTR MApp_ZUI_ACT_GetFactoryMenuDynamicText(HWND hwnd)
     }
     if (hwnd == HWND_FACTORY_SW_INFO_TEXT)
     {
-                #if 1
+                #if 0
                     {
                     char *ptr;
                     char ptr_head[128];
@@ -7376,23 +7379,28 @@ LPTSTR MApp_ZUI_ACT_GetFactoryMenuDynamicText(HWND hwnd)
                     *ptr = 0;
             return MApp_ZUI_API_StringBuffU8toU16(CHAR_BUFFER, (U8 *)ptr_head, strlen(ptr_head));
                 }
-        #else
+        //#else
                 {
-                  #if 0
+                  //#if 0
                     char *ptr;
                     char ptr_head[128];
 
                     ptr = ptr_head;
                     ptr = strcpy(ptr, SWVersionName );
                     return MApp_ZUI_API_StringBuffU8toU16(CHAR_BUFFER, (U8 *)ptr_head, strlen(ptr_head));
-                  #else // Modifed it by coverity_0544
+                  //#else // Modifed it by coverity_0544
                     char ptr_head[128];
                     strcpy(ptr_head, SWVersionName );
-                    return MApp_ZUI_API_StringBuffU8toU16(CHAR_BUFFER, (U8 *)ptr_head, strlen(ptr_head));
-                  #endif
+                   	return MApp_ZUI_API_StringBuffU8toU16(CHAR_BUFFER, (U8 *)ptr_head, strlen(ptr_head));
+
+	
+                  //#endif
                 }
                 break;
         #endif
+					  snprintf((char*)CHAR_BUFFER, 30, "MP-333_V0.30");//wht121013_2
+					  FS_ASCII2Unicode((U8*)CHAR_BUFFER);
+					  return CHAR_BUFFER;
     }
     //step3: item name
     if(_eFactoryMenuPage == EN_FACTORY_PAGE_QMAP_PAGE )

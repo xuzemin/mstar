@@ -1089,6 +1089,7 @@ code char PQ_IPTAB_VIP_Pre_Yoffset_0xF4_Text_Main[] = "0xF4";
 code char PQ_IPTAB_VIP_Pre_Yoffset_0xF6_Text_Main[] = "0xF6";
 code char PQ_IPTAB_VIP_Pre_Yoffset_0xF7_Text_Main[] = "0xF7";
 code char PQ_IPTAB_VIP_Pre_Yoffset_0xFA_Text_Main[] = "0xFA";
+code char PQ_IPTAB_VIP_Pre_Yoffset_0xF0_1_Text_Main[] = "0xF0_1";
 code char PQ_IPTAB_VIP_Pre_Ygain_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_Pre_Ygain_0x420_Text_Main[] = "0x420";
 code char PQ_IPTAB_VIP_Pre_Ygain_0x428_Text_Main[] = "0x428";
@@ -1272,6 +1273,7 @@ code char PQ_IPTAB_VIP_IHC_CRD_SRAM_15win3_stronggain_Text_Main[] = "15win3_stro
 code char PQ_IPTAB_VIP_IHC_CRD_SRAM_15win5_stronggain_Text_Main[] = "15win5_stronggain";
 code char PQ_IPTAB_VIP_IHC_CRD_SRAM_7wins_stronggain_3_Text_Main[] = "7wins_stronggain_3";
 code char PQ_IPTAB_VIP_IHC_CRD_SRAM_15wins3_Text_Main[] = "15wins3";
+code char PQ_IPTAB_VIP_IHC_CRD_SRAM_15win3_SX_Text_Main[] = "15win3_SX";
 code char PQ_IPTAB_VIP_IHC_SETTING_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_IHC_SETTING_N_20_Text_Main[] = "N_20";
 code char PQ_IPTAB_VIP_IHC_SETTING_P_20_Text_Main[] = "P_20";
@@ -1304,6 +1306,7 @@ code char PQ_IPTAB_VIP_IHC_SETTING_HDMI_IHC_V3_Text_Main[] = "HDMI_IHC_V3";
 code char PQ_IPTAB_VIP_ICC_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_ICC_ON_Text_Main[] = "ON";
 code char PQ_IPTAB_VIP_ICC_ON_Sram_Text_Main[] = "ON_Sram";
+code char PQ_IPTAB_VIP_ICC_ON_1_Text_Main[] = "ON_1";
 code char PQ_IPTAB_VIP_ICC_Ymode_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_ICC_Ymode_ON_Text_Main[] = "ON";
 code char PQ_IPTAB_VIP_ICC_Ymode_HDMI_HD_Text_Main[] = "HDMI_HD";
@@ -1320,6 +1323,7 @@ code char PQ_IPTAB_VIP_ICC_CRD_SRAM_15win3_stronggain_Text_Main[] = "15win3_stro
 code char PQ_IPTAB_VIP_ICC_CRD_SRAM_15win4_stronggain_Text_Main[] = "15win4_stronggain";
 code char PQ_IPTAB_VIP_ICC_CRD_SRAM_15win5_stronggain_Text_Main[] = "15win5_stronggain";
 code char PQ_IPTAB_VIP_ICC_CRD_SRAM_15wins3_Text_Main[] = "15wins3";
+code char PQ_IPTAB_VIP_ICC_CRD_SRAM_15win3_SX_Text_Main[] = "15win3_SX";
 code char PQ_IPTAB_VIP_ICC_SETTING_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_ICC_SETTING_INC_8_Text_Main[] = "INC_8";
 code char PQ_IPTAB_VIP_ICC_SETTING_INC_3_Text_Main[] = "INC_3";
@@ -1418,6 +1422,7 @@ code char PQ_IPTAB_VIP_BLE_0x86_0x40_Text_Main[] = "0x86_0x40";
 code char PQ_IPTAB_VIP_BLE_0x88_0x40_Text_Main[] = "0x88_0x40";
 code char PQ_IPTAB_VIP_BLE_0x88_0x60_Text_Main[] = "0x88_0x60";
 code char PQ_IPTAB_VIP_BLE_0x8A_0x40_Text_Main[] = "0x8A_0x40";
+code char PQ_IPTAB_VIP_BLE_0x70_0x7C_Text_Main[] = "0x70_0x7C";
 code char PQ_IPTAB_VIP_WLE_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_WLE_0x78_0x20_Text_Main[] = "0x78_0x20";
 code char PQ_IPTAB_VIP_BWLE_dither_OFF_Text_Main[] = "OFF";
@@ -1436,6 +1441,7 @@ code char PQ_IPTAB_VIP_Post_Cgain_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_Post_Cgain_0x44_Text_Main[] = "0x44";
 code char PQ_IPTAB_VIP_Post_Cgain_0x46_Text_Main[] = "0x46";
 code char PQ_IPTAB_VIP_Post_Cgain_0x48_Text_Main[] = "0x48";
+code char PQ_IPTAB_VIP_Post_Cgain_OFF_1_Text_Main[] = "OFF_1";
 code char PQ_IPTAB_VIP_Hcoring_Y_OFF_Text_Main[] = "OFF";
 code char PQ_IPTAB_VIP_Hcoring_Y_C4_Text_Main[] = "C4";
 code char PQ_IPTAB_VIP_Hcoring_Y_C3_Text_Main[] = "C3";
@@ -2637,6 +2643,7 @@ PQ_IPTAB_VIP_Pre_Yoffset_0xF4_Text_Main,
 PQ_IPTAB_VIP_Pre_Yoffset_0xF6_Text_Main,
 PQ_IPTAB_VIP_Pre_Yoffset_0xF7_Text_Main,
 PQ_IPTAB_VIP_Pre_Yoffset_0xFA_Text_Main,
+PQ_IPTAB_VIP_Pre_Yoffset_0xF0_1_Text_Main,
 };
 
 code char* PQ_IP_VIP_Pre_Ygain_Text_Main[] =
@@ -2956,6 +2963,7 @@ PQ_IPTAB_VIP_IHC_CRD_SRAM_15win3_stronggain_Text_Main,
 PQ_IPTAB_VIP_IHC_CRD_SRAM_15win5_stronggain_Text_Main,
 PQ_IPTAB_VIP_IHC_CRD_SRAM_7wins_stronggain_3_Text_Main,
 PQ_IPTAB_VIP_IHC_CRD_SRAM_15wins3_Text_Main,
+PQ_IPTAB_VIP_IHC_CRD_SRAM_15win3_SX_Text_Main,
 };
 
 code char* PQ_IP_VIP_IHC_SETTING_Text_Main[] =
@@ -2996,6 +3004,7 @@ code char* PQ_IP_VIP_ICC_Text_Main[] =
 PQ_IPTAB_VIP_ICC_OFF_Text_Main,
 PQ_IPTAB_VIP_ICC_ON_Text_Main,
 PQ_IPTAB_VIP_ICC_ON_Sram_Text_Main,
+PQ_IPTAB_VIP_ICC_ON_1_Text_Main,
 };
 
 code char* PQ_IP_VIP_ICC_Ymode_Text_Main[] =
@@ -3024,6 +3033,7 @@ PQ_IPTAB_VIP_ICC_CRD_SRAM_15win3_stronggain_Text_Main,
 PQ_IPTAB_VIP_ICC_CRD_SRAM_15win4_stronggain_Text_Main,
 PQ_IPTAB_VIP_ICC_CRD_SRAM_15win5_stronggain_Text_Main,
 PQ_IPTAB_VIP_ICC_CRD_SRAM_15wins3_Text_Main,
+PQ_IPTAB_VIP_ICC_CRD_SRAM_15win3_SX_Text_Main,
 };
 
 code char* PQ_IP_VIP_ICC_SETTING_Text_Main[] =
@@ -3178,6 +3188,7 @@ PQ_IPTAB_VIP_BLE_0x86_0x40_Text_Main,
 PQ_IPTAB_VIP_BLE_0x88_0x40_Text_Main,
 PQ_IPTAB_VIP_BLE_0x88_0x60_Text_Main,
 PQ_IPTAB_VIP_BLE_0x8A_0x40_Text_Main,
+PQ_IPTAB_VIP_BLE_0x70_0x7C_Text_Main,
 };
 
 code char* PQ_IP_VIP_WLE_Text_Main[] =
@@ -3220,6 +3231,7 @@ PQ_IPTAB_VIP_Post_Cgain_OFF_Text_Main,
 PQ_IPTAB_VIP_Post_Cgain_0x44_Text_Main,
 PQ_IPTAB_VIP_Post_Cgain_0x46_Text_Main,
 PQ_IPTAB_VIP_Post_Cgain_0x48_Text_Main,
+PQ_IPTAB_VIP_Post_Cgain_OFF_1_Text_Main,
 };
 
 code char* PQ_IP_VIP_Hcoring_Y_Text_Main[] =

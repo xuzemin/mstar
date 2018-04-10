@@ -122,6 +122,10 @@ INTERFACE BOOLEAN MApp_ZUI_ACT_ExecuteTuningConfirmDialogAction(U16 act);
 INTERFACE LPTSTR MApp_ZUI_ACT_GetTuningConfirmDynamicText(HWND hwnd);
 INTERFACE EN_OSD_COUNTRY_SETTING MApp_ZUI_ACT_GetTuningCountry(void);
 INTERFACE void MApp_ZUI_ACT_SetTuningCountry(EN_OSD_COUNTRY_SETTING TuningCountry);
+INTERFACE U8 MApp_GetListMenuLanguagePosition(EN_LANGUAGE curLang );
+INTERFACE EN_LANGUAGE MApp_GetListMenuLanguageByIndex(U8 langindex);
+INTERFACE void MApp_SetListMenuLanguage(U8 Direction);
+INTERFACE U8 MApp_ZUI_ACT_GetOsdAudLangIndexMax(void);
 #undef INTERFACE
 
 #ifdef __cplusplus

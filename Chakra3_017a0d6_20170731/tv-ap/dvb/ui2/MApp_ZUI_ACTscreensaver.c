@@ -352,6 +352,26 @@ BOOLEAN MApp_ZUI_ACT_HandleScreenSaverKey(VIRTUAL_KEY_CODE key)
 
 BOOLEAN MApp_ZUI_ACT_ExecuteScreenSaverAction(U16 act)
 {
+	switch(act)
+	{
+		#if 1
+		case EN_EXE_BAT_LOW_CLOSE_SCEENSAVER:
+			printf("EN_EXE_BAT_LOW_CLOSE_SCEENSAVER gchen AAAAAA \n");
+			MApp_ZUI_API_ShowWindow(HWND_MAINFRAME, SW_HIDE);
+			MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_BG_PANE, SW_HIDE);
+			MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_FRAME, SW_HIDE);
+		    MApp_ZUI_API_ShowWindow(HWND_SUB_SCREEN_SAVER_FRAME_L, SW_HIDE);
+		    MApp_ZUI_API_ShowWindow(HWND_SUB_SCREEN_SAVER_FRAME_R, SW_HIDE);
+			
+			MApp_ZUI_API_InvalidateAllSuccessors(HWND_MAINFRAME);
+			MApp_ZUI_API_InvalidateAllSuccessors(HWND_SUB_SCREEN_SAVER_FRAME_L);			
+			MApp_ZUI_API_InvalidateAllSuccessors(HWND_SUB_SCREEN_SAVER_FRAME_R);
+			break;
+		#endif
+		default:
+			break;
+	}
+	
     UNUSED(act);
     return FALSE; //ignore...
 }

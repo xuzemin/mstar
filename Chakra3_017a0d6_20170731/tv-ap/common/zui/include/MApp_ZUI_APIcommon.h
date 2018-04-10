@@ -263,8 +263,11 @@ typedef enum
     VK_DASH,
 
     VK_PIP,
-    
-    VK_MAX = 71,   //xzm @20171228 keystone   VK_MAX = 69
+#if 1
+     VK_TEMP_DET,
+#endif
+    VK_BAT_LOW,//wht141014_8
+    VK_MAX ,   //xzm @20171228 keystone   VK_MAX = 69
 } VIRTUAL_KEY_CODE;
 
 /**

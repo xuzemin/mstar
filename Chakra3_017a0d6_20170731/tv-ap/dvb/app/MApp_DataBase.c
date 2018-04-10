@@ -225,6 +225,60 @@ void MApp_DB_SaveHDCP_KEY( U32 u16Offset)
 
     msAPI_Flash_Set_WriteProtect(ENABLE);
 }
+
+U16 MApp_DB_LoadHDCP_KEY_For_331(void)
+{
+    U32 dst;
+    U16 i;
+	U8 u8HdcpKey[HDCP_KEY_SIZE];	
+    U16 g_wHDCP_KeyChkSum=0;
+    dst = (SYSTEM_BANK_SIZE * HDCP_DB_BANK) ;
+
+    MDrv_FLASH_Read(dst,HDCP_KEY_SIZE, u8HdcpKey);
+
+
+    //printf("MApp_DB_LoadHDCP_KEY\n");
+    //printf("HDCP_DB_BANK 0x%x\n", HDCP_DB_BANK);
+
+
+    for(i=0;i<HDCP_KEY_SIZE;i++)
+    {
+		g_wHDCP_KeyChkSum += u8HdcpKey[i];	
+		printf("0x%x ", u8HdcpKey[i]);
+        if(i%16==15) printf("\n");
+    }
+
+    return g_wHDCP_KeyChkSum;
+}
+
+void MApp_DB_FLASH_AddressErase_For_331(void)
+{
+	MDrv_FLASH_AddressErase((SYSTEM_BANK_SIZE * HDCP_DB_BANK), HDCP_KEY_SIZE, TRUE);
+}
+
+void MApp_DB_SaveHDCP_KEY_For_331( U32 u32Offset,U8 *pu32HdcpKey)
+{
+    U32 dst;
+
+    msAPI_Flash_Set_WriteProtect_Disable_Range(SYSTEM_BANK_SIZE * HDCP_DB_BANK, SYSTEM_BANK_SIZE);
+	//msAPI_Flash_Set_WriteProtect(DISABLE); // <-@@@
+
+    dst = (SYSTEM_BANK_SIZE * HDCP_DB_BANK) + u32Offset;
+
+    MDrv_FLASH_AddressErase(dst, SYSTEM_BANK_SIZE, TRUE);
+
+    MDrv_FLASH_Write(dst, HDCP_KEY_SIZE, pu32HdcpKey);
+
+
+    //printf("MApp_DB_SaveHDCP_KEY 000 \n");
+    //printf("HDCP_DB_BANK 0x%x\n", HDCP_DB_BANK);
+    //printf("dst 0x%x\n", dst);
+    //printf("u16Offset 0x%x\n", u32Offset);
+
+    msAPI_Flash_Set_WriteProtect(ENABLE);
+
+}
+
 #endif
 
 #if( (HDCP_KEY_TYPE==HDCP_KEY_IN_DB) || (HDCP22_KEY_TYPE==HDCP22_KEY_IN_DB))

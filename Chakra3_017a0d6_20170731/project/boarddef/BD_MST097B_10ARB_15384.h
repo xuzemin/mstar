@@ -190,7 +190,8 @@
 #define PADS_TCON_CONFIG            Unknown_pad_mux
 #define PADS_UART2_MODE             Unknown_pad_mux
 #define PADS_UART3_MODE             Unknown_pad_mux
-#define PADS_UART4_MODE             UART4_MODE(1)//Unknown_pad_mux //gchen @ 20180118
+#define PADS_UART4_MODE             Unknown_pad_mux //Unknown_pad_mux //gchen @ 20180118 //20180319 
+//MP333
 #define PADS_FAST_UART_MODE         Unknown_pad_mux
 #define PADS_3DLR_MODE              Unknown_pad_mux
 #define PADS_TTL_MODE               Unknown_pad_mux
@@ -203,7 +204,7 @@
 #define PADS_DDCDB_MODE             DDCDB_MODE(1)
 #define PADS_DDCDC_MODE             DDCDC_MODE(1)
 #define PADS_I2SIN_MODE             Unknown_pad_mux
-#define PADS_I2SOUT_MODE            I2SOUT_MODE(5)    //add by xzm for IIC AUDIO
+#define PADS_I2SOUT_MODE            Unknown_pad_mux //I2SOUT_MODE(5)    //add by xzm for IIC AUDIO
 #define PADS_CEC_MODE               CEC_MODE(1)//PAD_CEC
 #define PADS_SPDIF_IN               Unknown_pad_mux
 #define PADS_SPDIF_OUT              SPDIF_OUT_MODE(2)//PAD_PWM1
@@ -227,17 +228,21 @@
 #define PIN_59_IS_GPIO              GPIO_NONE  //(GPIO47,PAD_GPIO3): Audio Amp (H:Enable)
 #define PIN_60_IS_GPIO              GPIO_NONE  //(GPIO48,PAD_GPIO4): Audio Mute (H:Mute)
 #define PIN_63_IS_GPIO              GPIO_NONE              //(GPIO50,PAD_GPIO6): USB Port 0 Over Current Detect
-#define PIN_64_IS_GPIO              GPIO_OUT_LOW  //(GPIO51,PAD_GPIO7): I2S Audio Mute (L:Mute)
+#define PIN_64_IS_GPIO              GPIO_IN  //(GPIO51,PAD_GPIO7): I2S Audio Mute (L:Mute)
 //#define PIN_115_IS_GPIO             GPIO_OUT_HIGH //(GPIO98,PAD_GPIO30): Flash WP Enable (L:On)
 #define PIN_120_IS_GPIO             GPIO_OUT_HIGH //(GPIO100,PAD_GPIO32): Normal Power Enable (H:On)
 #define PIN_129_IS_GPIO             GPIO_OUT_HIGH //(GPIO101,PAD_GPIO33): Panel Power Enable (L:On)
 #define PIN_130_IS_GPIO             GPIO_IN              //(GPIO102,PAD_GPIO34): Ear-phone Enable (H:On)
 
 //gchen @ 20171208
-#define PIN_65_IS_GPIO				GPIO_OUT_HIGH //gchen @ 20171208 //set PROJ_ON HIGH
-
-#define PIN_107_IS_GPIO             GPIO_NONE //gchen @ 20180118 //uart2 
-#define PIN_108_IS_GPIO             GPIO_NONE //gchen @ 20180118 //uart2 
+#define PIN_65_IS_GPIO				GPIO_OUT_LOW //gchen @ 20171208 //set PROJ_ON HIGH
+#define PIN_66_IS_GPIO				GPIO_OUT_HIGH 
+#define PIN_107_IS_GPIO             GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2  //gchen @ 20180317 //MP333
+#define PIN_108_IS_GPIO             GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2 //gchen @ 20180317 //MP333
+#define PIN_106_IS_GPIO				GPIO_OUT_LOW //gchen @ 20180317 //MP333
+#define PIN_105_IS_GPIO				GPIO_OUT_LOW //gchen @ 20180317 //MP333
+#define PIN_104_IS_GPIO				GPIO_IN //gchen @ 20180317 //MP333
+#define PIN_103_IS_GPIO				GPIO_IN //gchen @ 20180317 //MP333
 
 //#define PIN_108_IS_GPIO				GPIO_OUT_HIGH //gchen @ 20171222
 
@@ -248,6 +253,10 @@
 #define EarPhone_OFF()				_FUNC_NOT_USED()//mdrv_gpio_set_high(PIN_131) //gchen @ 20180206 //remove earphone amp
 #define EarPhone_ON()				_FUNC_NOT_USED()//mdrv_gpio_set_low(PIN_131)
 
+#define BAT_LED_G_ON()					mdrv_gpio_set_high(PIN_105)
+#define BAT_LED_R_ON()					mdrv_gpio_set_high(PIN_106)
+#define BAT_LED_G_OFF()					mdrv_gpio_set_low(PIN_105)
+#define BAT_LED_R_OFF()					mdrv_gpio_set_low(PIN_106)
 #define EAR_PHONE_NULL				0
 
 
@@ -370,7 +379,7 @@
 #define AUDIO_PATH_SIFOUT           AUDIO_PATH_NULL
 #define AUDIO_PATH_SPEAKER          AUDIO_PATH_2
 
-#define AUDIO_OUTPUT_MAIN_SPEAKER   AUDIO_I2S_OUTPUT //AUDIO_AUOUT1_OUTPUT //gchen @ 20171218
+#define AUDIO_OUTPUT_MAIN_SPEAKER   AUDIO_AUOUT1_OUTPUT //gchen @ 20171218
 #define AUDIO_OUTPUT_HP             AUDIO_NULL_OUTPUT//AUDIO_AUOUT1_OUTPUT //AUDIO_AUOUT2_OUTPUT //gchen @ 20171218
 #define AUDIO_OUTPUT_MONITOROUT     AUDIO_NULL_OUTPUT
 #define AUDIO_OUTPUT_SCART1         AUDIO_NULL_OUTPUT  // define NULL when no used
@@ -534,7 +543,7 @@
 #define POWER_DOWN_SEQ                  1
 #define POWER_SAVING_T                  0
 #define SCREENSAVER_ENABLE              1
-#define NO_SIGNAL_AUTO_SHUTDOWN         0
+#define NO_SIGNAL_AUTO_SHUTDOWN         0 //MP333
 #define STANDBY_MODE                    POWERMODE_S3
 #define POWERUP_MODE                    PUMODE_WORK
 #define ENABLE_POWER_GOOD_DETECT        1
@@ -667,8 +676,8 @@
 #define Panel_VG_HL_CTL_OFF()           _FUNC_NOT_USED()
 
 // Power Saving
-#define Power_On()                      mdrv_gpio_set_high(PIN_108)//_FUNC_NOT_USED() //gchen @ 20171222
-#define Power_Off()                     mdrv_gpio_set_low(PIN_108)//_FUNC_NOT_USED()
+#define Power_On()                      _FUNC_NOT_USED() //mdrv_gpio_set_high(PIN_108)//_FUNC_NOT_USED() //MP333
+#define Power_Off()                     _FUNC_NOT_USED() //mdrv_gpio_set_low(PIN_108)//_FUNC_NOT_USED() //MP333
 #define MDrv_Sys_GetSvideoSw()          _FUNC_NOT_USED()
 
 #define Peripheral_Device_Reset_ON()    _FUNC_NOT_USED()
@@ -741,11 +750,11 @@
 #define HPDetect()                      TRUE//_FUNC_NOT_USED()
 //------MST Keypad definition---------------------------------------------------
 #define KEYPAD_CHANNEL_SUPPORT          4 //Maximun supported keypad channels
-#define ADC_KEY_CHANNEL_NUM             1 //Real supported keypad channels
+#define ADC_KEY_CHANNEL_NUM             2 //Real supported keypad channels //MP333
 #define ADC_KEY_LAST_CHANNEL            ADC_KEY_CHANNEL_NUM - 1
 //config which keypad channel enabled
 #define ENABLE_KPDCHAN_1                ENABLE //gchen @ 20180202 //for mp332 key change
-#define ENABLE_KPDCHAN_2                DISABLE //ENABLE //gchen @ 20180202 //for mp332 key change
+#define ENABLE_KPDCHAN_2                ENABLE //gchen @ 20180202 //for mp332 key change
 #define ENABLE_KPDCHAN_3                DISABLE
 #define ENABLE_KPDCHAN_4                DISABLE
 

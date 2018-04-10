@@ -312,8 +312,13 @@ U8 MDrv_Get_Power_Flag(U8 flag);
 
 int EAR_PHONE_get_level(void); //gchen @ 20171218
 int GetEarphoneState(void); //gchen @ 20171218
-#if 0 //EANBLE_V56_IO_KEY
-int keystone_positive_get_level(void); // xzm @ 20171222
-int keystone_negative_get_level(void); // xzm @ 20171222
+#if 1
+int Volume_positive_get_level(void); // xzm @ 20171222
+int Volume_negative_get_level(void); // xzm @ 20171222
 #endif
+int DC_get_level(void);	//gchen @ 20180321 //MP333
+int PowerOff_get_level(void); //gchen @ 20180321 //MP333
+int Opt_Check_get_level(void); //MP333
+
+
 #endif // _DRVPOWER_H_

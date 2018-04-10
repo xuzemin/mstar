@@ -158,7 +158,8 @@
 #include "msAPI_FSEnv.h"
 #include "msAPI_DCC.h"
 #include "msAPI_FS_SysInfo.h"
-
+#include "MApp_ZUI_ACTcoexistWin.h"
+#include "MApp_Standby.h"
 #if (VECTOR_FONT_ENABLE) && (COPRO_MVF_ENABLE)
 #include "msAPI_CPU.h"
 #endif
@@ -612,6 +613,121 @@ void MApp_Init_UIVariable(void)
   #if ENABLE_DTV
     SET_OSD_MENU_LANGUAGE(GET_OSD_MENU_LANGUAGE());
   #endif
+}
+
+#define sample_num_temp   20
+#define BAT_LOW_AD			144//121 //6.6v
+#define BAT_MIDDLE_AD		149//130			
+#define BAT_HIGH_AD			153//142 //7.4v
+
+void Detect_BatAD(void)
+{
+		U8 i = 1;
+		U16 iTempADSum = 0;
+		U16 iGetAD = 0;
+		
+		//static U8 gU8TemperCountNum = 0;
+		for(i = 1; i <= sample_num_temp; i++)
+		{
+			iTempADSum = GetSarAdcLevel(1) + iTempADSum;
+		}
+		iGetAD = iTempADSum / sample_num_temp;
+		//printf(" iGetAD == %d \n", iGetAD);
+
+		if(iGetAD > BAT_HIGH_AD)
+		{
+			//iCountPowerLow = 0;
+			if(gU8BatType == 0 || gU8BatType == 1)
+			{
+				gU8BatType = 1;
+				BAT_LED_G_ON();
+				BAT_LED_R_OFF();
+			}
+			else if(gU8BatType == 2)
+			{
+		
+			}
+		}
+		else if(iGetAD > BAT_MIDDLE_AD && iGetAD <= BAT_HIGH_AD)
+		{
+			//iCountPowerLow = 0;
+			if(gU8BatType == 0 || gU8BatType == 1 || gU8BatType == 2)
+			{
+				gU8BatType = 2;
+				BAT_LED_G_ON();
+				BAT_LED_R_ON();
+			}
+			else if(gU8BatType == 3)
+			{
+		
+			}
+			
+		}
+		else if(iGetAD > BAT_LOW_AD && iGetAD <= BAT_MIDDLE_AD)
+		{
+			if(gU8BatLowHaveShowFlag == 0)//·ÀÖ¹Ìø±ä
+			{
+				//iCountPowerLow = 0;
+				if(gU8BatType == 0 || gU8BatType == 1 || gU8BatType == 2 || gU8BatType == 3)
+				{
+					gU8BatType = 3;
+					BAT_LED_G_OFF();
+					BAT_LED_R_ON();
+				}
+				else if(gU8BatType == 4) 
+				{
+					if((iGetAD - BAT_LOW_AD)> 4) //gchen @ 20170816
+					{
+						gU8BatType = 3;
+						gU16BatLowCount = 0;
+						BAT_LED_G_OFF();
+						BAT_LED_R_ON();
+					}
+					else
+					{
+						gU16BatLowCount++;
+					}
+				}
+			}
+			else
+			{
+				gU16BatLowCount++;
+			}
+		}
+		else if(iGetAD <= BAT_LOW_AD) 
+		{
+			gU8BatType = 4;
+			gU16BatLowCount++;
+		}
+				
+		//Bat Low LED RED FLASH
+		if(gU16BatLowCount >= 10) //5s //gchen @ 20180205 //change 20 to 100 
+		{
+			if(gU8BatLowHaveShowFlag == 0)
+			{
+				MApp_UiMenu_BatLowWin_Show();
+				gU32BatLowStartTime = msAPI_Timer_GetTime0();
+				gU8BatLowShowingFlag = 1;
+				gU8BatLowHaveShowFlag = 1;
+			}
+			
+			//if((iCountPowerLow % 10) == 0)
+			{
+				if(gU8BatLowLedRedFlag)
+				{
+					BAT_LED_G_OFF();
+					BAT_LED_R_OFF();
+					gU8BatLowLedRedFlag = 0;
+				}
+				else
+				{
+					BAT_LED_G_OFF();
+					BAT_LED_R_ON();
+					gU8BatLowLedRedFlag = 1;
+				}
+			}
+		}
+
 }
 
 extern U32 volatile gSystemTimeCount;
@@ -2097,9 +2213,50 @@ void MApp_PreInit_Panel_Init(void)
 #endif
 
     MApp_PreInit_TurnOn_PanelVcc_LvdsSignal();
+	//printf("MApi_PNL_En() LEDPWR_ENABLE 11111;\n");
+
+#if (ENABLE_EAR_PHONE_VALUME_LINE) //MP333
+	gU8EarPhoneChangeFlag = EAR_PHONE_get_level(); //add by gchen  @ 20111021 //ear phone volume line
+	printf("\ngU8EarPhoneChangeFlag1 = %d\n",gU8EarPhoneChangeFlag);
+#endif
 
 	LEDPWR_ENABLE(); //gchen @ 20171208
+	MsOS_DelayTask(100);
+	#if 0
+	int i = 0;
+	for(i=0;i<100;i++)
+	{
+		if(Opt_Check_get_level())
+		{
+			printf("MApi_PNL_En() LEDPWR_ENABLE 11111A;\n");
+			
+			MsOS_DelayTask(10);
+		}
+		else
+		{
+			printf("MApi_PNL_En() LEDPWR_ENABLE 11111B;\n");
+			MsOS_DelayTask(50);
+			i = 120;
+		}
+	}
+	#endif
+	dpp2600_config_blank(false);
+	Optical_YangMing_InputSourceSelect();
+	SetOpticalCurrent((U32)900);
+	MsOS_DelayTask(900);
+	dpp2600_config_blank(false);
+	Optical_YangMing_InputSourceSelect();
 	
+	MsOS_DelayTask(500);
+	SetOpticalCurrent((U32)900);
+	MsOS_DelayTask(900);
+	//stGenSetting.g_SysSetting.ProjectionType=EN_FRONT_CEILING;
+	devOPE_Long_Axis_Flip(TRUE);
+	devOPE_Short_Axis_Flip(TRUE);
+	MsOS_DelayTask(300);
+	//Optical_YangMing_InputSourceSelect();
+	//MsOS_DelayTask(300);
+	dpp2600_config_blank(TRUE);
     DEBUG_BOOT_TIME(DEBUG_FUNC_TIME_END());
 }
 
@@ -2452,10 +2609,7 @@ void MApp_PreInit_Logo_Init(void)
 	//Optical_YangMing_InputSourceSelect();
 
 	//Optical_YangMing_RGBCurrent();
-	
-	Optical_SetRes_854x480();
-	MsOS_DelayTask(500);
-	Optical_Led_OpenANDClose(1);
+
 #if (DISPLAY_LOGO)
 
     if( 1//(u8IsAutoSleep_Skip_Logo == FALSE)
@@ -2478,7 +2632,7 @@ void MApp_PreInit_Logo_Init(void)
         if(bLogoInitResult ) // use 30ms
         {
             MApp_Logo_Display(TRUE); // use 160ms			
-			keystone_correction(stGenSetting.g_SysSetting.KeyStoneValue);  //xzm @ 20171222			
+			//keystone_correction(stGenSetting.g_SysSetting.KeyStoneValue);  //xzm @ 20171222			
             MApp_PreInit_TurnOn_Backlight();	
 
             s_PreInit_bShowLogo = TRUE;
@@ -2812,7 +2966,7 @@ void MApp_PreInit_Source_Change_Init(void)
     msAPI_Joba_DeInit();
 #endif
 
-	UI_INPUT_SOURCE_TYPE = UI_INPUT_SOURCE_DMP; //gchen @ 20171213
+	UI_INPUT_SOURCE_TYPE = UI_INPUT_SOURCE_HDMI3;//gchen  @ 20180317 
 
 #if 0 //(XC_BRINGUP)
     UI_INPUT_SOURCE_TYPE = UI_INPUT_SOURCE_RGB;
@@ -2971,7 +3125,7 @@ void MApp_PreInit_Display_Step2_Init(void)
     MApp_UiPvr_Init();
 #endif
 	//<<gchen  @ 20171218
-	UI_INPUT_SOURCE_TYPE = UI_INPUT_SOURCE_DMP;
+	UI_INPUT_SOURCE_TYPE = UI_INPUT_SOURCE_HDMI3;//UI_INPUT_SOURCE_DMP;//gchen  @ 20180317
 	MApp_InputSource_SwitchSource(UI_INPUT_SOURCE_TYPE, MAIN_WINDOW);
 	MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_TYPE, NULL);   //@xzm for check Inputsource to DMP
     DEBUG_BOOT_TIME(DEBUG_FUNC_TIME_END());
@@ -3080,6 +3234,20 @@ void MApp_Power_On_Init_On(void)
         printf("[TIME] MApp_PreInit = %ld\n", gU32TmpTime);
     }
 #endif
+	//bTempHighFlag = FALSE; //MP333
+	
+	//gU8BatLowHavePowerOffFlag = 0;
+	//gU8BatLowPowerOffFlag = 0; //MP333
+	gU8BatLowPowerOffType = 0;
+	gU8BatLowHaveShowFlag = 0;
+	gU32BatLowStartTime = msAPI_Timer_GetTime0();
+	gU32BatLowDiffTime = msAPI_Timer_GetTime0();
+	gU32BatCheckStartTime = msAPI_Timer_GetTime0();
+	gU32PowerOffStartTime = msAPI_Timer_GetTime0();
+	gU8BatLowShowingFlag = 0;
+	gU8BatType = 0;
+	gU16BatLowCount = 0;
+	gU8BatLowLedRedFlag = 1;
 
 
 
@@ -3118,8 +3286,8 @@ void MApp_Power_On_Init_On(void)
     }
     else
     {
-        //MApp_TopStateMachine_SetTopState(STATE_TOP_ANALOG_SHOW_BANNER);
-		MApp_TopStateMachine_SetTopState(STATE_TOP_DMP); //gchen @ 20171220
+        MApp_TopStateMachine_SetTopState(STATE_TOP_ANALOG_SHOW_BANNER); //gchen @ 20180319 //MP333
+		//MApp_TopStateMachine_SetTopState(STATE_TOP_DMP); //gchen @ 20171220
     }
 #endif
 

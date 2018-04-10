@@ -3311,12 +3311,14 @@ void msAPI_Scaler_SetBlueScreen( BOOLEAN bEnable, U8 u8Color, U16 u16ScreenUnMut
             MApi_XC_SetFreeRunTiming();
         }
 
-        MApi_XC_SetDispWindowColor(astNoSignalColor[u8Color], eWindow);
+        //MApi_XC_SetDispWindowColor(astNoSignalColor[u8Color], eWindow); //gchen @ 20180319 //screen saver color //MP333
+        MApi_XC_SetDispWindowColor(astNoSignalColor[2], eWindow);
 
       #if ENABLE_3D_PROCESS
         if( eWindow == MAIN_WINDOW )
         {
-            MApi_XC_SetDispWindowColor(astNoSignalColor[u8Color], SUB_WINDOW);
+            //MApi_XC_SetDispWindowColor(astNoSignalColor[u8Color], SUB_WINDOW); //gchen @ 20180319 //screen saver color //MP333
+            MApi_XC_SetDispWindowColor(astNoSignalColor[2], SUB_WINDOW);
         }
       #endif
 
@@ -6601,7 +6603,7 @@ void MApi_XC_Sys_CheckMuteStatus(void)
     if( msAPI_Scaler_GetScreenMute(MAIN_WINDOW) )
     {
         //printf(" s_eScreenMuteStatus[0]=0x%X\n", msAPI_Scaler_GetScreenMute(MAIN_WINDOW));
-        msAPI_Scaler_PrintMuteClient(MAIN_WINDOW);
+        //msAPI_Scaler_PrintMuteClient(MAIN_WINDOW); //MP333 
     }
     else
     {

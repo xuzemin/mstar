@@ -474,7 +474,7 @@ extern U8 MApp_ZUI_ACT_GetTuningCountryIndexMax(void);
 extern U8 MApp_ZUI_ACT_GetTuningCountryIndex(void);
 extern LPTSTR MApp_ZUI_ACT_GetCountryStringByIndex(U8 u8Index);
 
-extern U16 stOsdLanguageList[];
+extern EN_LANGUAGE stOsdLanguageList[];
 extern U8 MApp_ZUI_ACT_GetOsdLanguageIndexMax(void);
 extern U8 MApp_ZUI_ACT_GetOsdLanguageListIndex(EN_LANGUAGE enCurLang);
 extern LPTSTR MApp_ZUI_ACT_GetOsdLanguageListString(U8 u8Index);
@@ -2516,6 +2516,13 @@ void MApp_ZUI_ACT_MainPageMenuKey(void)
                 MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_CC_OPTION);
                 break;
         #endif
+        #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+            case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+               MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
+               MApp_ZUI_ACT_ShowMainMenuBackground(HWND_MENU_BOTTOM_BALL_FOCUS_OPTION);
+               MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_OSD_LANG);
+               break;
+         #endif
         #if ENABLE_3D_PROCESS
             case EN_COMMON_SINGLELIST_3D_TYPE:
                 MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_SHOW);
@@ -8101,6 +8108,59 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMainMenuAction(U16 act)
             MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_OSDLANG_PAGE, SW_SHOW);
             MApp_ZUI_API_SetFocus(HWND_MENU_OPTION_OSDLANG_GRID);
             return TRUE;
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+        case EN_EXE_GOTO_LANGUAE_LIST_PAGE:
+            
+            _eCommonSingleMode = EN_COMMON_SINGLELIST_LANGUAE_PAGE;
+            MApp_ZUI_API_ShowWindow(HWND_MENU_MASK_BACKGROUND, SW_HIDE);
+            //MApp_ZUI_API_ShowWindow(HWND_MENU_BACKGROUND, SW_HIDE);
+            MApp_ZUI_API_ShowWindow(HWND_MENU_OPTION_PAGE, SW_HIDE);
+            MApp_ZUI_API_ShowWindow(HWND_MENU_TRANSPARENT_BG, SW_SHOW);
+            MApp_ZUI_API_ShowWindow(HWND_MENU_SINGLELIST_COMMON_PAGE, SW_SHOW);
+            switch(MApp_GetListMenuLanguagePosition(stGenSetting.g_SysSetting.Language))
+            {
+                case 1:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM1);
+                   break;
+                case 2:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM2);
+                   break;
+                case 3:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM3);
+                   break;
+                case 4:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM4);
+                   break;
+                case 5:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM5);
+                   break;
+                case 6:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM6);
+                   break;
+                case 7:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM7);
+                    break;   
+                case 8:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM8);
+                    break;
+                    
+                case 9:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM9);
+                    break;
+                case 10:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM10);
+                    break;
+                default:
+                    MApp_ZUI_CTL_DynamicListSetItemFocus(HWND_MENU_SINGLELIST_COMMON_PAGE_LIST, HWND_MENU_SINGLELIST_ITEM1);
+                   break;
+            }
+            return 0;
+
+            break;
+
+
+    
+#endif
     #if(ENABLE_ATSC)
         case EN_EXE_GOTO_SET_OSD_LAN_ATSC:
             _eCommonSingleMode = EN_COMMON_SINGLELIST_MENU_LANGUAGE;
@@ -9478,7 +9538,33 @@ void _MApp_ZUI_ACT_CombineSleepTimerString(LPTSTR str, U32 u32Timer)
     __MApp_UlongToString(u32SleepTime, str, u8SleepDigits);
     MApp_ZUI_API_LoadString(en_str_min, str + u8SleepDigits);
 }
+ #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+U16 MApp_ZUI_ACT_GetLangueListDynamicText(U8 item)
+{
+    EN_LANGUAGE CurLang;
+    
+    CurLang = MApp_GetListMenuLanguageByIndex(item);
 
+    //printf("ITEM %d = %d", item, CurLang);
+    if (CurLang == LANGUAGE_NONE)
+        return Empty;
+    else if (CurLang == LANGUAGE_ENGLISH)
+        return en_str_English;
+    else if (CurLang == LANGUAGE_FRENCH)
+        return en_strMenuLanguageFrenchText;
+    else if (CurLang == LANGUAGE_SPANISH)
+        return en_strMenuLanguageSpanishText;
+    else if (CurLang == LANGUAGE_PORTUGUESE)
+        return en_strMenuLanguagePortugueseText;
+#if (ENABLE_DTMB_CHINA_APP || ENABLE_ATV_CHINA_APP || ENABLE_DVBC_PLUS_DTMB_CHINA_APP)
+    else if (CurLang == LANGUAGE_CHINESE)
+        return en_strMenuLanguageChineseText;
+#endif 
+    else
+        return (en_strMenuLanguageCzechText + (CurLang - LANGUAGE_CZECH));
+}
+ #endif
+ 
 LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
 {
     U16 u16TempID = Empty;
@@ -9549,7 +9635,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_Menu_Language;
                     break;
             #endif
-
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = en_str_Language;
+             #endif
 #if (ENABLE_EDID_SWITCH)
                 case EN_COMMON_SINGLELIST_EDID:
                     u16TempID = en_str_EDID_Switch;
@@ -9628,6 +9717,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_EDID_1dot4;
                     break;
 #endif
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(1);
+            #endif
                 default:
                     break;
             }
@@ -9719,6 +9812,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_EDID_2dot0;
                     break;
 #endif
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(2);
+            #endif
                 default:
                     break;
             }
@@ -9801,6 +9898,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                 case EN_COMMON_SINGLELIST_EDID:
                     u16TempID = en_str_EDID_Switch;
 #endif
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(3);
+            #endif
                 default:
                     break;
             }
@@ -9870,6 +9971,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_Mountain;
                 break;
             #endif
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(4);
+            #endif
                 default:
                     break;
             }
@@ -9934,6 +10039,11 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                 case EN_COMMON_SINGLELIST_OSD_TIMEZONE:
                     u16TempID = en_str_Pacific;
                 break;
+            #endif
+
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(5);
             #endif
                 default:
                     break;
@@ -10000,6 +10110,11 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_Alaska;
                 break;
             #endif
+
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(6);
+            #endif
                 default:
                     break;
             }
@@ -10044,6 +10159,11 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_Hawaii;
                 break;
             #endif
+
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(7);
+            #endif
                 default:
                     break;
             }
@@ -10070,6 +10190,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     break;
             #endif
 
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(8);
+            #endif
                 default:
                     break;
             }
@@ -10096,6 +10220,10 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                     u16TempID = en_str_PointToPoint;
                     break;
 
+             #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    u16TempID = MApp_ZUI_ACT_GetLangueListDynamicText(9);
+            #endif
                 default:
                     break;
             }
@@ -10109,6 +10237,7 @@ LPTSTR MApp_ZUI_ACT_GetSingleListDynamicText(HWND hwnd)
                   #else
                     return MApp_ZUI_API_GetU16String(EN_F4_LockSystem_Min+9);
                   #endif
+
                 default:
                     break;
             }

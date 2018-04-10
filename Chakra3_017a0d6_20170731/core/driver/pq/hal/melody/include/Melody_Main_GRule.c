@@ -78,7 +78,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_NTSC_44, 0
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -215,7 +215,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_NTSC_M, 1
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -352,7 +352,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_PAL_BGHI, 2
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -489,7 +489,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_PAL_60, 3
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -626,7 +626,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_PAL_M, 4
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -763,7 +763,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_PAL_N, 5
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -900,7 +900,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//RF_SECAM, 6
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1037,7 +1037,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_NTSC_44, 7
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1174,7 +1174,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_NTSC_M, 8
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1311,7 +1311,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_PAL_BGHI, 9
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1448,7 +1448,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_PAL_60, 10
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1585,7 +1585,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_PAL_M, 11
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1722,7 +1722,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_PAL_N, 12
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1859,7 +1859,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//VIF_SECAM, 13
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -1996,7 +1996,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_NTSC_44, 14
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2133,7 +2133,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_NTSC_M, 15
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2270,7 +2270,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_PAL_BGHI, 16
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2407,7 +2407,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_PAL_60, 17
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2544,7 +2544,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_PAL_M, 18
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2681,7 +2681,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_PAL_N, 19
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2818,7 +2818,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SV_SECAM, 20
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -2955,7 +2955,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_NTSC_44, 21
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3092,7 +3092,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_NTSC_M, 22
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3229,7 +3229,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_PAL_BGHI, 23
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3366,7 +3366,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_PAL_60, 24
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3503,7 +3503,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_PAL_M, 25
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3640,7 +3640,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_PAL_N, 26
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3777,7 +3777,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//AV_SECAM, 27
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -3914,7 +3914,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_NTSC_44, 28
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4051,7 +4051,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_NTSC_M, 29
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4188,7 +4188,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_PAL_BGHI, 30
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4325,7 +4325,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_PAL_60, 31
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4462,7 +4462,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_PAL_M, 32
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4599,7 +4599,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_PAL_N, 33
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4736,7 +4736,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_AV_SECAM, 34
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -4873,7 +4873,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_NTSC_44, 35
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5010,7 +5010,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_NTSC_M, 36
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5147,7 +5147,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_PAL_BGHI, 37
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5284,7 +5284,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_PAL_60, 38
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5421,7 +5421,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_PAL_M, 39
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5558,7 +5558,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_PAL_N, 40
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5695,7 +5695,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_SV_SECAM, 41
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5832,7 +5832,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_RGB_NTSC, 42
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -5969,7 +5969,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//SCART_RGB_PAL, 43
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6106,7 +6106,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_480i, 44
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6243,7 +6243,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_576i, 45
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6380,7 +6380,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_480p, 46
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6517,7 +6517,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_576p, 47
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6654,7 +6654,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_720p_24hz, 48
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6791,7 +6791,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_720p_50hz, 49
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -6928,7 +6928,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_720p_60hz, 50
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7065,7 +7065,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_1080i_50hz, 51
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7202,7 +7202,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_1080i_60hz, 52
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7339,7 +7339,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_1080p_24hz, 53
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7476,7 +7476,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_1080p_50hz, 54
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7613,7 +7613,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//YPbPr_1080p_60hz, 55
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7750,7 +7750,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_480i, 56
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -7887,7 +7887,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_576i, 57
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8024,7 +8024,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_480p, 58
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8161,7 +8161,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_576p, 59
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8298,7 +8298,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_720p_24hz, 60
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8435,7 +8435,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_720p_50hz, 61
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8572,7 +8572,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_720p_60hz, 62
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8709,7 +8709,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_1080i_50hz, 63
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8846,7 +8846,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_1080i_60hz, 64
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -8983,7 +8983,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_1080p_24hz, 65
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9120,7 +9120,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_1080p_60hz, 66
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9257,7 +9257,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_1080p_50hz, 67
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9394,7 +9394,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hup_Vup, 68
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9531,7 +9531,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hup_Vdown, 69
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9668,7 +9668,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hup_Vno, 70
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9805,7 +9805,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hdown_Vup, 71
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -9942,7 +9942,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hdown_Vdown, 72
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10079,7 +10079,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hdown_Vno, 73
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10216,7 +10216,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hno_Vup, 74
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10353,7 +10353,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hno_Vdown, 75
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10490,7 +10490,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_444_PC_Hno_Vno, 76
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10627,7 +10627,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hup_Vup, 77
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10764,7 +10764,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hup_Vdown, 78
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -10901,7 +10901,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hup_Vno, 79
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11038,7 +11038,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hdown_Vup, 80
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11175,7 +11175,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hdown_Vdown, 81
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11312,7 +11312,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hdown_Vno, 82
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11449,7 +11449,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hno_Vup, 83
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11586,7 +11586,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hno_Vdown, 84
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11723,7 +11723,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//HDMI_422_PC_Hno_Vno, 85
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11860,7 +11860,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hup_Vup, 86
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -11997,7 +11997,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hup_Vdown, 87
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12134,7 +12134,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hup_Vno, 88
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12271,7 +12271,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hdown_Vup, 89
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12408,7 +12408,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hdown_Vdown, 90
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12545,7 +12545,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hdown_Vno, 91
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12682,7 +12682,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hno_Vup, 92
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12819,7 +12819,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hno_Vdown, 93
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -12956,7 +12956,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DVI_Dsub_HDMI_RGB_PC_Hno_Vno, 94
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13093,7 +13093,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480i_352x480_MPEG2, 95
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13230,7 +13230,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480i_MPEG2, 96
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13367,7 +13367,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_576i_MPEG2, 97
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13504,7 +13504,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480p_MPEG2, 98
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13641,7 +13641,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_576p_MPEG2, 99
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13778,7 +13778,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_24hz_MPEG2, 100
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -13915,7 +13915,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_50hz_MPEG2, 101
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14052,7 +14052,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_60hz_MPEG2, 102
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14189,7 +14189,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080i_50hz_MPEG2, 103
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14326,7 +14326,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080i_60hz_MPEG2, 104
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14463,7 +14463,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_24hz_MPEG2, 105
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14600,7 +14600,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_50hz_MPEG2, 106
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14737,7 +14737,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_60hz_MPEG2, 107
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -14874,7 +14874,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480i_352x480_H264, 108
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15011,7 +15011,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480i_H264, 109
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15148,7 +15148,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_576i_H264, 110
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15285,7 +15285,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_480p_H264, 111
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15422,7 +15422,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_576p_H264, 112
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15559,7 +15559,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_24hz_H264, 113
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15696,7 +15696,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_50hz_H264, 114
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15833,7 +15833,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_720p_60hz_H264, 115
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -15970,7 +15970,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080i_50hz_H264, 116
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16107,7 +16107,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080i_60hz_H264, 117
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16244,7 +16244,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_24hz_H264, 118
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16381,7 +16381,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_50hz_H264, 119
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16518,7 +16518,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_1080p_60hz_H264, 120
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16655,7 +16655,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_video_SD_interlace, 121
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16792,7 +16792,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_video_SD_progressive, 122
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -16929,7 +16929,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_video_HD_interlace, 123
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17066,7 +17066,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_video_HD_progressive, 124
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17203,7 +17203,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_photo_SD_progressive, 125
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17340,7 +17340,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//Multimedia_photo_HD_progressive, 126
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17477,7 +17477,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_iFrame_SD_interlace, 127
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17614,7 +17614,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_iFrame_SD_progressive, 128
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17751,7 +17751,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_iFrame_HD_interlace, 129
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -17888,7 +17888,7 @@ code U8 MST_GRule_NR_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_NR_NUM_Main][PQ_GRULE_
     {//DTV_iFrame_HD_progressive, 130
         {//Off
             PQ_IP_PreSNR_OFF_Main,
-            PQ_IP_DNR_NR_OFF_Main,
+            PQ_IP_DNR_DNR_OFF_Main,
             PQ_IP_DNR_Y_OFF_Main,
             PQ_IP_DNR_C_OFF_Main,
             PQ_IP_UCNR_OFF_Main,
@@ -20645,27 +20645,27 @@ code U8 MST_GRule_OSD_BW_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_OSD_BW_NUM_Main][P
     #if PQ_QM_HMDI
     {//HDMI_1080p_24hz, 65
         {//On_1920
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_32_1920
@@ -20681,27 +20681,27 @@ code U8 MST_GRule_OSD_BW_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_OSD_BW_NUM_Main][P
     #if PQ_QM_HMDI
     {//HDMI_1080p_60hz, 66
         {//On_1920
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_32_1920
@@ -20717,27 +20717,27 @@ code U8 MST_GRule_OSD_BW_Main[QM_INPUTTYPE_NUM_Main][PQ_GRULE_OSD_BW_NUM_Main][P
     #if PQ_QM_HMDI
     {//HDMI_1080p_50hz, 67
         {//On_1920
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1920_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_PIP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_1366_POP
-            PQ_IP_MADi_P_MODE_MOT8_Main,
+            PQ_IP_MADi_P_MODE10_Main,
             PQ_IP_MADi_Motion_MOT_PMODE_Main,
         },
         {//On_32_1920

@@ -273,7 +273,7 @@
 #endif
 
 // JPEG: Logo
-#define BIN_ID_JPEG_BOOT_LOGO_DVB       0x0300  //~50KB   //@..\..\..\tv-ap\dvb\ui2\logo\Portronics_logo.jpg
+#define BIN_ID_JPEG_BOOT_LOGO_DVB       0x0300  //~75KB   //@..\..\..\tv-ap\dvb\ui2\logo\insignia_logo.jpg
 
 #define BIN_ID_MELODY_ON_DVB            0x0701  //~55KB   //@..\..\..\tv-ap\dvb\ui2\logo\mp3.mp3
 

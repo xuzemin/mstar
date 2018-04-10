@@ -199,7 +199,7 @@
 #define ENABLE_HDMI                     ENABLE
 #define ENABLE_HDMI_AUDIO_APP           ENABLE
 #define ENABLE_HDMI_AR_CHECK            ENABLE
-#define HDCP_KEY_TYPE                   HDCP_KEY_IN_CODE  //HDCP_KEY_IN_CODE
+#define HDCP_KEY_TYPE                   HDCP_KEY_IN_DB//HDCP_KEY_IN_CODE  //HDCP_KEY_IN_CODE
 #ifdef ENABLE_SW_CEC_WAKEUP
 #undef ENABLE_SW_CEC_WAKEUP
 #endif
@@ -335,7 +335,7 @@
     #define ENABLE_AUDIO_NR                 ENABLE
     #define ENABLE_BGM                      ENABLE //enable it to allow playing background music when photo slide show
     #define ENABLE_COPY_PASTE               DISABLE //enable it to allow copy&paste media file
-    #define ENABLE_POWERON_MUSIC            ENABLE // after T3 checking ok, turn on it again //enable it to play music when system boot up
+    #define ENABLE_POWERON_MUSIC            DISABLE // after T3 checking ok, turn on it again //enable it to play music when system boot up
     #define POWERON_MUSIC_MIN_HOLD_ON_TIME  3000   //When ENABLE_POWERON_MUSIC==1, music should play at least xx ms until cancelled
     #define DISPLAY_LOGO                    ENABLE  // after T3 checking ok, turn on it again //enable it to display LOGO when system boot up
 #if ENABLE_MPLAYER_MOVIE
@@ -372,7 +372,7 @@
     #define COMPOSER_BMP_LOADER             DISABLE //--->need to define in board_type.h
     #define CHANNEL_ADD_AND_MERGE_FUNC      DISABLE
     #define ENABLE_BGM                      DISABLE //enable it to allow playing background music when photo slide show
-    #define ENABLE_POWERON_MUSIC            ENABLE//DISABLE //enable it to play music when system boot up
+    #define ENABLE_POWERON_MUSIC            DISABLE //enable it to play music when system boot up
     #define DISPLAY_LOGO                    DISABLE //enable it to display LOGO when system boot up
 
     #define ENABLE_SUBTITLE_DMP             DISABLE //enable it to support MM subtitle
@@ -464,7 +464,7 @@
 #define POWER_CONTROL                   ENABLE
 
 //----WatchDog-------------------------------------------------------------------
-#define WATCH_DOG                       DISABLE
+#define WATCH_DOG                       ENABLE//DISABLE //gchen @ 20180308 //enable watch dog
 
 //----ADC GAIN CAL---------------------------------------------------------------
 #define ADC_AUTO_GAIN_CABLICATION_WITHOUT_EXT_SIGNAL        ENABLE
@@ -800,7 +800,7 @@
 #define ENABLE_BL_OAD_SCAN                    DISABLE
 #endif //(BLOADER)
 
-#define ENABLE_3D_PROCESS                               ENABLE
+#define ENABLE_3D_PROCESS                               DISABLE //ENABLE //gchen @ 20180321 //MP333
 #define ENABLE_MFC_6M20                                 0
 #define ENABLE_MFC_6M30                                 0
 #define ENABLE_E_POP                                    DISABLE

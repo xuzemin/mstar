@@ -450,6 +450,22 @@ static HWND _hwndListPlaylistItem[UI_DMP_PLAYLIST_NUMBER] =
     HWND_DMP_PLAYBACK_PLAYLIST_ITEM10,
 };
 
+static HWND _hwndPlayListFileString[UI_DMP_PLAYLIST_NUMBER] =
+{
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM1_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM2_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM3_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM4_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM5_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM6_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM7_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM8_STRING,
+    HWND_DMP_PLAYBACK_PLAYLIST_ITEM9_STRING,
+	HWND_DMP_PLAYBACK_PLAYLIST_ITEM10_STRING,
+   // HWND_DMP_FILE_PAGE_THUMB_ITEM11_ICON,//wht1203017_12
+   // HWND_DMP_FILE_PAGE_THUMB_ITEM12_ICON
+};
+
 static HWND _hwndListInfoBar[DMP_INFOBAR_ICON_NUM]=
 {
     HWND_DMP_PLAYBACK_INFOBAR_ITEM1,
@@ -1558,7 +1574,7 @@ static void _MApp_ZUI_ACT_DrawZoomMap(BOOLEAN bCreatGwin, U16 startX, U16 startY
         Capture.height = (Image.top+Image.height) - Capture.top;
 
     //***3. Move ZUI Screen, Image, Capture layout***//
-    MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_ZOOMMAP_GROUP, SW_SHOW);
+    //MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_ZOOMMAP_GROUP, SW_SHOW);
     U16 u16ScreenX;   //Jiangwen 20140411
     if(startX > (ZUI_DMP_WIDTH - Screen.width - startY))
     {
@@ -1568,7 +1584,7 @@ static void _MApp_ZUI_ACT_DrawZoomMap(BOOLEAN bCreatGwin, U16 startX, U16 startY
     {
         u16ScreenX = startX;
     }
-    MApp_ZUI_API_MoveWindowByOffset(HWND_DMP_PLAYBACK_ZOOMMAP_GROUP, u16ScreenX, startY, Screen.width, Screen.height);
+    //MApp_ZUI_API_MoveWindowByOffset(HWND_DMP_PLAYBACK_ZOOMMAP_GROUP, u16ScreenX, startY, Screen.width, Screen.height);
     MApp_ZUI_API_MoveWindowByOffset(HWND_DMP_PLAYBACK_ZOOMMAP_SCREEN, u16ScreenX, startY, Screen.width, Screen.height);
     MApp_ZUI_API_MoveWindowByOffset(HWND_DMP_PLAYBACK_ZOOMMAP_IMAGE, u16ScreenX+Image.left, startY+Image.top, Image.width, Image.height);
     MApp_ZUI_API_MoveWindowByOffset(HWND_DMP_PLAYBACK_ZOOMMAP_CAPTURE, u16ScreenX+Capture.left, startY+Capture.top, Capture.width, Capture.height);
@@ -2379,6 +2395,15 @@ static U8 u8CurrentPlaylistTotalPage; // non-zero base
 static BOOLEAN bIsBGMPlaylist;
 #endif
 
+static void _Mapp_ACTdmp_Playback_MarqueeText(U16 number){
+	U8 i;
+    for(i = 0; i < UI_DMP_PLAYLIST_NUMBER; i++)
+    {
+		_MApp_ZUI_ACT_DMPMarqueeTextEnableAnimation(_hwndPlayListFileString[i],FALSE);
+    }
+	_MApp_ZUI_ACT_DMPMarqueeTextEnableAnimation(_hwndPlayListFileString[number],TRUE);
+}
+
 static void _MApp_ACTdmp_Playback_ShowPlaylistWin(enumMPlayerMediaType eMediaType, bool bSetFoucsOnCurrentPlayingIdx)
 {
     #define PLAYLIST_ARROW_UP_CURRENT_WIDTH 16//24    //wht120512_3  21->24
@@ -2618,6 +2643,7 @@ static void _MApp_ACTdmp_Playback_ShowInfoWin(enumMPlayerMediaType eMediaType)
                 MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_MOVIEINFO_GOTOTIME_GROUP, SW_HIDE);
                 MApp_ZUI_API_SetFocus(_hwndListInfoBar[MOVIEINFO_GOTO_TIME%DMP_INFOBAR_ICON_NUM]);
                 MApp_ZUI_API_StoreFocusCheckpoint();
+				_MApp_ZUI_ACT_DMPMarqueeTextEnableAnimation();
             }
 			#endif
             else if (MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_MOVEVIEW_GROUP))
@@ -2794,9 +2820,9 @@ static void _MApp_ACTdmp_Playback_ShowInfoWin(enumMPlayerMediaType eMediaType)
             MApp_ZUI_API_SetFocus(_hwndListInfoBar[_u8InfoBarIdx%DMP_INFOBAR_ICON_NUM]);
 			}*/
 			MApp_ZUI_API_RestoreFocusCheckpoint();
-    }
-    else
-    {
+		}
+		else
+		{
             if(MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, hWnd))
                 MApp_ZUI_API_RestoreFocusCheckpoint();
             else
@@ -2807,7 +2833,8 @@ static void _MApp_ACTdmp_Playback_ShowInfoWin(enumMPlayerMediaType eMediaType)
     {
         MApp_ZUI_API_SetFocus(_hwndListInfoBar[_u8InfoBarIdx%DMP_INFOBAR_ICON_NUM]);
     }
-    MApp_ZUI_API_InvalidateAllSuccessors(HWND_DMP_PLAYBACK_INFO_PANE);
+    //MApp_ZUI_API_InvalidateAllSuccessors(HWND_DMP_PLAYBACK_INFO_PANE);
+	//MApp_ZUI_API_RestoreFocusCheckpoint();
 }
 
 static void _MApp_ACTdmp_Playback_HideInfoWin(void)
@@ -3844,6 +3871,10 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
             {
                 MApp_ZUI_ACT_ExecuteDmpAction( EN_EXE_DMP_PLAYBACK_TEXTINFO_STOP);
             }
+			
+			if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+			MApp_ZUI_API_RestoreFocusCheckpoint();
+			
             return TRUE;
         case VK_PLAY:
 #if ENABLE_ATSC_TTS
@@ -3852,10 +3883,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
 #endif		
 			printf("hotkey VK_PLAY \n");
             //DMP_DBG(printf("hotkey VK_PLAY \n"););
-            if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, MApp_ZUI_API_GetFocus()))
-            {
-                MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, SW_HIDE);
-            }
             //MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_INFOBAR_GROUP,TRUE);
             if(MApp_MPlayer_IsMediaFileInPlaying() && (MApp_DMP_GetDmpFlag()& DMP_FLAG_MEDIA_FILE_PLAYING))
             {
@@ -3863,11 +3890,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                 {
                     case E_MPLAYER_TYPE_MUSIC:
                     {
-                        if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_MUSICINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                        {
-                            MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_MUSICINFO_INFO_GROUP,SW_HIDE);
-                        }
-
                         if(MApp_MPlayer_QueryMusicPlayMode() == E_MPLAYER_MUSIC_NORMAL)
                         {
                             MApp_MPlayer_MusicChangePlayMode(E_MPLAYER_MUSIC_PAUSE);
@@ -3950,10 +3972,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                             DMP_MovieInfoBarTable[MOVIEINFO_PLAY_PAUSE][INFOBAR_BMP_IDX] = E_BMP_DMP_BUTTON_ICON_PAUSE;IsPause = 1 ;
                             DMP_MovieInfoBarTable[MOVIEINFO_PLAY_PAUSE][INFOBAR_STR_IDX] = en_str_Pause;
                         }
-                        if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                        {
-                            MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_GROUP,SW_HIDE);
-                        }
                         MApp_ZUI_API_InvalidateAllSuccessors(HWND_DMP_PLAYBACK_INFOBAR_GROUP);
                         MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_STATUS_GROUP, SW_SHOW);
                         MApp_ZUI_API_SetTimer(HWND_DMP_PLAYBACK_STATUS_GROUP, DMP_TIMER_PLAY_STATUS_WIN, DMP_TIME_MS_PLAY_STATUS_WIN);
@@ -3983,10 +4001,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                     #endif
                     case E_MPLAYER_TYPE_PHOTO:
                     {
-                        if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PHOTOINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                        {
-                            MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_PHOTOINFO_INFO_GROUP,SW_HIDE);
-                        }
 
                         if(MApp_MPlayer_QueryPhotoPlayMode() == E_MPLAYER_PHOTO_PAUSE)
                         {
@@ -4038,9 +4052,13 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                     default:
                         break;
                 }
-
+				
+				if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+					MApp_ZUI_API_RestoreFocusCheckpoint();
                 return TRUE;
             }
+			if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+				MApp_ZUI_API_RestoreFocusCheckpoint();
             return FALSE;
         case VK_PAUSE:
 			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, 0, 0); //@xzm for exit audio
@@ -4049,10 +4067,10 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
             MApp_TTSControlSetInputText(MApp_ZUI_API_GetString(en_str_Pause), MApp_UiMenu_u16Strlen(MApp_ZUI_API_GetString(en_str_Pause)));
             MApp_TTSControlSetOn(TRUE);
 #endif
-            if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, MApp_ZUI_API_GetFocus()))
+            /*if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, MApp_ZUI_API_GetFocus()))
             {
                 MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, SW_HIDE);
-            }
+            }*/
             if(MApp_MPlayer_IsMediaFileInPlaying() && (MApp_DMP_GetDmpFlag()& DMP_FLAG_MEDIA_FILE_PLAYING))
             {
 #if ENABLE_DVD
@@ -4073,11 +4091,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                 {
                     case E_MPLAYER_TYPE_MUSIC:
                         {
-                            if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_MUSICINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                            {
-                                MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_MUSICINFO_INFO_GROUP,SW_HIDE);
-                            }
-
                             switch(MApp_MPlayer_QueryMusicPlayMode())
                             {
                                 case E_MPLAYER_MUSIC_STOP:
@@ -4095,10 +4108,10 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                                     MApp_ZUI_API_InvalidateAllSuccessors(HWND_DMP_PLAYBACK_INFOBAR_GROUP);
                                     break;
                             }
-                            /*if(MApp_ZUI_API_IsExistTimer(HWND_DMP_PLAYBACK_MUSIC_EQ_GROUP, DMP_TIMER_EQ_PLAY))
+                            if(MApp_ZUI_API_IsExistTimer(HWND_DMP_PLAYBACK_MUSIC_EQ_GROUP, DMP_TIMER_EQ_PLAY))
                             {
                                 MApp_ZUI_API_KillTimer(HWND_DMP_PLAYBACK_MUSIC_EQ_GROUP, DMP_TIMER_EQ_PLAY);
-                            }*/
+                            }
 
                             if (_u8InfoBarIdx >= DMP_INFOBAR_ICON_NUM)
                             {
@@ -4111,12 +4124,10 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                                     }
                                 }
                                 _u8InfoBarIdx-= DMP_INFOBAR_ICON_NUM;
-                                // MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_INFOBAR_ITEM1);
                                  MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_MOVIERESUME_YES);
                             }
                             else
                             {
-                               // MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_INFOBAR_ITEM1);
                                 MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_MOVIERESUME_YES);
                             }
 
@@ -4150,11 +4161,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                                 //do nothing
                             }
 
-                            if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                            {
-                                MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_GROUP,SW_HIDE);
-                            }
-
                             if (_u8InfoBarIdx >= DMP_INFOBAR_ICON_NUM)
                             {
                                 if (_u8InfoBarIdx+DMP_INFOBAR_ICON_NUM > u8MovieInfoBarMax)
@@ -4180,11 +4186,6 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                         #endif
                     case E_MPLAYER_TYPE_PHOTO:
                         {
-                            if (MApp_ZUI_API_IsSuccessor(HWND_DMP_PLAYBACK_PHOTOINFO_INFO_GROUP, MApp_ZUI_API_GetFocus()))
-                            {
-                                MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_PHOTOINFO_INFO_GROUP,SW_HIDE);
-                            }
-
                             if(MApp_MPlayer_QueryPhotoPlayMode() == E_MPLAYER_PHOTO_PAUSE)
                             {
                                 // do nothing
@@ -4213,12 +4214,10 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                                     }
                                 }
                                 _u8InfoBarIdx-= DMP_INFOBAR_ICON_NUM;
-                                 //MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_INFOBAR_ITEM1);
                                  MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_MOVIERESUME_YES);
                             }
                             else
                             {
-                                //MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_INFOBAR_ITEM1);
                                 MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_MOVIERESUME_YES);
                             }
 
@@ -4231,9 +4230,15 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                     default:
                         break;
                 }
+				if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+					MApp_ZUI_API_RestoreFocusCheckpoint();
+				
 				msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);//@xzm for exit audio
                 return TRUE;
             }
+			if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+				MApp_ZUI_API_RestoreFocusCheckpoint();
+				
 			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);//@xzm for exit audio
             return FALSE;
         case VK_REWIND:
@@ -4700,7 +4705,21 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                 MApp_KeyProc_Mute();
             }
             return TRUE;
-
+#if 0
+		 case VK_TEMP_DET: //add by gchen @ 20111006 //bat low warning
+		     {
+				 u8KeyCode = KEY_NULL;
+				 MApp_UiMenu_TempDetWin_Show();
+		     }
+		     return TRUE;
+#endif
+	 case VK_BAT_LOW: //wht141014_8
+	     {
+	        printf("DMP DMP DMP VK_BAT_LOW\n\n\n");
+			u8KeyCode = KEY_NULL;
+			MApp_UiMenu_BatLowWin_Show();
+	     }
+	     return TRUE;
         /*
         case VK_BLUE:
             _MApp_ACTdmp_ShowAlertWin(DMP_MSG_TYPE_INVALID_OPERATION);
@@ -9092,6 +9111,11 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
         case EN_EXE_DMP_PLAYBACK_PLAYLIST_CANCEL:
         {
             MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_PLAYLIST_GROUP, SW_HIDE);
+			U8 i;
+			for(i = 0; i < UI_DMP_PLAYLIST_NUMBER; i++)
+			{
+				_MApp_ZUI_ACT_DMPMarqueeTextEnableAnimation(_hwndPlayListFileString[i],FALSE);
+			}
             enumMPlayerMediaType eMediaType= MApp_MPlayer_QueryCurrentMediaType();
             switch (eMediaType)
             {
@@ -9152,22 +9176,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
             MApp_ZUI_API_SetFocus(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_AUDIOTRACK_TEXT);
             _MApp_ZUI_ACT_DMPMarqueeTextEnableAnimation(
             HWND_DMP_PLAYBACK_MOVIEINFO_INFO_FILENAME_TEXT,TRUE);
-
-            if ((_stDmpPlayVar.stMovieInfo.bSubtitleOff == FALSE) && (MApp_MPlayer_IsCurSubtitleExternal() == TRUE))
-            {
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, ENABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, ENABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, ENABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, ENABLE);
-
-            }
-            else
-            {
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, DISABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, DISABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, DISABLE);
-                MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, DISABLE);
-            }
         }
             break;
         case EN_EXE_DMP_PLAYBACK_MOVIEINFO_INFO_AUDIOTRACK_TEXT_R:
@@ -9321,30 +9329,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     // check subtitle sync.
                     // On + External subtitle => Enable sync,
                     // other                  => Disable sync.
-                    if ((_stDmpPlayVar.stMovieInfo.bSubtitleOff == FALSE) && (MApp_MPlayer_IsCurSubtitleExternal() == TRUE))
-                    {
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, ENABLE);
-
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
-                    }
-                    else
-                    {
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, DISABLE);
-
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
-                    }
 
                     // clear previous subtitle?
                     memset((U8*)_stDmpPlayVar.stMovieInfo.MPlayerSubtitleBuf, 0, DMP_STRING_BUF_SIZE);
@@ -9417,30 +9401,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     // check subtitle sync.
                     // On + External subtitle => Enable sync,
                     // other                  => Disable sync.
-                    if ((_stDmpPlayVar.stMovieInfo.bSubtitleOff == FALSE) && (MApp_MPlayer_IsCurSubtitleExternal() == TRUE))
-                    {
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, ENABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, ENABLE);
-
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
-                    }
-                    else
-                    {
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE, DISABLE);
-                        MApp_ZUI_API_EnableWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT, DISABLE);
-
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE);
-                        MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
-                    }
 
                     // clear previous subtitle?
                     memset((U8*)_stDmpPlayVar.stMovieInfo.MPlayerSubtitleBuf, 0, DMP_STRING_BUF_SIZE);
@@ -9473,7 +9433,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     // clear previous subtitle?
                     //memset((U8*)_stDmpPlayVar.stMovieInfo.MPlayerSubtitleBuf, 0, DMP_STRING_BUF_SIZE);
                     MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_SUBTITLE_PAGE);
-                    MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT);
                 }
             #endif // #if (ENABLE_SUBTITLE_DMP)
             }
@@ -9540,7 +9499,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                         break;
                      }
                      MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_SUBTITLE_PAGE);
-                     MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
                 }
             #endif // #if (ENABLE_SUBTITLE_DMP)
             }
@@ -9607,7 +9565,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                         break;
                      }
                      MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_SUBTITLE_PAGE);
-                     MApp_ZUI_API_InvalidateWindow(HWND_DMP_PLAYBACK_MOVIEINFO_INFO_CODEPAGE_TEXT);
                 }
             #endif // #if (ENABLE_SUBTITLE_DMP)
             }
@@ -10428,7 +10385,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     #if ENABLE_ZOOM_MAP
                     if (MApp_MPlayer_QueryCurrentMediaType() == E_MPLAYER_TYPE_PHOTO)
                     {
-                        _MApp_ZUI_ACT_DrawZoomMap(TRUE, ZOOM_MAP_START_X, ZOOM_MAP_START_Y, ZOOM_MAP_FACTOR);
+                        //_MApp_ZUI_ACT_DrawZoomMap(TRUE, ZOOM_MAP_START_X, ZOOM_MAP_START_Y, ZOOM_MAP_FACTOR);
                     }
                     #else
                         MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_ZOOMMAP_GROUP, SW_HIDE);
@@ -10626,24 +10583,17 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
 
             break;
         case EN_EXE_DMP_PLAYBACK_PHOTOINFO_NEXT:
-            DMP_DBG(printf("EN_EXE_DMP_PLAYBACK_PHOTOINFO_NEXT"););
+             DMP_DBG(printf("EN_EXE_DMP_PLAYBACK_PHOTOINFO_NEXT"););
             {
-                if (MApp_MPlayer_QueryPhotoPlayMode() == E_MPLAYER_PHOTO_PAUSE)
+                 if (MApp_MPlayer_QueryPhotoPlayMode() == E_MPLAYER_PHOTO_PAUSE)
                 {
-                    DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_BMP_IDX] = E_BMP_DMP_BUTTON_ICON_PAUSE;IsPause = 1 ;
+                    DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_BMP_IDX] = E_BMP_DMP_BUTTON_ICON_PAUSE;
                     DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_STR_IDX] = en_str_Pause;
                 }
-                if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_ALERT_WINDOW))
-                {
-                    MApp_ZUI_API_ShowWindow(HWND_DMP_ALERT_WINDOW,SW_HIDE);
-                }
-                MApp_MPlayer_PlayNextFile();
+				if(MApp_MPlayer_QueryRepeatMode() != E_MPLAYER_REPEAT_1)//wht120522_5
+                	MApp_MPlayer_PlayNextFile();
                 m_u16PlayErrorNum = 0;
-                #if (ENABLE_DRM)
-                m_u16DRMErrorNum = 0;
-                #endif
                 MApp_MPlayer_SetPhotoSlideShowDelayTime(DEFAULT_PHOTO_SLIDESHOW_DELAY_TIME);
-                MApp_MPlayer_SetPlayerErrorDelayTime(E_MPLAYER_TYPE_PHOTO, DEFAULT_PHOTO_ERROR_DELAY_TIME);
                 _enDmpPlayStrType =_enDmpPlayIconType = PLAY_MODE_ICON_NEXT;
                 MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_STATUS_GROUP, SW_SHOW);
                 MApp_ZUI_API_SetTimer(HWND_DMP_PLAYBACK_STATUS_GROUP, DMP_TIMER_PLAY_STATUS_WIN, DMP_TIME_MS_PLAY_STATUS_WIN);
@@ -10655,20 +10605,13 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
             {
                 if (MApp_MPlayer_QueryPhotoPlayMode() == E_MPLAYER_PHOTO_PAUSE)
                 {
-                    DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_BMP_IDX] = E_BMP_DMP_BUTTON_ICON_PAUSE;IsPause = 1 ;
+                    DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_BMP_IDX] = E_BMP_DMP_BUTTON_ICON_PAUSE;
                     DMP_PhotoInfoBarTable[PHOTOINFO_PLAY_PAUSE][INFOBAR_STR_IDX] = en_str_Pause;
                 }
-                if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_ALERT_WINDOW))
-                {
-                    MApp_ZUI_API_ShowWindow(HWND_DMP_ALERT_WINDOW,SW_HIDE);
-                }
-                MApp_MPlayer_PlayPrevFile();
+				if(MApp_MPlayer_QueryRepeatMode() != E_MPLAYER_REPEAT_1)//wht120522_5
+                	MApp_MPlayer_PlayPrevFile();
                 m_u16PlayErrorNum = 0;
-                #if (ENABLE_DRM)
-                m_u16DRMErrorNum = 0;
-                #endif
                 MApp_MPlayer_SetPhotoSlideShowDelayTime(DEFAULT_PHOTO_SLIDESHOW_DELAY_TIME);
-                MApp_MPlayer_SetPlayerErrorDelayTime(E_MPLAYER_TYPE_PHOTO, DEFAULT_PHOTO_ERROR_DELAY_TIME);
                 _enDmpPlayStrType =_enDmpPlayIconType = PLAY_MODE_ICON_PREVIOUS;
                 MApp_ZUI_API_ShowWindow(HWND_DMP_PLAYBACK_STATUS_GROUP, SW_SHOW);
                 MApp_ZUI_API_SetTimer(HWND_DMP_PLAYBACK_STATUS_GROUP, DMP_TIMER_PLAY_STATUS_WIN, DMP_TIME_MS_PLAY_STATUS_WIN);
@@ -11849,6 +11792,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     MApp_ZUI_API_SetFocus(_hwndListPlaylistItem[UI_DMP_PLAYLIST_NUMBER-1]);
                 }
             }
+			_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2);
             return TRUE;
         case EN_EXE_DMP_PLAYBACK_PLAYLIST_PAGEUP:
             DMP_DBG(printf("EN_EXE_DMP_PLAYBACK_PLAYLIST_PAGEUP\n"););
@@ -11864,7 +11808,11 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     _MApp_ACTdmp_Playback_ShowPlaylistWin(eMediaType, FALSE);
                 }
             }
+			_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2);
             return TRUE;
+		case EN_EXE_DMP_PLAYBACK_PLAYLIST_UP:
+			_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2-1);
+			break;
         case EN_EXE_DMP_PLAYBACK_PLAYLIST_DOWN:
             DMP_DBG(printf("EN_EXE_DMP_PLAYBACK_PLAYLIST_DOWN\n"););
             {
@@ -11884,7 +11832,6 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                 U16 u16FocusIdx;
                 u16FocusIdx = (MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2;
                 u16FocusIdx += u8CurrentPlaylistPageIdx * UI_DMP_PLAYLIST_NUMBER;
-
                 if(u16PlaylistTotalFileNum == 0) // no selected files
                 {
                     u16PlaylistTotalFileNum = MApp_MPlayer_QueryTotalFileNum();
@@ -11905,6 +11852,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                     }
 #endif
                     //last turn;
+					//_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2);
                     return TRUE;
                 }
 #if PLAYLIST_BGM
@@ -11915,6 +11863,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                 }
 #endif
             }
+			_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2+1);
             break;
         case EN_EXE_DMP_PLAYBACK_PLAYLIST_PAGEDOWN:
             DMP_DBG(printf("EN_EXE_DMP_PLAYBACK_PLAYLIST_PAGEDOWN\n"););
@@ -11982,6 +11931,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                         u8CurrentPlaylistPageIdx++;
                     }
                 }
+
                 _MApp_ACTdmp_Playback_ShowPlaylistWin(eMediaType, FALSE);
 #if PLAYLIST_BGM
                 if (bIsBGMPlaylist == TRUE)
@@ -11991,6 +11941,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteDmpAction(U16 act)
                 }
 #endif
             }
+			_Mapp_ACTdmp_Playback_MarqueeText((MApp_ZUI_API_GetFocus() - _hwndListPlaylistItem[0])/2);
             return TRUE;
         case EN_EXE_DMP_PLAYBACK_PLAYLIST_SELECT:
             // TODO: can not across different directories, need to change
@@ -12889,7 +12840,6 @@ extern U32* MApp_TEXT_GetCurrentLineText(BOOLEAN);
 LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
 {
     memset((void*)CHAR_BUFFER, '\0', 128);
-	
 #ifndef ATSC_SYSTEM
     U16 u16TempID = Empty;
 #endif
@@ -15001,7 +14951,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             }
             FS_ASCII2Unicode((U8*)CHAR_BUFFER);
             break;
-        case HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT:
+        /*case HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SYNC_TEXT:
             {
                 if (!MApp_MPlayer_IsMoviePlaying() && (MApp_MPlayer_QueryPreviewState(E_MPLAYER_TYPE_MOVIE) !=E_MOVIE_PREVIEW_RUNNING))
                 {
@@ -15094,6 +15044,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             }
             FS_ASCII2Unicode((U8*)CHAR_BUFFER);
             break;
+			*/
         case HWND_DMP_PLAYBACK_MOVIEINFO_INFO_PROGRAM_TEXT:
             {
                 if (!MApp_MPlayer_IsMoviePlaying() && (MApp_MPlayer_QueryPreviewState(E_MPLAYER_TYPE_MOVIE) !=E_MOVIE_PREVIEW_RUNNING))
@@ -15336,36 +15287,25 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
         case HWND_DMP_PLAYBACK_MUSICINFO_INFO_ALBUM_TEXT:
             {
                 U8 *pu8Data;
-                U8 u8Length = 0;
+                U8 u8Length;
                 pu8Data = MApp_MPlayer_QueryMusicInfo(MP3_INFO_ALBUM,&u8Length);
+                //memset((U8 *)CHAR_BUFFER,0,u8Length*2);
 
-                if(pu8Data == NULL || u8Length == 0)
+                if(pu8Data[0]==0x00)
                 {
-                    DMP_DBG(printf("Query music album information failed.\n");)
-                    //Clear CHAR_BUFFER.
-                    memset((U8 *)CHAR_BUFFER, 0, STRING_BUFFER_LENGTH*2);
+                    // TODO: fix me!!
+                    _MApp_DMP_GB2Unicode(pu8Data+1, (U8 *)CHAR_BUFFER, u8Length-1); // [u8Length*2-2] = 0 , [u8Length*2-1]=0  String end
                 }
-                else
+                else if(pu8Data[0]==0x03)
                 {
-                    memset((U8 *)CHAR_BUFFER,0,u8Length*2);
-
-                    if(pu8Data[0]==0x00)
-                    {
-                        // TODO: fix me!!
-                        _MApp_DMP_GB2Unicode(pu8Data+1, (U8 *)CHAR_BUFFER, u8Length-1); // [u8Length*2-2] = 0 , [u8Length*2-1]=0  String end
-                    }
-                    else if(pu8Data[0]==0x03)
-                    {
-                        msAPI_OCP_MappinUTF8ToUCS2(pu8Data+1, CHAR_BUFFER, u8Length-1, u8Length-1);
-                    }
-                    else //if(pu8Data[0]==0x01)
-                    {
-                        memcpy(CHAR_BUFFER,pu8Data+1,u8Length-1);  // [u8Length-2] = 0 , [u8Length-1]=0  String end
-                    }
+                    msAPI_OCP_MappinUTF8ToUCS2(pu8Data+1, CHAR_BUFFER, u8Length-1, u8Length-1);
+                }
+                else //if(pu8Data[0]==0x01)
+                {
+                    memcpy(CHAR_BUFFER,pu8Data+1,u8Length-1);  // [u8Length-2] = 0 , [u8Length-1]=0  String end
                 }
             }
             break;
-
         case HWND_DMP_PLAYBACK_MUSICINFO_INFO_TITLE_TEXT:
             {
                 U8 *pu8Data;
@@ -15473,19 +15413,11 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
         case HWND_DMP_PLAYBACK_MUSICINFO_INFO_YEAR_TEXT:
             {
                 U8 *pu8Data;
-                U8 u8Length = 0; // Give default value "0"
+                U8 u8Length;
                 pu8Data=MApp_MPlayer_QueryMusicInfo(MP3_INFO_YEAR,&u8Length);
-
-                if(pu8Data == NULL || u8Length == 0)
+                memset((U8 *)CHAR_BUFFER,0,u8Length*2);
+                if(pu8Data != NULL)
                 {
-                    DMP_DBG(printf("Query music year information failed.\n");)
-                    //Clear CHAR_BUFFER.
-                    memset((U8 *)CHAR_BUFFER, 0, STRING_BUFFER_LENGTH*2);
-                }
-                else
-                {
-                    memset((U8 *)CHAR_BUFFER,0,u8Length*2);
-
                     if(pu8Data[0]==0x00)
                     {
                         // TODO: fix me
@@ -15533,6 +15465,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             FS_ASCII2Unicode((U8*)CHAR_BUFFER);
             break;
         case HWND_DMP_PLAYBACK_PHOTOINFO_INFO_DATE_TEXT:
+		case HWND_DMP_PLAYBACK_TEXTINFO_INFO_DATE_TEXT:      //wht1203017_9
             {
                 MPlayerPhotoInfo stPhotoInfo;
                 MPlayerFileInfo stFileInfo;
@@ -15585,6 +15518,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             FS_ASCII2Unicode((U8*)CHAR_BUFFER);
             break;
         case HWND_DMP_PLAYBACK_PHOTOINFO_INFO_TIME_TEXT:
+		case HWND_DMP_PLAYBACK_TEXTINFO_INFO_TIME_TEXT:	//wht1203017_9
             {
                 MPlayerPhotoInfo stPhotoInfo;
                 MPlayerFileInfo stFileInfo;
@@ -15629,7 +15563,6 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             }
             FS_ASCII2Unicode((U8*)CHAR_BUFFER);
             break;
-        case HWND_DMP_PLAYBACK_MOVIEINFO_INFO_SIZE_TEXT:
         case HWND_DMP_PLAYBACK_MUSICINFO_INFO_SIZE_TEXT:
         case HWND_DMP_PLAYBACK_PHOTOINFO_INFO_SIZE_TEXT:
 /*
@@ -15888,6 +15821,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
                     break;
                     #if (ENABLE_MPLAYER_TEXT)
                 case E_MPLAYER_TYPE_TEXT:
+					 return MApp_ZUI_ACT_GetDmpDynamicText(HWND_DMP_PLAYBACK_TEXTINFO_INFO_DATE_TEXT);//wht1203017_9 add
                     #endif
                 default:
                     break;
@@ -15934,6 +15868,7 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
                     break;
                     #if (ENABLE_MPLAYER_TEXT)
                 case E_MPLAYER_TYPE_TEXT:
+					return MApp_ZUI_ACT_GetDmpDynamicText(HWND_DMP_PLAYBACK_TEXTINFO_INFO_TIME_TEXT);//wht1203017_9 add
                     #endif
                 default:
                     break;
@@ -17858,8 +17793,8 @@ BOOLEAN MApp_UiMediaPlayer_Notify(enumMPlayerNotifyType eNotify, void *pInfo)
 							if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
 							{
 								bInfoShow = TRUE;
+								MApp_ZUI_API_StoreFocusCheckpoint();
 							}
-							MApp_ZUI_API_StoreFocusCheckpoint();
 							DMP_DBG(printf("playing eMediaType %u\n",eMediaType););
 							#if ENABLE_FIX_GREENPANEL_BUG
 							if(eMediaType == E_MPLAYER_TYPE_MOVIE)
@@ -18013,16 +17948,21 @@ BOOLEAN MApp_UiMediaPlayer_Notify(enumMPlayerNotifyType eNotify, void *pInfo)
 							MApp_DMP_UiStateTransition(DMP_UI_STATE_FILE_SELECT);
 						}
 					}
+					
+					if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+					MApp_ZUI_API_RestoreFocusCheckpoint();
+				
 					break;
         case E_MPLAYER_NOTIFY_END_OF_PLAY_ONE_FILE:
         DMP_DBG(printf("    - E_MPLAYER_NOTIFY_END_OF_PLAY_ONE_FILE\n"));
         {
             m_u16PlayErrorNum = 0;
-			if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
+			/*if(MApp_ZUI_API_IsWindowVisible(HWND_DMP_PLAYBACK_INFO_PANE))
 			{
-				_MApp_ACTdmp_Playback_ShowInfoWin(MApp_MPlayer_QueryCurrentMediaType());
-			}
-			MApp_ZUI_API_StoreFocusCheckpoint();
+				//_MApp_ACTdmp_Playback_ShowInfoWin(MApp_MPlayer_QueryCurrentMediaType());
+				MApp_ZUI_API_StoreFocusCheckpoint();
+			}*/
+
             switch(MApp_MPlayer_QueryCurrentMediaType())
             {
                 case E_MPLAYER_TYPE_MOVIE:
@@ -18086,6 +18026,7 @@ BOOLEAN MApp_UiMediaPlayer_Notify(enumMPlayerNotifyType eNotify, void *pInfo)
                     break;
             }
         }
+		MApp_ZUI_API_RestoreFocusCheckpoint();
         break;
         case E_MPLAYER_NOTIFY_END_OF_PLAY_ALL_FILE:
         DMP_DBG(printf("    - E_MPLAYER_NOTIFY_END_OF_PLAY_ALL_FILE\n"));

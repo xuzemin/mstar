@@ -422,7 +422,7 @@
 #define SOUNDMODE                           SOUNDMODE_TONE
 #define SOUND_EQMODE_ENABLE					DISABLE//ENABLE
 #define ENABLE_BRAZIL_CC_DETECT_FLAG        DISABLE
-#define EANBLE_V56_IO_KEY					DISABLE //gchen @ 20180202 //IO Key Control
+#define EANBLE_V56_IO_KEY					ENABLE //gchen @ 20180202 //IO Key Control
 #define ENABLE_CHINESE                    DISABLE//ENABLE   //wht121020_2
 #define ENABLE_CHINESE_TRADITIONAL DISABLE//ENABLE  //wht121130_1
 /***************************************************************************************/
@@ -829,11 +829,13 @@
 //=================================================================
 //gchen @ 20171207 //V56 Projector
 #define ENABLE_HIGH_AND_LOW_LIGHT_SWITCH 	DISABLE
-#define FIX_STARTUP_COLOR_DISTORTION 		DISABLE
+#define FIX_STARTUP_COLOR_DISTORTION 		ENABLE //MP333
 #define ENABLE_USB_ITEM_IN_SOURCE_MENU    	ENABLE
 #define REMOVE_DRIVE_SELECT_TO_FILE_LIST                ENABLE//DISABLE  //wht120418_1
 #define ENABLE_PROGRESS_BAR						ENABLE
-#define ENABLE_JABIL						ENABLE//wht121220_2 DISABLE//wht120321_1 ENABLE  //wht120302_1  
+#define ENABLE_DPP3435						DISABLE	//gchen @ 20180317
+#define ENABLE_DPP2607						ENABLE	//gchen @ 20180317
+#define ENABLE_EAR_PHONE_VALUME_LINE		ENABLE  //MP333
 //=================================================================
 #include "sw_config_force_off_for_bloader.h"
 //******************************************************************************

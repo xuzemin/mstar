@@ -106,7 +106,7 @@
 #endif
 
 
-#define ENABLE_DEBUG_BOOT_TIME   1
+#define ENABLE_DEBUG_BOOT_TIME   0 //MP333
 
 #if( ENABLE_DEBUG_BOOT_TIME )
     #define DEBUG_BOOT_TIME(x)  x

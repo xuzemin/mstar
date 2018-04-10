@@ -285,6 +285,8 @@ extern BOOLEAN bStopMonitorBlock;
 extern BOOLEAN bParentalPWPassCheck;
 extern unsigned char code Customer_hash[];
 extern unsigned char Customer_info[];
+extern void MApp_SetListMenuLanguage(U8 Direction);
+extern U8 MApp_ZUI_ACT_GetOsdAudLangIndexMax(void);
 /////////////////////////////////////////////////////////////////////
 static const char SWVersionName[]      = _CODE_MAIN_VERSION_;
 static const char SWCompileDate[]      = {_CODE_DATE_};
@@ -2165,7 +2167,14 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuItemAction(U16 act)
             MApp_ZUI_CTL_DynamicListRefreshContent(HWND_MENU_PICTURE_MODE_PAGE_LIST);
 
             return TRUE;
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+        case EN_EXE_DEC_LANGUAE_LIST:
+                MApp_SetListMenuLanguage(FALSE);
+                break;
+            case EN_EXE_INC_LANGUAE_LIST:    
+                MApp_SetListMenuLanguage(TRUE);
+                break;
+#endif
         case EN_EXE_DEC_COLOR_TEMP:
         case EN_EXE_INC_COLOR_TEMP:
             //from case MAPP_UIMENUFUNC_ADJENB2_COLORTEMP:
@@ -2996,7 +3005,14 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuItemAction(U16 act)
                     MApp_ZUI_ACT_ExecuteMenuItemAction(EN_EXE_INC_SCARTIN);
                     break;
             #endif
-
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                  case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    MApp_ZUI_ACT_ExecuteMenuItemAction(EN_EXE_DEC_LANGUAE_LIST);
+					//<<--A-- SMC 20110510
+					MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_OPTION_OSDLANG_PAGE);
+					//SMC 20110510 --A-->>
+                    break;
+              #endif
 
             #if (ENABLE_ATSC)
                 case EN_COMMON_SINGLELIST_OSD_TIMEZONE:
@@ -3060,7 +3076,14 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuItemAction(U16 act)
                     MApp_ZUI_ACT_ExecuteMenuItemAction(EN_EXE_DVB_TYPE_SELECT);
                     break;
             #endif
-
+            #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                  case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    MApp_ZUI_ACT_ExecuteMenuItemAction(EN_EXE_INC_LANGUAE_LIST);
+					//<<--A-- SMC 20110510
+					MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_OPTION_OSDLANG_PAGE);
+					//SMC 20110510 --A-->>
+                    break;
+              #endif
             #if (NTV_FUNCTION_ENABLE)
                 case EN_COMMON_SINGLELIST_BANDWIDTH_SELECT:
                     MApp_ZUI_ACT_ExecuteMenuItemAction(EN_EXE_BANDWIDTH_TYPE_SELECT);
@@ -3118,11 +3141,48 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuItemAction(U16 act)
 		
 		#if 1//ENABLE_IVIEW
 //>>wht121101_1
-        case EN_EXE_DEC_PROJECTION_TYPE:
+		//gchen @ 20180322 //MP333
+	    case EN_EXE_DEC_PROJECTION_TYPE:
         case EN_EXE_INC_PROJECTION_TYPE:
               stGenSetting.g_SysSetting.ProjectionType= (EN_PROJECTION_TYPE)MApp_ZUI_ACT_DecIncValue_Cycle(
                 act==EN_EXE_INC_PROJECTION_TYPE,
                 stGenSetting.g_SysSetting.ProjectionType, EN_FRONT_DESKTOP, EN_PROJECTION_TYPE_NUM-1, 1);              
+			   
+               if(stGenSetting.g_SysSetting.ProjectionType==EN_FRONT_DESKTOP)
+               {
+					devOPE_Long_Axis_Flip(FALSE);
+					devOPE_Short_Axis_Flip(FALSE);
+					//printf("\n-FRONT_DESKTOP-\n");
+               }
+               else if(stGenSetting.g_SysSetting.ProjectionType==EN_FRONT_CEILING)
+               {
+					devOPE_Long_Axis_Flip(TRUE);
+					devOPE_Short_Axis_Flip(TRUE);
+					//printf("\n-FRONT_CEILING-\n");
+               }
+               else if(stGenSetting.g_SysSetting.ProjectionType==EN_REAR_DESKTOP)
+               {
+					devOPE_Long_Axis_Flip(FALSE);
+					devOPE_Short_Axis_Flip(TRUE);
+					//printf("\n-REAR_DESKTOP-\n");
+               }
+               else
+               {
+					devOPE_Long_Axis_Flip(TRUE);
+					devOPE_Short_Axis_Flip(FALSE);
+					//printf("\n-REAR_CEILING-\n");
+               }
+			    //MApp_SaveSysSetting();
+			    MApp_ZUI_API_InvalidateWindow(HWND_MENU_PICTURE_PROJECTION_OPTION);
+            return TRUE;
+		/*
+        case EN_EXE_DEC_PROJECTION_TYPE:
+        case EN_EXE_INC_PROJECTION_TYPE:
+              stGenSetting.g_SysSetting.ProjectionType= (EN_PROJECTION_TYPE)MApp_ZUI_ACT_DecIncValue
+_Cycle(
+                act==EN_EXE_INC_PROJECTION_TYPE,
+                stGenSetting.g_SysSetting.ProjectionType, EN_FRONT_DESKTOP, EN_PROJECTION_TYPE_NUM-1
+, 1);              
 			   
                if(stGenSetting.g_SysSetting.ProjectionType==EN_FRONT_DESKTOP)
                {
@@ -3141,7 +3201,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteMenuItemAction(U16 act)
 					devOPE_set_Flip(ORTHOGRAPHY_MIRROR);
                }
 			    MApp_ZUI_API_InvalidateWindow(HWND_MENU_PICTURE_PROJECTION_OPTION);
-            return TRUE;
+            return TRUE;*/
 //<<wht121101_1
 		case EN_EXE_INC_KEYSTONE_TYPE:
 			//act==EN_EXE_INC_PROJECTION_TYPE,
@@ -11572,7 +11632,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_OSD_TIMEZONE:
                     return EN_DL_STATE_NORMAL;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=1)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11618,7 +11684,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_OSD_TIMEZONE:
                     return EN_DL_STATE_NORMAL;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=2)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                     return EN_DL_STATE_NORMAL;
             }
@@ -11670,7 +11742,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_OSD_TIMEZONE:
                     return EN_DL_STATE_NORMAL;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=3)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11733,7 +11811,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_EDID:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=4)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11799,7 +11883,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=5)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11859,7 +11949,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=6)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11937,7 +12033,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=7)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -11998,7 +12100,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=8)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12066,7 +12174,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=9)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12129,7 +12243,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=10)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12191,7 +12311,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=11)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12254,7 +12380,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=12)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                     return EN_DL_STATE_NORMAL;
             }
@@ -12316,7 +12448,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=13)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12378,7 +12516,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=14)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12441,7 +12585,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=15)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
                 default:
                    return EN_DL_STATE_NORMAL;
             }
@@ -12506,7 +12656,13 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
                 case EN_COMMON_SINGLELIST_MENU_LANGUAGE:
                     return EN_DL_STATE_HIDDEN;
             #endif
-
+#if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
+                case EN_COMMON_SINGLELIST_LANGUAE_PAGE:
+                    if (MApp_ZUI_ACT_GetOsdAudLangIndexMax() >=16)
+                        return EN_DL_STATE_NORMAL;
+                     else
+                         return EN_DL_STATE_HIDDEN;
+#endif
 
                 default:
                    return EN_DL_STATE_NORMAL;

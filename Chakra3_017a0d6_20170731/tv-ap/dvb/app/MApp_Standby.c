@@ -169,7 +169,10 @@
 #include "MApp_LoadFontInit.h"
 #include "msAPI_OSD_Resource.h"
 #endif
-#define STDBY_DBGINFO(y)        //y
+
+#include "MApp_ZUI_ACTcoexistWin.h" //gchen @ 20180320 //MP333
+
+#define STDBY_DBGINFO(y)        y
 
 /********************************************************************************/
 /*                               Local                                      */

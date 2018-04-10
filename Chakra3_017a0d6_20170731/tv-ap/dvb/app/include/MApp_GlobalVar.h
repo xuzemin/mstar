@@ -131,6 +131,25 @@
 
 INTERFACE U8 u8KeyCode;
 /* ~ ir_drv.c */
+#if 0//ENABLE_TEMPERATURE_DETECT //MP333
+INTERFACE U32 gU32TempHighStartTime; 
+INTERFACE U32 gU32TempHighDiffTime; 
+INTERFACE U8 bTempHighFlag;
+#endif
+//<<MP333
+INTERFACE U32 gU32BatLowStartTime; 
+INTERFACE U32 gU32BatLowDiffTime; 
+INTERFACE U32 gU32BatCheckStartTime; 
+INTERFACE U8 gU8BatLowHaveShowFlag;
+INTERFACE U8 gU8BatLowShowingFlag;
+INTERFACE U8 gU8BatType;
+INTERFACE U16 gU16BatLowCount;
+INTERFACE U8 gU8BatLowLedRedFlag;
+INTERFACE U8 gU8BatLowPowerOffType;
+INTERFACE U32 gU32PowerOffStartTime; 
+//>>MP333
+
+
 
 
 //ZUI_TODO: INTERFACE U8 u8ServiceTypeForMenuStr;
@@ -222,7 +241,6 @@ INTERFACE BOOLEAN bNextEvent;
 //INTERFACE BOOLEAN bNitFoundInvalidOAD;
 
 INTERFACE U32 u32ScartSwitchDuration;
-
 
 #if EAR_PHONE_POLLING
 INTERFACE BOOLEAN PreEarphoneState;

@@ -110,7 +110,7 @@
 #include "Dlp_Optical.h" //gchen  @ 20171222
 #include "drvGPIO.h" //gchen  @ 20171228
 
-
+#include "MApp_ZUI_ACTcoexistWin.h"
 // Common Definition
 #include "debug.h"
 #include "apiXC.h"
@@ -133,7 +133,7 @@
 
 #include "apiXC_Dlc.h"
 #include "drvPWM.h"
-
+#include "MApp_DataBase.h"
 #include "autotest.h"
 #include "MApp_USBDownload.h"
 #include "drvMmsDisp_if.h"
@@ -229,13 +229,13 @@ int CatEye    = 0;
 int UnitTest  = 0;
 
 extern U8 ParaTbl[PARA_ROW_SIZE][PARA_COL_SIZE];
-
-
 void MDrv_LogoPrint(void);
 #endif
 /******************************************************************************/
 /// UART device: putchar and ISR
 /******************************************************************************/
+
+extern MS_U8 _u8HdcpKey[HDCP_KEY_SIZE];
 
 static MS_U32 uart_debug;
 void putcharb(MS_U8 byte)
@@ -294,7 +294,7 @@ void MDrv_UART_RecvHandler(int c)
     if( MApp_AT_Is_NeedDisableOtherUartFunction() )
         return;
 #endif
-	printf("MDrv_UART_RecvHandler 111 \n");
+	//printf("MDrv_UART_RecvHandler 111 \n");
 
 
     g_Uart0CheckTick = 50;// time-out control ms
@@ -702,8 +702,8 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//keystone_correction(0);
-			AMP_ENABLE();
-			
+			//AMP_ENABLE();
+			MApp_UiMenu_BatLowWin_Show();
 			break;
 		}
 
@@ -711,15 +711,16 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//keystone_correction(10);
-			AMP_DISABLE();
-			
+			//AMP_DISABLE();
+			MApp_UiMenu_BatLowWin_Hide();
 			break;
 		}
 
 		case 0x6a:
 		{
 			//gchen add @ 20171218
-			Power_Off();
+			//Power_Off();
+			SetOpticalCurrent(900);
 			break;
 		}
 
@@ -727,15 +728,16 @@ void MDrv_UART_ExecTestCommand(void)
 		case 0x6b:
 		{
 			//gchen add @ 20171218
-			LEDPWR_ENABLE();
+			//LEDPWR_ENABLE();
+			MApp_UiMenu_TempDetWin_Show();
 			break;
 		}
 
 		case 0x6c:
 		{
 			//gchen add @ 20171218
-			LEDPWR_DISABLE();
-		
+			//LEDPWR_DISABLE();
+			MApp_UiMenu_TempDetWin_Hide();
 			break;
 		}
 
@@ -744,9 +746,9 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			
-			Optical_SetRes_854x480();
+			//Optical_SetRes_854x480();
 
-			MsOS_DelayTask(3000);
+			//MsOS_DelayTask(3000);
 			
 			break;
 		}
@@ -754,19 +756,24 @@ void MDrv_UART_ExecTestCommand(void)
 		case 0x6e:
 		{
 			//gchen add @ 20171218
-			Optical_Led_OpenANDClose(1);
+			//Optical_Led_OpenANDClose(1);
 		
-			MsOS_DelayTask(3000);
-		
+			//MsOS_DelayTask(3000);
+			MUTE_On();
+			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, 0, 0);
+			dpp2600_config_blank(FALSE);
 			break;
 		}
 
 		case 0x6f:
 		{
 			//gchen add @ 20171218
-			Optical_Led_OpenANDClose(0);
+			//Optical_Led_OpenANDClose(0);
 
-			MsOS_DelayTask(3000);
+			//MsOS_DelayTask(3000);
+			dpp2600_config_blank(TRUE);
+			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
+			MUTE_Off(); 
 
 			break;
 		}
@@ -1919,7 +1926,109 @@ void MDrv_UART_DecodeExtCommand(void)
                  UARTMSG(printf("0x%02X doesn't exist!\n", (U16)UART_EXT_CMD));
              }
              break;
+#if (HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
+         case uartExtDev_FLASH_HDCP:
+         {
+             static U16 g_wHDCP_KeyChkSum;
+			// static U16 g_wHDCP_KeyChkSumTEMP;
+             static U16 g_HDCP_KeyCounter;
+			 static U8 u8HdcpKey[HDCP_KEY_SIZE] = {0};
+			 //printf("UART_EXT_CMD = %d\n",UART_EXT_CMD);
+             switch(UART_EXT_CMD)
+             {
+                 case URCMD_FLASH_HDCP_WRITE_START:  // mothod 1/2
+				 {
+/*
+                    {
+                        printf("URCMD_FLASH_HDCP_WRITE_START:\n");
+                        for(i=0;i<17;i++)
+                        {
+                            printf("0x%x,",g_UartCommand.Buffer[i]);
+                        }
+                        printf("\n");
+                    }
+*/
+                    //MApp_DB_FLASH_AddressErase_For_331();
+                    putcharb(0xF3);
+                    //putcharb( HIBYTE(HDCP_KEY_ADDR) );
+                    //putcharb( LOBYTE(HDCP_KEY_ADDR) );
+                    g_HDCP_KeyCounter = 0;
+					U16 j ;
+					for(j=0;j<HDCP_KEY_SIZE;j++)
+				    {
+						u8HdcpKey[j]=0;	
+				    }
+                    break;
+				 }
+                 case URCMD_FLASH_HDCP_WRITE:   // mothod 2
+                     {
+/*
+                        {
+                            printf("URCMD_EEPROM_HDCP_WRITE:\n");
+                            for(i=0;i<17;i++)
+                            {
+                                printf("0x%x,",g_UartCommand.Buffer[i]);
+                            }
+                            printf("\n");
+                        }
+*/
+                        U16 u16Length;
+                        #if ( ENABLE_UART_CHECKSUM )
+                        UART_CMD_EXT_LENGTH--; // remove checksum byte
+                        #endif
 
+                        u16Length = (UART_CMD_EXT_LENGTH-4);
+						
+						//MApp_DB_SaveHDCP_KEY_For_331((U32)g_HDCP_KeyCounter,(U32)u16Length,(U8 *)&UART_EXT_CMD_MS_DAT1);	
+						for(i=0;i<u16Length;i++)
+						{
+							u8HdcpKey[g_HDCP_KeyCounter+i]=g_UartCommand.Buffer[i+4];
+							//printf("0x%x,",u8HdcpKey[g_HDCP_KeyCounter+i]);
+						}
+                        g_HDCP_KeyCounter+=u16Length;
+                     }
+                     break;
+                 case URCMD_FLASH_HDCP_WRITE_END: // mothod 2
+                     {
+/*
+                        {
+                            printf("URCMD_EEPROM_HDCP_WRITE_END:\n");
+                            for(i=0;i<17;i++)
+                            {
+                                printf("0x%x,",g_UartCommand.Buffer[i]);
+                            }
+                            printf("\n");
+                        }
+*/						
+                        #if ( ENABLE_UART_CHECKSUM )
+                        UART_CMD_EXT_LENGTH--; // remove checksum byte
+                        #endif
+						for(i=0;i<(UART_CMD_EXT_LENGTH-4);i++)
+						u8HdcpKey[g_HDCP_KeyCounter+i]=g_UartCommand.Buffer[i+4];
+                        MApp_DB_SaveHDCP_KEY_For_331((U32)0,u8HdcpKey);
+						//g_wHDCP_KeyChkSumTEMP=0;
+						//    for(i=0;i<HDCP_KEY_SIZE;i++)
+						    {
+						//		g_wHDCP_KeyChkSumTEMP += u8HdcpKey[i];	
+						    }
+						g_wHDCP_KeyChkSum = 0;
+                        g_wHDCP_KeyChkSum=MApp_DB_LoadHDCP_KEY_For_331();
+						
+                     }
+                     break;
+                 case URCMD_FLASH_HDCP_GET_CHECKSUM:    // mothod 1/2
+
+                    //putcharb(0xF3);
+                    //putcharb( HIBYTE(g_wHDCP_KeyChkSum) );
+                    //putcharb( LOBYTE(g_wHDCP_KeyChkSumTEMP) );
+                    putcharb( LOBYTE(g_wHDCP_KeyChkSum) );
+
+                   // MApi_XC_Sys_HDMI_Init();
+                     break;
+             } // End of switch(dev_cmd)
+         }
+         break;
+#endif 
         case uartExtDev_SAMSUNG_S5H1409_DEMODE:
         {
              i = 0;

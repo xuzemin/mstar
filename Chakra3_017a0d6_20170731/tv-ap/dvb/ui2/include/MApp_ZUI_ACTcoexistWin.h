@@ -114,6 +114,8 @@ extern "C" {
 #define COWIN_ID_EAS 		0x04
 #endif
 
+#define COWIN_ID_TEMP_DET	  4	
+#define COWIN_ID_BAT_LOW	  2	
 INTERFACE U8 u8CoexistWinType;  //Mute or count down win
 INTERFACE void MApp_ARC_KeyProc_Mute(void);// anvi22
 
@@ -129,6 +131,11 @@ INTERFACE void MApp_ZUI_ACTcoexist_Delete( void);
 #if 1//(ENABLE_UI_3D_PROCESS)
 INTERFACE void MApp_ZUI_ACTcoexist_RealDelete( void);
 #endif
+
+INTERFACE void MApp_UiMenu_TempDetWin_Hide(void);
+INTERFACE void MApp_UiMenu_TempDetWin_Show(void);
+INTERFACE void MApp_UiMenu_BatLowWin_Show(void);
+INTERFACE void MApp_UiMenu_BatLowWin_Hide(void);
 INTERFACE void MApp_UiMenu_CountDownWin_Draw(void);
 INTERFACE void MApp_UiMenu_CountDownWin_Create(void);
 #if(ENABLE_OSD_SUBTITLE_EXCLUSIVE == ENABLE)		
@@ -136,7 +143,7 @@ INTERFACE BOOLEAN MApp_UiMenu_GetCoexistWin_State(void);
 #endif
 INTERFACE void MApp_fpGOP_CB(MS_U32 u32EventID, void* reserved0);
 INTERFACE void MApp_MUTE_fpGOP_CB(MS_U32 u32EventID, void* reserved0);
-
+INTERFACE void MApp_UiMenu_MuteWin_Create(void);
 #if (ENABLE_EASMONITOR)
 INTERFACE void MApp_UiMenu_EASWin_Show(U8 *u8StrLang);
 INTERFACE void MApp_UiMenu_EASWin_Hide(void);

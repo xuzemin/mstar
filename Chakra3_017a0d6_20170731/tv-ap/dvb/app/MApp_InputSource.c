@@ -2640,6 +2640,8 @@ void MApp_InputSource_SwitchSource( E_UI_INPUT_SOURCE enUiInputSourceType,
     //PRINT_CURRENT_LINE();
     msDebug_ANSI_SetColorText_2(E_FONT_COLOR_BLACK, E_FONT_BACKGROUND_COLOR_YELLOW);
 
+	//enUiInputSourceType = UI_INPUT_SOURCE_HDMI; //gchen @ 20180321 //MP333 force to HDMI source
+	
     printf(" >> MApp_InputSource_SwitchSource(%u[%s]) at %u\n", enUiInputSourceType, MApp_InputSrc_Get_UiInputSrcName(enUiInputSourceType), MsOS_GetSystemTime());
     printf(" OldUiSrc=%u(%s), eOldInputSrc=%u\n", _s_eOldUiInputSourceType, MApp_InputSrc_Get_UiInputSrcName(_s_eOldUiInputSourceType), eOldInputSrc);
 

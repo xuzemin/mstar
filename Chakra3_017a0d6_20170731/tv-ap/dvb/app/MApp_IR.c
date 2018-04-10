@@ -288,14 +288,14 @@ U8 g_u8IR_HEADER_CODE1 =0;
 #endif
 
 #if EANBLE_V56_IO_KEY
-#define KS_COR_POS() 	keystone_positive_get_level() //xzm @ 20171222
-#define KS_COR_NEG() 	keystone_negative_get_level() //xzm @ 20171222
+#define VOL_POS() 	Volume_positive_get_level() //xzm @ 20171222
+#define VOL_NEG() 	Volume_negative_get_level() //xzm @ 20171222
 //按键属性
 #define KEY_DOWN_FLAG        0xA0
 #define KEY_LONG_FLAG        0xB0
 #define KEY_LIAN_FLAG        0xC0
 #define KEY_UP_FLAG          0xD0
-#define KEY_SERIES_FLAG     200      //按键连发开始所需时间长度
+#define KEY_SERIES_FLAG     150//200      //按键连发开始所需时间长度
 #define KEY_SERIES_DELAY    5       //按键连发的时间间隔长度
 #endif
 
@@ -323,10 +323,10 @@ BOOLEAN MApp_isKeypadSourceKeyCanSelect(void)
 #if EANBLE_V56_IO_KEY
 static U8 Get_KeyStore_Key(void) //xzm @ 20171222
 {
-    if (KS_COR_POS()==0) return KEY_KEYSTONE_POS;
-    if (KS_COR_NEG()==0) return KEY_KEYSTONE_NEG;
-    //if (VOL_POS()==0) return KEY_VOLUME_PLUS;
-    //if (VOL_NEG()==0) return KEY_VOLUME_MINUS;
+    //if (VOL_POS()==0) return KEY_KEYSTONE_POS;
+    //if (VOL_NEG()==0) return KEY_KEYSTONE_NEG;
+    if (VOL_POS()==0) return KEY_VOLUME_PLUS;
+    if (VOL_NEG()==0) return KEY_VOLUME_MINUS;
     return KEY_NULL;
 }
 
@@ -357,13 +357,15 @@ static U8 KEY_SCAN(void)  //xzm @ 20171222
 			{
 				if(KEY_PRESS == KEY_PREV)//确认和上次按键相同
 				{
-					KEY_STATE =2;//判断按键长按
-					//返回按键按下键值，按键按下就相应，如果想弹起来再相应
-					//可以在弹起来后再返回按键值
+					printf(" case 1 KEY_PRESS == KEY_PREV  \n");
+					KEY_STATE =2;//ÅÐ¶Ï°´¼ü³¤°´
+					//·µ»Ø°´¼ü°´ÏÂ¼üÖµ£¬°´¼ü°´ÏÂ¾ÍÏàÓ¦£¬Èç¹ûÏëµ¯ÆðÀ´ÔÙÏàÓ¦
+					//¿ÉÒÔÔÚµ¯ÆðÀ´ºóÔÙ·µ»Ø°´¼üÖµ
 					//KEY_RETURN = KEY_DOWN_FLAG| KEY_PREV;
 				}
 				else//按键抬起，是抖动，不响应按键
 				{
+					printf(" case 1 KEY_PRESS != KEY_PREV  \n");
 					KEY_STATE =0;
 				}
 			}
@@ -372,6 +374,7 @@ static U8 KEY_SCAN(void)  //xzm @ 20171222
 			{
 				if(KEY_PRESS == KEY_NULL)
 				{
+					printf(" case 2 KEY_PRESS == KEY_NULL  \n");
 					KEY_STATE =0;
 					KEY_DELAY =0;
 					KEY_SERIES=0;
@@ -380,9 +383,11 @@ static U8 KEY_SCAN(void)  //xzm @ 20171222
 				}
 				if(KEY_PRESS == KEY_PREV)
 				{
+					printf(" case 2 KEY_PRESS != KEY_PREV  \n");
 					KEY_DELAY++;
 					if((KEY_SERIES == TRUE) && (KEY_DELAY > KEY_SERIES_DELAY))
 					{
+						printf(" case 2 (KEY_SERIES == TRUE) && (KEY_DELAY > KEY_SERIES_DELAY)  \n");
 						KEY_DELAY = 0;
 						KEY_RETURN = KEY_LIAN_FLAG| KEY_PRESS;//返回连发的值
 						KEY_PREV = KEY_PRESS;//记住上次的按键
@@ -390,6 +395,7 @@ static U8 KEY_SCAN(void)  //xzm @ 20171222
 					}
 					if(KEY_DELAY > KEY_SERIES_FLAG)
 					{
+						printf(" case 2 KEY_DELAY > KEY_SERIES_FLAG \n");
 						KEY_SERIES =TRUE;
 						KEY_DELAY =0;
 						KEY_RETURN = KEY_LONG_FLAG| KEY_PREV ;//返回长按后的值
@@ -1634,23 +1640,23 @@ void MApp_ProcessUserInput(void)
   #endif
 #endif // #if(ENABLE_CEC)
 	
-	gU8Timer10ms++;
-	if(gU8Timer10ms >= 20) //xzm @ 20171222
+	
+	if(gU8Timer10ms >= 10) //xzm @ 20171222
 	{
-		#if EANBLE_V56_IO_KEY //gchen @ 20180202 //remove key scan by io
+		#if EANBLE_V56_IO_KEY //gchen @ 20180202 //remove key scan by io //MP333
 		U8 u8KeyPadValue;
 		u8KeyPadValue = KEY_SCAN();
-		if((u8KeyPadValue == (KEY_KEYSTONE_POS | KEY_LONG_FLAG))
-		  	||(u8KeyPadValue == (KEY_KEYSTONE_POS | KEY_LIAN_FLAG))
-		  	||(u8KeyPadValue == (KEY_KEYSTONE_POS | KEY_UP_FLAG)))
+		if((u8KeyPadValue == (KEY_VOLUME_PLUS | KEY_LONG_FLAG))
+		  	||(u8KeyPadValue == (KEY_VOLUME_PLUS | KEY_LIAN_FLAG))
+		  	||(u8KeyPadValue == (KEY_VOLUME_PLUS | KEY_UP_FLAG)))
 		  {
-			u8KeyCode = KEY_KEYSTONE_POS;
+			u8KeyCode = KEY_VOLUME_PLUS;
 		  }
-		  else if((u8KeyPadValue == (KEY_KEYSTONE_NEG| KEY_LONG_FLAG))
-		  	||(u8KeyPadValue == (KEY_KEYSTONE_NEG | KEY_LIAN_FLAG))
-		  	||(u8KeyPadValue == (KEY_KEYSTONE_NEG | KEY_UP_FLAG)))
+		  else if((u8KeyPadValue == (KEY_VOLUME_MINUS| KEY_LONG_FLAG))
+		  	||(u8KeyPadValue == (KEY_VOLUME_MINUS | KEY_LIAN_FLAG))
+		  	||(u8KeyPadValue == (KEY_VOLUME_MINUS | KEY_UP_FLAG)))
 		  {
-			u8KeyCode = KEY_KEYSTONE_NEG;
+			u8KeyCode = KEY_VOLUME_MINUS;
 		  }
 		#endif
 		gU8Timer10ms =0;

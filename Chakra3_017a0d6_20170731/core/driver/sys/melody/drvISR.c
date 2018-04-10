@@ -125,6 +125,9 @@
 #include "apiXC_Hdmi.h"
 #include "msAPI_Timer.h"
 
+#include "msAPI_DrvInit.h" //MP333
+
+
 #if ENABLE_TTX
 #include "msAPI_TTX.h"
 #endif
@@ -213,10 +216,30 @@ static void TimerISR(void)
 {
     gTimerCount0++;
     gu8100msTH++;
-
+	gU8Timer10ms++;
     msAPI_Timer_1ms_ISR();
 
-
+	//MP333
+	#if 0
+	//if((gTimerCount0 % 500) == 0)
+	{
+		if(PowerOff_get_level())
+		{
+			//printf(" PowerOff_get_level true \n");
+			//if sw det then power down
+			//msAPI_Power_PowerDown_EXEC();
+		}
+		else
+		{
+			printf(" PowerOff_get_level false 1111\n");
+			LEDPWR_DISABLE();
+			MUTE_On();
+			msAPI_Power_PowerDown_EXEC();
+			printf(" PowerOff_get_level false 2222\n");
+		}
+	}
+	#endif
+	
     // Use a threshold to check the 100 ms. If the threshold
     // is greater or equal than the 100 ms. Increase the 100 ms
     // counter.

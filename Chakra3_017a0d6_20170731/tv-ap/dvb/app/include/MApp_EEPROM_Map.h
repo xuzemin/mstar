@@ -138,6 +138,8 @@
 #define HDCP_KEY_ADDR                0
 #elif (HDCP_KEY_TYPE==HDCP_KEY_IN_24C64)
 #define HDCP_KEY_ADDR                RM_HDCP_KEY_ADDR
+#else
+#define HDCP_KEY_ADDR                RM_HDCP_KEY_ADDR
 #endif
 #define HDCP_KEY_SIZE                304
 

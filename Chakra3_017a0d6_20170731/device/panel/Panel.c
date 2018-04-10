@@ -1340,7 +1340,7 @@ ST_PANEL_NEW_PANELTYPE stPNL_TTL_480P=
 #else
 {
     { // 480P
-        "WVGA_854x480_JABIL_TTL",//m_pPanelName
+        "WVGA_854x480_TTL",//m_pPanelName
         //////////////////////////////////////////////
         // Panel output
         //////////////////////////////////////////////
@@ -1375,6 +1375,7 @@ ST_PANEL_NEW_PANELTYPE stPNL_TTL_480P=
         // driving current setting (0x00=4mA, 0x01=6mA, 0x02=8mA, 0x03=12mA)
         0x01,       //BYTE m_ucPanelDCKLCurrent;        //PANEL_DCLK_CURRENT         // DCLK current
 
+
         0x01,       //BYTE m_ucPanelDECurrent;          //PANEL_DE_CURRENT           // DE signal current
         0x01,       //BYTE m_ucPanelODDDataCurrent;     //PANEL_ODD_DATA_CURRENT     // odd data current
         0x01,       //BYTE m_ucPanelEvenDataCurrent;    //PANEL_EVEN_DATA_CURRENT    // even data current
@@ -1384,28 +1385,29 @@ ST_PANEL_NEW_PANELTYPE stPNL_TTL_480P=
         120,        //BYTE m_ucPanelOffTiming1;         //PANEL_OFF_TIMING1         // time between back light & data while turn off power
         30,         //BYTE m_ucPanelOffTiming2;         //PANEL_OFF_TIMING2         // time between data & panel while turn off power
 
-        80,//5,         //BYTE m_ucPanelHSyncWidth;         //PANEL_HSYNC_WIDTH //gchen @ 20170727 timing
-        24,//28,         //BYTE m_ucPanelHSyncBackPorch;     //PANEL_HSYNC_BACK_PORCH //gchen @ 20170727 timing
+        5,//80,//5,         //BYTE m_ucPanelHSyncWidth;         //PANEL_HSYNC_WIDTH //gchen @ 20170727 timing
+        28,//24,//28,         //BYTE m_ucPanelHSyncBackPorch;     //PANEL_HSYNC_BACK_PORCH //gchen @ 20170727 timing
 
-        10,//6,          //BYTE m_ucPanelVSyncWidth;         //PANEL_VSYNC_WIDTH  //gchen @ 20170727 timing
-        3,//14,          //BYTE m_ucPanelBackPorch;          //PANEL_VSYNC_BACK_PORCH //gchen @ 20170727 timing
+        6,//10,//6,          //BYTE m_ucPanelVSyncWidth;         //PANEL_VSYNC_WIDTH  //gchen @ 20170727 timing
+        14,//3,//14,          //BYTE m_ucPanelBackPorch;          //PANEL_VSYNC_BACK_PORCH //gchen @ 20170727 timing
 
-        80+24,//5+28,      //WORD m_wPanelHStart;              //PANEL_HSTART             (PANEL_HSYNC_WIDTH + PANEL_HSYNC_BACK_PORCH)
-        10+3,//6+14,        //WORD m_wPanelVStart;              //PANEL_VSTART             (PANEL_VSYNC_WIDTH + PANEL_VSYNC_BACK_PORCH)
+        5+28,////80+24,//5+28,      //WORD m_wPanelHStart;              //PANEL_HSTART             (PANEL_HSYNC_WIDTH + PANEL_HSYNC_BACK_PORCH)
+        6+14,//10+3,//6+14,        //WORD m_wPanelVStart;              //PANEL_VSTART             (PANEL_VSYNC_WIDTH + PANEL_VSYNC_BACK_PORCH)
 
         854,       //WORD m_wPanelWidth;               //PANEL_WIDTH
         480,       //WORD m_wPanelHeight;              //PANEL_HEIGHT
 
-        1044,       //WORD m_wPanelMaxHTotal;           //PANEL_MAX_HTOTAL
-        1044,       //WORD m_wPanelHTotal;              //PANEL_HTOTAL
-        1044,       //WORD m_wPanelMinHTotal;           //PANEL_MIN_HTOTAL
+        1044,//1064,//1044,       //WORD m_wPanelMaxHTotal;           //PANEL_MAX_HTOTAL
+        1044,//1064,//1044,       //WORD m_wPanelHTotal;              //PANEL_HTOTAL
+        1044,//1064,//1044,       //WORD m_wPanelMinHTotal;           //PANEL_MIN_HTOTAL
 
-        500,//550,       //WORD m_wPanelMaxVTotal;           //PANEL_MAX_VTOTAL
-        500,//526,       //WORD m_wPanelVTotal;              //PANEL_VTOTAL 20060511 chris :for Frame Lock operation
+        550,//500,//550,       //WORD m_wPanelMaxVTotal;           //PANEL_MAX_VTOTAL
+        526,//500,//526,       //WORD m_wPanelVTotal;              //PANEL_VTOTAL 20060511 chris :for Frame Lock operation
         500,       //WORD m_wPanelMinVTotal;           //PANEL_MIN_VTOTAL
 
-        (32),//(34),      //DWORD m_dwPanelMaxDCLK;           //PANEL_MAX_DCLK //gchen @ 20170727 timing
-        (32),//(33),      //DWORD m_dwPanelDCLK;              //PANEL_DCLK //gchen @ 20170727 timing
+        (34),//(34),      //DWORD m_dwPanelMaxDCLK;           //PANEL_MAX_DCLK //gchen @ 20170727 timing
+        (33),//(33),      //DWORD m_dwPanelDCLK;              //PANEL_DCLK //gchen @ 20170727 timing
+
         (32),      //DWORD m_dwPanelMinDCLK;           //PANEL_MIN_DCLK
 
         0x0019,     //m_wSpreadSpectrumStep;            //Value for Spread_Spectrum_Control register(B7..3:Period,B2..0:Amplitude)
@@ -1434,11 +1436,12 @@ ST_PANEL_NEW_PANELTYPE stPNL_TTL_480P=
        E_PNL_CHG_VTOTAL,
        1,///<  PAFRC mixed with noise dither disable
     },
-    (32),      //DWORD m_dwPanelMaxDCLK;           //PANEL_MAX_DCLK
-    (32),      //DWORD m_dwPanelDCLK;              //PANEL_DCLK
+    (34),      //DWORD m_dwPanelMaxDCLK;           //PANEL_MAX_DCLK
+    (33),      //DWORD m_dwPanelDCLK;              //PANEL_DCLK
     (32),      //DWORD m_dwPanelMinDCLK;           //PANEL_MIN_DCLK
     LINK_HS_LVDS,   //Which extern type exactly, only valid when m_ePanelLinkType==LINK_EXT, otherwise, don't care
 };
+
 #endif
 
 ST_PANEL_NEW_PANELTYPE stPNL_TTL_720P=

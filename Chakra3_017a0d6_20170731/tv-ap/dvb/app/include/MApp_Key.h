@@ -246,7 +246,10 @@ typedef enum
 	
 	KEY_KEYSTONE_POS 		= 0x8b, //xzm @20171222
 	KEY_KEYSTONE_NEG		= 0x8c, //xzm @20171222
-	
+#if 1
+    KEY_TEMP_DET			=0x89,  
+#endif
+    KEY_BAT_LOW			 	=0x8a, 
 #if (IR_TYPE_SEL == IR_TYPE_SAMSUNG_REMOTE)
     KEY_MEDIA_PLAYER        = 0x93,
     KEY_TOOL                = 0x94,

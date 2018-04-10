@@ -155,7 +155,7 @@ EN_INSTALL_GUIDE_PAGE enInstallGuidePage = PAGE_INSTALL_OSD_LANGUAGE;
 
 extern BOOLEAN _MApp_ZUI_API_AllocateVarData(void);
 
-extern U16 stOsdLanguageList[];
+extern EN_LANGUAGE stOsdLanguageList[];
 extern U8 MApp_ZUI_ACT_GetOsdLanguageIndexMax(void);
 extern U8 MApp_ZUI_ACT_GetOsdLanguageListIndex(EN_LANGUAGE enCurLang);
 extern LPTSTR MApp_ZUI_ACT_GetOsdLanguageListString(U8 u8Index);

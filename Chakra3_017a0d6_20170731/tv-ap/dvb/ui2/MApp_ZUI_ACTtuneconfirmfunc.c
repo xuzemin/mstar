@@ -129,6 +129,8 @@
 #if 0//ENABLE_T_C_COMBO
 #include "MApp_ZUI_ACTcadtvmanualtuning.h"
 #endif
+#include "MApp_ZUI_ACTcoexistWin.h"  //wht120713_3
+
 ////////////////////////////////////////////////////
 //NOTE: when we are selecting country, don't modify the real one!!
 static EN_OSD_COUNTRY_SETTING _eTuningCountry;
@@ -235,9 +237,9 @@ ST_OSD_SELECTION_STRING_MAPPING_LIST _ZUI_TBLSEG stAutoTuningCountryList[] =
 };
 
 #if (ENABLE_LANGUAGE_SWITCH_LIST_MENU)
-U16 _ZUI_TBLSEG stOsdLanguageList[] = 
+EN_LANGUAGE _ZUI_TBLSEG stOsdLanguageList[] = 
 {
-    //LANGUAGE_NONE,
+    LANGUAGE_NONE,
     LANGUAGE_ENGLISH,
     LANGUAGE_FRENCH,
     LANGUAGE_SPANISH,
@@ -251,7 +253,7 @@ U16 _ZUI_TBLSEG stOsdLanguageList[] =
 #endif
 };
 #else
-U16 _ZUI_TBLSEG stOsdLanguageList[] =
+EN_LANGUAGE _ZUI_TBLSEG stOsdLanguageList[] =
 {
     LANGUAGE_CZECH,
     LANGUAGE_DANISH,
@@ -1331,20 +1333,7 @@ LPTSTR MApp_ZUI_ACT_GetOsdLanguageListString(U8 u8Index)
 
 U8 MApp_ZUI_ACT_GetOsdAudLangIndexMax(void)
 {
-    if(OSD_COUNTRY_SETTING == E_NEWZEALAND)
-    {
-        return (U8)(sizeof(stNzOsdAudLangList)/sizeof(stNzOsdAudLangList[0])) - 1;
-    }
-#if ENABLE_COUNTRY_SINGAPORE
-    else if(OSD_COUNTRY_SETTING == E_SINGAPORE)
-    {
-        return (U8)(sizeof(stSgpOsdAudLangList)/sizeof(stSgpOsdAudLangList[0])) - 1;
-    }
-#endif
-    else
-    {
-        return (U8)(sizeof(stOsdAudLangList)/sizeof(stOsdAudLangList[0])) - 1;
-    }
+	return (sizeof(stOsdLanguageList)/sizeof(EN_LANGUAGE))-1;
 }
 
 U8 MApp_ZUI_ACT_GetOsdAudLangListIndex(EN_LANGUAGE enCurLang)
@@ -1477,6 +1466,73 @@ LPTSTR MApp_ZUI_ACT_GetOsdSubtitleListString(U8 u8Index)
         return MApp_ZUI_ACT_GetMenuLanguageStringByIndex(stOsdSubLangList[u8Index]);
     }
 }
+
+U8 MApp_GetListMenuLanguagePosition(EN_LANGUAGE curLang )
+{
+    U8 Lang;
+    for (Lang = 0; Lang < (sizeof(stOsdLanguageList)/sizeof(EN_LANGUAGE)); Lang++)
+    {
+        //printf("\r\nP LANG = %d", Lang);
+        //printf("\r\nC LANG = %d" ,curLang);
+        if (curLang == stOsdLanguageList[Lang])
+            return Lang;
+    }
+
+    return 0xff;
+
+}
+
+void MApp_SetListMenuLanguage(U8 Direction)
+{
+    U8 pos,maxlang;
+    pos = MApp_GetListMenuLanguagePosition(stGenSetting.g_SysSetting.Language);
+    maxlang = sizeof(stOsdLanguageList)/sizeof(EN_LANGUAGE)-1;
+    
+    //printf("\r\npos = %d", pos);
+    //printf("\r\nmax lang = %d", maxlang);
+    if (pos == 0xff)
+    {
+        //printf("CURR LANG ERR");
+        return;
+    }
+    
+    if (Direction == TRUE)
+    {
+        if (pos == maxlang)
+            pos = 1;
+        else 
+            pos++;     
+    }
+    else
+    {
+        if (pos == 1)
+            pos = maxlang;
+        else
+            pos --;
+    }
+
+    MApp_SetMenuLanguage( stOsdLanguageList[pos]);
+//>>wht120713_3
+	if(u8CoexistWinType == COWIN_ID_MUTE)
+	{
+	   	MApp_UiMenu_MuteWin_Create();
+		MApp_ZUI_ACTcoexist_Enable(TRUE);
+	}
+//<<wht120713_3
+}
+
+EN_LANGUAGE MApp_GetListMenuLanguageByIndex(U8 langindex)
+{
+    //printf("\r\nlangindex = %d", langindex);
+    //printf("\r\n MApp_GetListMenuLanguageNum()= %d",  MApp_GetListMenuLanguageNum());
+    if (langindex >= 1 && langindex <= MApp_ZUI_ACT_GetOsdAudLangIndexMax())
+        return stOsdLanguageList[langindex];
+    else
+        return LANGUAGE_NONE;
+  
+
+}
+
 
 EN_LANGUAGE MApp_ZUI_ACT_GetOsdSubtitleByListIndex(U8 u8Index)
 {

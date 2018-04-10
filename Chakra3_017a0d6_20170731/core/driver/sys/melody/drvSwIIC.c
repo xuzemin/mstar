@@ -624,14 +624,14 @@ BOOLEAN MDrv_IIC_WriteBytes(U16 u16BusNumSlaveID, U8 AddrCnt, U8* pu8addr, U16 u
     U8 u8Dummy; // loop dummy
     BOOLEAN bRet;
 
-    
-    printf("\r\nID = %x",u16BusNumSlaveID);
-    printf("\r\nADDR CNT = %x", AddrCnt);
-    printf("\r\nADDR = %x",*pu8addr);
-    printf("\r\nSIZE = %x", u16size);
+    #if 0 //MP333
+    printf("\r\n ID = %x",u16BusNumSlaveID);
+    printf("\r\n ADDR CNT = %x", AddrCnt);
+    printf("\r\n ADDR = %x",*pu8addr);
+    printf("\r\n SIZE = %x", u16size);
     for (u8Dummy = 0;u8Dummy< u16size; u8Dummy++)
-        printf("\r\nDATE%d = %x",u8Dummy,*(pBuf+u8Dummy));
-
+        printf("\r\n DATE%d = %x",u8Dummy,*(pBuf+u8Dummy));
+	#endif
     u8Dummy = 1;  //I2C_ACCESS_DUMMY_TIME;
     bRet = FALSE;
 

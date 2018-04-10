@@ -96,7 +96,26 @@ typedef enum _UartCommadEnumType
     _UART_CMD_INDEX18_,
     _UART_CMD_INDEX19_,
     _UART_CMD_INDEX20_,
-
+#if 1//ENABLE_AUTO_WHITE_BAlANCE
+    _UART_CMD_INDEX21_,
+    _UART_CMD_INDEX22_,
+    _UART_CMD_INDEX23_,
+    _UART_CMD_INDEX24_,
+    _UART_CMD_INDEX25_,
+    _UART_CMD_INDEX26_,
+    _UART_CMD_INDEX27_,
+    _UART_CMD_INDEX28_,
+    _UART_CMD_INDEX29_,
+    _UART_CMD_INDEX30_,
+    _UART_CMD_INDEX31_,
+    _UART_CMD_INDEX32_,
+    _UART_CMD_INDEX33_,
+    _UART_CMD_INDEX34_,
+    _UART_CMD_INDEX35_,
+    _UART_CMD_INDEX36_,
+    _UART_CMD_INDEX37_,
+    _UART_CMD_INDEX38_,
+#endif    
     _UART_CMD_LENGTH_
 }UartCommadEnumType;
 
@@ -291,6 +310,14 @@ INTERFACE BOOLEAN MsAPI_UARTDebug_GetUartKey(U8 *u8key,U8 *u8Repstatus);
 #define uartExtDev_SCAN_TUNER               0x30
 #define uartExtDev_AUDIO_DEBUG              0x80
 #endif
+
+#define ENABLE_HDCP_KEY_WRITE 				ENABLE //xzm //for hdcp
+#define uartExtDev_FLASH_HDCP              	0x14   
+#define URCMD_FLASH_HDCP_WRITE_START        0
+#define URCMD_FLASH_HDCP_WRITE             	1
+#define URCMD_FLASH_HDCP_WRITE_END         	2
+#define URCMD_FLASH_HDCP_GET_CHECKSUM      	3
+
 
 #define uartExtDev_Autotest_Key             0x36 //'6'
 #define uartExtDev_Autotest_Sp              0x37 //'7'

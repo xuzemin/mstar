@@ -86,8 +86,13 @@
 
 #define FMAP_HDCP_KEY_BANK_START        (FMAP_TCON_BIN_BANK_START - FMAP_HDCP_KEY_BANK_COUNT)
 
+#if (HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
+#define HDCP_DB_BANK        ((FLASH_SIZE-CM_DATABASE_FLASH_SIZE)/FLASH_BLOCK_SIZE-1) // 7B(8MB)  3B(4MB)
+#define HDCP_DB_SIZE        FLASH_BLOCK_SIZE*1
+#else
 #define HDCP_DB_BANK                    (FMAP_HDCP_KEY_BANK_START)
 #define HDCP_DB_SIZE                    (FLASH_BLOCK_SIZE*FMAP_HDCP_KEY_BANK_COUNT)
+#endif
 
 //-------------------------------------------------------------------------------------
 // Version DB setting database flash map...

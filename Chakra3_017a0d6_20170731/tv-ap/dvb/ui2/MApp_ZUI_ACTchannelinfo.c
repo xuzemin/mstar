@@ -948,8 +948,8 @@ AGAIN:
         case EN_EXE_SHOW_SOURCE_BANNER:                     ///< show source banner
         {
             {
-                MApp_ZUI_API_ShowWindow(HWND_CHINFO_PIP_SRC1_INFO_AREA, SW_SHOW);
-                MApp_ZUI_API_ShowWindow(HWND_CHINFO_EXT_PANE, SW_HIDE);
+                //MApp_ZUI_API_ShowWindow(HWND_CHINFO_PIP_SRC1_INFO_AREA, SW_SHOW); //gchen @ 20180322 //MP333 hide source banner
+                //MApp_ZUI_API_ShowWindow(HWND_CHINFO_EXT_PANE, SW_HIDE); //gchen @ 20180322 //MP333 hide source banner
             }
         }
         return TRUE;

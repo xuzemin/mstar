@@ -141,7 +141,7 @@ void MApp_FuncExec_AudioVolume(FUNC_AUDIO_VOLUME_TYPE func, U8 *para1)
             {
                 if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
                 {
-                    stGenSetting.g_SoundSetting.Volume+= 5;
+                    stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
                     //msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
                     MApp_Ui_AudioVolumePage_Notify(EN_AUDIO_VOLUME_PAGE_NOTIFY_VOLUME,FALSE);
                 }
@@ -150,7 +150,7 @@ void MApp_FuncExec_AudioVolume(FUNC_AUDIO_VOLUME_TYPE func, U8 *para1)
             {
                 if ( stGenSetting.g_SoundSetting.Volume > 0 )
                 {
-                    stGenSetting.g_SoundSetting.Volume -= 5;
+                    stGenSetting.g_SoundSetting.Volume -= VOLUME_STEP;
                     //msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME,  stGenSetting.g_SoundSetting.Volume, 0);
                     MApp_Ui_AudioVolumePage_Notify(EN_AUDIO_VOLUME_PAGE_NOTIFY_VOLUME,FALSE);
                 }
@@ -210,7 +210,7 @@ void MApp_FuncExec_AdjustVolume(VIRTUAL_KEY_CODE key)
      {
          if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
          {
-             stGenSetting.g_SoundSetting.Volume+= 5;
+             stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
              msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
          }
          msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);
@@ -219,7 +219,7 @@ void MApp_FuncExec_AdjustVolume(VIRTUAL_KEY_CODE key)
      {
          if ( stGenSetting.g_SoundSetting.Volume > 0 )
          {
-             stGenSetting.g_SoundSetting.Volume-= 5;
+             stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
              msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
          }
          msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);

@@ -317,7 +317,7 @@ INTERFACE BOOLEAN MsAPI_UARTDebug_GetUartKey(U8 *u8key,U8 *u8Repstatus);
 #define URCMD_FLASH_HDCP_WRITE             	1
 #define URCMD_FLASH_HDCP_WRITE_END         	2
 #define URCMD_FLASH_HDCP_GET_CHECKSUM      	3
-
+#define URCMD_FLASH_HDCP_CHECK			0xAA //MP333 HDCP Check
 
 #define uartExtDev_Autotest_Key             0x36 //'6'
 #define uartExtDev_Autotest_Sp              0x37 //'7'

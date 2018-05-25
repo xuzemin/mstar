@@ -196,8 +196,8 @@
 #define DYNAMIC_HUE                 50
 #define DYNAMIC_COLOR_TEMP  MS_COLOR_TEMP_MEDIUM
 
-#define STANDARD_CONTRAST           50
-#define STANDARD_BRIGHTNESS         50//48
+#define STANDARD_CONTRAST           53
+#define STANDARD_BRIGHTNESS         42//48
 #define STANDARD_SATURATION         50
 #define STANDARD_SHARPNESS          50
 #define STANDARD_HUE                50
@@ -329,8 +329,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_STANDARD_BAND3,
       SOUND_MODE_STANDARD_BAND4,
       SOUND_MODE_STANDARD_BAND5,
-     // SOUND_MODE_STANDARD_BAND6,
-     // SOUND_MODE_STANDARD_BAND7,
+      SOUND_MODE_STANDARD_BAND6,
+      SOUND_MODE_STANDARD_BAND7,
       FALSE, 0, AUD_MODE_LR
     },
     //Music
@@ -342,8 +342,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_MUSIC_BAND3,
       SOUND_MODE_MUSIC_BAND4,
       SOUND_MODE_MUSIC_BAND5,
-      //SOUND_MODE_MUSIC_BAND6,
-      //SOUND_MODE_MUSIC_BAND7,
+      SOUND_MODE_MUSIC_BAND6,
+      SOUND_MODE_MUSIC_BAND7,
       FALSE, 0, AUD_MODE_LR
       #else
       SOUND_MODE_STANDARD_BAND1,
@@ -351,8 +351,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_STANDARD_BAND3,
       SOUND_MODE_STANDARD_BAND4,
       SOUND_MODE_STANDARD_BAND5,
-     // SOUND_MODE_STANDARD_BAND6,
-     // SOUND_MODE_STANDARD_BAND7,
+      SOUND_MODE_STANDARD_BAND6,
+      SOUND_MODE_STANDARD_BAND7,
       FALSE, 0, AUD_MODE_LR
       #endif
      },
@@ -365,8 +365,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_MOVIE_BAND3,
       SOUND_MODE_MOVIE_BAND4,
       SOUND_MODE_MOVIE_BAND5,
-     // SOUND_MODE_MOVIE_BAND6,
-      //SOUND_MODE_MOVIE_BAND7,
+      SOUND_MODE_MOVIE_BAND6,
+      SOUND_MODE_MOVIE_BAND7,
       FALSE, 0, AUD_MODE_LR
       #else
       SOUND_MODE_STANDARD_BAND1,
@@ -374,8 +374,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_STANDARD_BAND3,
       SOUND_MODE_STANDARD_BAND4,
       SOUND_MODE_STANDARD_BAND5,
-     // SOUND_MODE_STANDARD_BAND6,
-     // SOUND_MODE_STANDARD_BAND7,
+      SOUND_MODE_STANDARD_BAND6,
+      SOUND_MODE_STANDARD_BAND7,
       FALSE, 0, AUD_MODE_LR
       #endif
 
@@ -389,8 +389,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_SPORTS_BAND3,
       SOUND_MODE_SPORTS_BAND4,
       SOUND_MODE_SPORTS_BAND5,
-     // SOUND_MODE_SPORTS_BAND6,
-     // SOUND_MODE_SPORTS_BAND7,
+      SOUND_MODE_SPORTS_BAND6,
+      SOUND_MODE_SPORTS_BAND7,
       FALSE, 0, AUD_MODE_LR
       #else
       SOUND_MODE_STANDARD_BAND1,
@@ -398,8 +398,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_STANDARD_BAND3,
       SOUND_MODE_STANDARD_BAND4,
       SOUND_MODE_STANDARD_BAND5,
-     // SOUND_MODE_STANDARD_BAND6,
-     // SOUND_MODE_STANDARD_BAND7,
+      SOUND_MODE_STANDARD_BAND6,
+      SOUND_MODE_STANDARD_BAND7,
       FALSE, 0, AUD_MODE_LR
       #endif
       },
@@ -411,8 +411,8 @@ static code stSoundModeSeting astDefaultSoundModeSeting[EN_SoundMode_Num] =
       SOUND_MODE_STANDARD_BAND3,
       SOUND_MODE_STANDARD_BAND4,
       SOUND_MODE_STANDARD_BAND5,
-     // SOUND_MODE_STANDARD_BAND6,
-     // SOUND_MODE_STANDARD_BAND7,
+      SOUND_MODE_STANDARD_BAND6,
+      SOUND_MODE_STANDARD_BAND7,
       FALSE, 0, AUD_MODE_LR
       },
 };
@@ -2991,7 +2991,12 @@ void MApp_DataBase_RestoreDefaultSystem(U16 u16KeepSetting)
     stGenSetting.g_SysSetting.bAIS = AIS_OFF;
   #endif
 
-
+	stGenSetting.g_SysSetting.fAfterUpdate = TRUE; //wht120829_1
+#if ENABLE_POWERON_VIDEO //gchen @ 20180109
+	stGenSetting.g_SysSetting.uPowerOnTime = 0;
+	stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+#endif
+	stGenSetting.g_SysSetting.u8BatLowPowerOffFlag  = 0; // MP333 //gchen @ 20180512 
   #if ENABLE_DBC
     stGenSetting.g_SysSetting.fDCR = 0;
     //MApi_XC_Sys_DLC_DBC_OnOff(stGenSetting.g_SysSetting.fDCR);
@@ -3359,12 +3364,6 @@ void MApp_DataBase_RestoreDefaultAudio(BOOL bSetDriver)
         msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
         msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_MOMENT_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);
     }
-	
-	MApi_AUDIO_SetEq(E_EQUALIZER_BAND_1, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ);
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ);
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ);
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ);
 }
 
 void MApp_DataBase_RestoreDefaultScanMenu(void)

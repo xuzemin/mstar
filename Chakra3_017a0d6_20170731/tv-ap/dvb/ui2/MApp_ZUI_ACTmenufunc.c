@@ -3752,6 +3752,7 @@ _Cycle(
         case EN_EXE_DEC_SOUND_120_HZ:
         case EN_EXE_INC_SOUND_120_HZ:
             {
+				printf("\r\n gchen @ 20180419 11111 A EQ 120Hz \n");//MP333 eq debug
                 //MApp_UiMenuFunc_CheckAudioMode();
                 //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ;
                 stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ =
@@ -3764,9 +3765,28 @@ _Cycle(
             MApp_ZUI_API_InvalidateWindow(HWND_MENU_SNDEQ_120_HZ);
             return TRUE;
 
+        case EN_EXE_DEC_SOUND_200_HZ:
+        case EN_EXE_INC_SOUND_200_HZ:
+            {
+				printf("\r\n gchen @ 20180419 11111 A EQ 200Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_200HZ:
+                //MApp_UiMenuFunc_CheckAudioMode();
+                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ;
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ =
+                    MApp_ZUI_ACT_DecIncValue(
+                        act==EN_EXE_INC_SOUND_200_HZ,
+                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ, 0, 100, 1);
+                MApi_AUDIO_EnableEQ(TRUE);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ);
+            }
+            MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_200_HZ);
+            return TRUE;
+
         case EN_EXE_DEC_SOUND_500_HZ:
         case EN_EXE_INC_SOUND_500_HZ:
             {
+				printf("\r\n gchen @ 20180419 11111 A EQ 500Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_500HZ:
                 //MApp_UiMenuFunc_CheckAudioMode();
                 //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ;
                 stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ =
@@ -3774,8 +3794,7 @@ _Cycle(
                         act==EN_EXE_INC_SOUND_500_HZ,
                         stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ, 0, 100, 1);
                 MApi_AUDIO_EnableEQ(TRUE);
-				printf("u8500HZ------------%d\n",stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
-                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
             }
             MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_500_HZ);
             return TRUE;
@@ -3783,29 +3802,50 @@ _Cycle(
         case EN_EXE_DEC_SOUND_1_2_KHZ:
         case EN_EXE_INC_SOUND_1_2_KHZ:
             {
+				printf("\r\n gchen @ 20180419 11111 A EQ 1200Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_1_dot_2_KHZ:
                 //MApp_UiMenuFunc_CheckAudioMode();
-                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ;
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ =
+                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ;
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ =
                     MApp_ZUI_ACT_DecIncValue(
-                        act==EN_EXE_INC_SOUND_1_2_KHZ, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ, 0, 100, 1);
+                        act==EN_EXE_INC_SOUND_1_2_KHZ, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ, 0, 100, 1);
                 MApi_AUDIO_EnableEQ(TRUE);
-                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ);
             }
             MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_1_2_KHZ);
+            return TRUE;
+
+        case EN_EXE_DEC_SOUND_3_KHZ:
+        case EN_EXE_INC_SOUND_3_KHZ:
+            {
+				printf("\r\n gchen @ 20180419 11111 A EQ 3000Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_3KHZ:
+                //MApp_UiMenuFunc_CheckAudioMode();
+                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ;
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ =
+                    MApp_ZUI_ACT_DecIncValue(
+                        act==EN_EXE_INC_SOUND_3_KHZ,
+                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ, 0, 100, 1);
+                MApi_AUDIO_EnableEQ(TRUE);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ);
+            }
+            MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_3_KHZ);
             return TRUE;
 
         case EN_EXE_DEC_SOUND_7_5_KHZ:
         case EN_EXE_INC_SOUND_7_5_KHZ:
             {
+				printf("\r\n gchen @ 20180419 11111 A EQ 7500Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_7_dot_5_KHZ:
                 //MApp_UiMenuFunc_CheckAudioMode();
-                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ;
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ =
+                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ;
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ =
                     MApp_ZUI_ACT_DecIncValue(
                         act==EN_EXE_INC_SOUND_7_5_KHZ,
-                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ, 0, 100, 1);
+                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ, 0, 100, 1);
                 // equalizer
                 MApi_AUDIO_EnableEQ(TRUE);
-                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_6, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ);
             }
             MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_7_5_KHZ);
             return TRUE;
@@ -3813,15 +3853,17 @@ _Cycle(
         case EN_EXE_DEC_SOUND_12_KHZ:
         case EN_EXE_INC_SOUND_12_KHZ:
             {
+				printf("\r\n gchen @ 20180419 11111 A EQ 1200Hz \n");//MP333 eq debug
+                //from case MAPP_UIMENUFUNC_ADJU16C1_SOUND_USER_12KHZ:
                 //MApp_UiMenuFunc_CheckAudioMode();
-                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ;
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ =
+                //U8 u8ValueTmp = stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ;
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ =
                     MApp_ZUI_ACT_DecIncValue(
                         act==EN_EXE_INC_SOUND_12_KHZ,
-                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ, 0, 100, 1);
+                        stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ, 0, 100, 1);
                 // equalizer
                 MApi_AUDIO_EnableEQ(TRUE);
-                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ);
+                MApi_AUDIO_SetEq(E_EQUALIZER_BAND_7, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ);
             }
             MApp_ZUI_API_InvalidateAllSuccessors(HWND_MENU_SNDEQ_12_KHZ);
             return TRUE;
@@ -5151,25 +5193,35 @@ static U16 _MApp_ZUI_ACT_GetSoundAdjustValue(HWND hwnd)
         case HWND_MENU_SNDMODE_BASS_OPTION:
             return (
                 stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].Bass);
+        //case HWND_MENU_SNDEQ_120_HZ_BAR:
         case HWND_MENU_SNDEQ_120_HZ_OPTION:
             return (
                 stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ);
-
+        //case HWND_MENU_SNDEQ_200_HZ_BAR:
+        case HWND_MENU_SNDEQ_200_HZ_OPTION:
+            return (
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ);
+        //case HWND_MENU_SNDEQ_500_HZ_BAR:
         case HWND_MENU_SNDEQ_500_HZ_OPTION:
             return (
                 stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
-
+        //case HWND_MENU_SNDEQ_1_2_KHZ_BAR:
         case HWND_MENU_SNDEQ_1_2_KHZ_OPTION:
             return (
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ);
-
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ);
+        //case HWND_MENU_SNDEQ_3_KHZ_BAR:
+        case HWND_MENU_SNDEQ_3_KHZ_OPTION:
+            return (
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ);
+        //case HWND_MENU_SNDEQ_7_5_KHZ_BAR:
         case HWND_MENU_SNDEQ_7_5_KHZ_OPTION:
             return (
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ);
-
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ);
+        //case HWND_MENU_SNDEQ_12_KHZ_BAR:
         case HWND_MENU_SNDEQ_12_KHZ_OPTION:
             return (
-                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ);
+                stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ);
+
         case HWND_MENU_SOUND_BALANCE_OPTION:
             //from case EN_DNUM_Getu16C3_BalanceValue:
             return (
@@ -6255,7 +6307,7 @@ LPTSTR _MApp_ZUI_ACT_CombineTextAndOption(HWND hwnd)
                 || CHIP_FAMILY_TYPE == CHIP_FAMILY_MAYA)
             u16TextID = en_str_5KHz;
             #else
-            u16TextID = en_str_1_dot_5_KHz;
+            u16TextID = en_str_1_dot_2_KHz;
             #endif
             u16OptionID = _MApp_ZUI_ACT_GetSoundAdjustValue(hwnd);
             break;
@@ -6272,12 +6324,12 @@ LPTSTR _MApp_ZUI_ACT_CombineTextAndOption(HWND hwnd)
             break;
 
         case HWND_MENU_SNDEQ_7_5_KHZ_OPTION:
-            u16TextID = en_str_5KHz;
+            u16TextID = en_str_7dot5KHz;
             u16OptionID = _MApp_ZUI_ACT_GetSoundAdjustValue(hwnd);
             break;
 
         case HWND_MENU_SNDEQ_12_KHZ_OPTION:
-            u16TextID = en_str_10KHz;
+            u16TextID = en_str_12KHz;
             u16OptionID = _MApp_ZUI_ACT_GetSoundAdjustValue(hwnd);
             break;
 
@@ -13156,36 +13208,38 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
          break;
 
         //from MMI_C2_Audio ===============================
+#if(CHIP_FAMILY_TYPE == CHIP_FAMILY_S7LD || CHIP_FAMILY_TYPE == CHIP_FAMILY_A7)
         case HWND_MENU_SNDEQ_1_2_KHZ:
+        case HWND_MENU_SNDEQ_3_KHZ:
         case HWND_MENU_SNDEQ_120_HZ:
+        case HWND_MENU_SNDEQ_200_HZ:
         case HWND_MENU_SNDEQ_500_HZ:
-        case HWND_MENU_SNDEQ_12_KHZ:
-        case HWND_MENU_SNDEQ_7_5_KHZ:
 #if (SOUNDMODE == SOUNDMODE_EQ)
         {
 #ifdef ENABLE_AUDIO_FREQ
-            /*if(stGenSetting.g_SoundSetting.SoundMode != EN_SoundMode_User)
+            if(stGenSetting.g_SoundSetting.SoundMode != EN_SoundMode_User)
             {
                 return EN_DL_STATE_DISABLED;
             }
-            else */
+            else
             {
                 return EN_DL_STATE_NORMAL;
             }
 #else
-            //return EN_DL_STATE_HIDDEN;
+            return EN_DL_STATE_HIDDEN;
 #endif
         }
 #else
-            //return EN_DL_STATE_HIDDEN;
+            return EN_DL_STATE_HIDDEN;
 #endif
-		case HWND_MENU_SNDEQ_3_KHZ:
-        case HWND_MENU_SNDEQ_200_HZ:
+
+        case HWND_MENU_SNDEQ_12_KHZ:
+        case HWND_MENU_SNDEQ_7_5_KHZ:
         {
             return EN_DL_STATE_HIDDEN;
         }
 
-#if 0
+#else
         case HWND_MENU_SNDEQ_12_KHZ:
         case HWND_MENU_SNDEQ_1_2_KHZ:
         case HWND_MENU_SNDEQ_3_KHZ:

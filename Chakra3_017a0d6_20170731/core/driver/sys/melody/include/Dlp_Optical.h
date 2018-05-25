@@ -455,7 +455,9 @@ _DLPOPTICAL_ void devOPE_Long_Axis_Flip(U8 OnOff);
 _DLPOPTICAL_ void devOPE_Short_Axis_Flip(U8 OnOff);
 //<<wht141107_1
 _DLPOPTICAL_ void keystone_correction(S8 angle);
+_DLPOPTICAL_ void Optical_YangMing_SetWhitePattern(void);
 _DLPOPTICAL_ void Optical_Led_OpenANDClose(U8 OnOff);
+_DLPOPTICAL_ U8 Optical_YangMing_ReadSource(void); // MP333
 _DLPOPTICAL_ void Optical_YangMing_InputSourceSelect(void);
 _DLPOPTICAL_ void Optical_YangMing_RGBCurrent(void);
 _DLPOPTICAL_ void Optical_YangMing_KeyStoneCorrection_Control(void);

@@ -338,6 +338,7 @@
     #define ENABLE_POWERON_MUSIC            DISABLE // after T3 checking ok, turn on it again //enable it to play music when system boot up
     #define POWERON_MUSIC_MIN_HOLD_ON_TIME  3000   //When ENABLE_POWERON_MUSIC==1, music should play at least xx ms until cancelled
     #define DISPLAY_LOGO                    ENABLE  // after T3 checking ok, turn on it again //enable it to display LOGO when system boot up
+	#define ENABLE_POWERON_VIDEO            ENABLE //DISABLE //enable it to display Video when system boot up //gchen @ 20180108 //test video
 #if ENABLE_MPLAYER_MOVIE
     #define ENABLE_SUBTITLE_DMP             ENABLE  //enable it to support MM subtitle
 #else

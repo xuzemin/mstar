@@ -99,7 +99,8 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-#if (HDCP_KEY_TYPE==HDCP_KEY_IN_CODE||HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
+#if (HDCP_KEY_TYPE==HDCP_KEY_IN_CODE)
+//||HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
 //gchen @ 20171214 //HDCP KEY
 MS_U8 _u8HdcpKey[HDCP_KEY_SIZE]=
 {

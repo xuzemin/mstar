@@ -12389,7 +12389,7 @@ void msAPI_OSD_DrawRoundBlock(OSDClrBtn *pclrBtn)
         //MDrv_GE_PixelEngine(&PESet);
         //MDrv_GE_SetAlpha(1,3,3,0x55555555);
 
-        MApi_GFX_SetAlphaBlending(COEF_CONST, 0x00);
+        MApi_GFX_SetAlphaBlending(COEF_CONST, 0x66);
         MApi_GFX_SetAlphaSrcFrom(ABL_FROM_CONST);
         MApi_GFX_EnableAlphaBlending(TRUE);
 
@@ -12461,7 +12461,7 @@ void msAPI_OSD_DrawRoundBlock(OSDClrBtn *pclrBtn)
 //        PESet.PE_Enable_Flag = GE_PE_FLAG_DEFAULT;
         //MDrv_GE_PixelEngine(&PESet);
         MApi_GFX_EnableAlphaBlending(FALSE);
-       MApi_GFX_SetAlphaBlending(COEF_ASRC,0x00);
+        MApi_GFX_SetAlphaBlending(COEF_ASRC,0x66);
 
         /* end AA */
     }

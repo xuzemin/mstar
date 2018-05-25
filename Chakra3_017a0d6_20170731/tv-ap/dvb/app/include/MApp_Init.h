@@ -127,6 +127,8 @@ INTERFACE  void MApp_PreInit_CustomerInfo(void);
 
 void MApp_PreInit_CheckGoToPowerDown(void);
 INTERFACE void Detect_BatAD(void);
+INTERFACE void Detect_TempAD(void);
+
 INTERFACE  void MApp_PreInit_Panel_Backlight_Off(void);
 
 INTERFACE  void MApp_PreInit_ReadDDRPhase(void);

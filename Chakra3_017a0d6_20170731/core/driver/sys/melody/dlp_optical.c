@@ -738,6 +738,7 @@ MsOS_DelayTask(10);
 /////////////////////////////////////////////////////////////////////////////
 void SetOpticalCurrent(U32 uCurrValue)
 {
+	
 	BYTE i =0;
 	BOOL hightlowbit=TRUE;
 	U32 u8Data[2];	
@@ -771,6 +772,7 @@ void SetOpticalCurrent(U32 uCurrValue)
 		write_dpp2600_i2c(DPP2600_DEV_ADDR, ICP_COMMAND, 0x000000d2, 0);
 		MsOS_DelayTask(10);
 	}
+
 }
 #endif
 
@@ -1257,10 +1259,40 @@ void Optical_SetRes_854x480(void)
     MDrv_IIC_WriteBytes(DPP2600_DEV_ADDR, 1, &subadd, 8, u8Data);
 }
 
+// MP333
+U8 Optical_YangMing_ReadSource(void)
+{
+	
+	U8 u8Data[4];
+	U8 subadd;
+	subadd = (U8) 0x0b;
+    u8Data[0] =(U8)0x0f;
+    u8Data[1] =(U8)0x0f;
+    u8Data[2] =(U8)0x0f;
+    u8Data[3] =(U8)0x0f;
+	
+
+  	U32 read_data;
+	read_data=read_dpp2600_i2c(DPP2600_DEV_ADDR, subadd);
+	
+	//printf("\n--we read 2600 data is =%lx-----\n",read_data);
+	
+    u8Data[0] =(U8) (read_data>>24) ;
+    u8Data[1] =(U8) (read_data>>16) ;
+    u8Data[2] =(U8)(read_data>>8) ;
+    u8Data[3] =(U8) (read_data) ;
+
+	//printf("\n--we read 2600 data is  u8Data[0]=%x-----\n",u8Data[0]);
+	//printf("\n--we read 2600 data is  u8Data[1]=%x-----\n",u8Data[1]);
+	//printf("\n--we read 2600 data is  u8Data[2]=%x-----\n",u8Data[2]);
+	//printf("\n--we read 2600 data is  u8Data[3]=%x-----\n",u8Data[3]);
+
+	return u8Data[3];
+}
+
 void Optical_YangMing_InputSourceSelect(void)
 {
-	//MDrv_IIC_WriteByte(DPP2600_DEV_ADDR, WRITE_INPUT_SOURCE_SELECT, 0);
-	
+
 	U8 u8Data[4];
 	U8 subadd;
 	subadd = (U8) INPUT_SOURCE;
@@ -1269,6 +1301,19 @@ void Optical_YangMing_InputSourceSelect(void)
     u8Data[2] =(U8)0x00;
     u8Data[3] =(U8)0x00;
     MDrv_IIC_WriteBytes(DPP2600_DEV_ADDR, 1, &subadd, 4, u8Data);
+}
+
+void Optical_YangMing_SetWhitePattern(void)
+{
+	// MP333
+	U8 u8Data[4];
+	U8 subadd;
+	subadd = (U8) 0xA6;
+     	u8Data[0] =(U8)0x00;
+    	u8Data[1] =(U8)0x00;
+    	u8Data[2] =(U8)0x00;
+    	u8Data[3] =(U8)0x71; //Set White Curtain
+    	MDrv_IIC_WriteBytes(DPP2600_DEV_ADDR, 1, &subadd, 4, u8Data);
 }
 
 

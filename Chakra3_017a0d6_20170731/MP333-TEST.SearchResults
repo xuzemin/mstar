@@ -1,0 +1,23 @@
+---- OsdTables Matches (18 in 13 files) ----
+MApp_ZUI_APItables.c (tv-ap\common\zui):extern OSDPAGETABLE code OsdTables[];
+MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WndMaxNum;
+MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WindowList;
+MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WindowAlphaDataList;
+MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].bEnableAlpha;
+MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].u8AlphaValue;
+OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
+OSDTbl_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
+OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
+OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
+---- OsdTables Search Errors Encountered (2) ----
+The following 2 files could not be processed:
+X:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IAB : File could not be opened.
+X:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IMB : File could not be opened.

@@ -142,6 +142,8 @@
 #define HDCP_KEY_ADDR                RM_HDCP_KEY_ADDR
 #endif
 #define HDCP_KEY_SIZE                304
+#define POWER_VIDEO_CHECK_SIZE 	0x10 //gchen @ 20180108 //test video //MP333
+#define VIDEO_CHECK_OFFSET      0x9500   //MP333 
 
 
 // ================EPPROM MAP ====================

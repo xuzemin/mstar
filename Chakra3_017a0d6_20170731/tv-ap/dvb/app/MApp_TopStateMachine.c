@@ -351,6 +351,34 @@ static EN_TOP_STATE s_TSM_eLastTopState = (EN_TOP_STATE)0xFF;
 #define ENABLE_DEBUG_TSM_TIME   1
 
 #define TOP_STATE_TASK_CHECK_POINT()    //printf("<T %u>", __LINE__ );
+extern void msAPI_BLoader_Reboot(void);
+void MApp_USB_Upgrade(void){
+        #if ( (ENABLE_USB || ENABLE_USB_2) && ENABLE_FILESYSTEM )
+            U8 u8PortEnStatus = 0;
+
+            MDrv_UsbDeviceConnect();
+            printf("USB SW Update!\n");
+            u8PortEnStatus = MDrv_USBGetPortEnableStatus();
+			if((u8PortEnStatus & BIT1) == BIT1)
+            {
+            	MDrv_UsbDeviceConnect();
+                MApp_UsbDownload_Init(BIT1, NULL);
+            }
+            else
+            {
+                printf("Error> Unknown USB port\n");
+                return;
+            }
+
+            if(MW_UsbDownload_Search())
+            {
+				if (MW_UsbDownload_Start())
+				{
+					msAPI_BLoader_Reboot();
+				}
+            }
+        #endif
+}
 
 void MApp_TopStateMachine(void)
 {
@@ -850,13 +878,14 @@ void MApp_TopStateMachine(void)
                     break;
 
                 case EXIT_GOTO_INPUTSOURCE:
-				if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
-					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
-                    enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
-				}else{
-					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
-                    enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-				}
+					MApp_USB_Upgrade();
+					/*if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+						MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+						enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					}else{
+						MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
+						enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
+					}*/
                     break;
 
                 case EXIT_GOTO_OSDPAGE:
@@ -1261,13 +1290,16 @@ void MApp_TopStateMachine(void)
                     break;
 
                 case EXIT_GOTO_INPUTSOURCE:
-                    if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+					//MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+					//enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					//MApp_USB_Upgrade();
+                   /* if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
                     enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
 					}else{
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
                     enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-					}
+					}*/
                     break;
 
                 case EXIT_GOTO_INFO:
@@ -1703,13 +1735,16 @@ void MApp_TopStateMachine(void)
             #endif  //#if (ENABLE_DTV_EPG)
 
                 case EXIT_GOTO_INPUTSOURCE:
-                    if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+					enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					//MApp_USB_Upgrade();
+                    /*if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
                     enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
 					}else{
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
                     enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-					}
+					}*/
                     break;
 
                 case EXIT_GOTO_STANDBY:
@@ -2077,13 +2112,16 @@ void MApp_TopStateMachine(void)
                     break;
 
                 case EXIT_GOTO_INPUTSOURCE:
-                    if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+					enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					//MApp_USB_Upgrade();
+                    /*if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
                     enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
 					}else{
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
                     enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-					}
+					}*/
                     break;
 
                 case EXIT_GOTO_TV:
@@ -2114,13 +2152,16 @@ void MApp_TopStateMachine(void)
                     break;
 
                 case EXIT_GOTO_INPUTSOURCE:
-                    if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+					enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					//MApp_USB_Upgrade();
+                    /*if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
                     enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
 					}else{
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
                     enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-					}
+					}*/
                     break;
 
                 case EXIT_GOTO_TV:
@@ -2141,13 +2182,16 @@ void MApp_TopStateMachine(void)
             switch( MApp_APEngine_CheckRetVal() )
             {
                 case EXIT_GOTO_INPUTSOURCE:
-                    if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
+					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
+					enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
+					//MApp_USB_Upgrade();
+                    /*if(_MApp_ZUI_ACT_GetSourceType() == UI_INPUT_SOURCE_DMP){
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_HDMI3, NULL);
                     enTopState = STATE_TOP_DIGITALINPUTS;//STATE_TOP_INPUTSOURCE;
 					}else{
 					MApp_FuncExec_InputSourcePage(EN_FUNC_INPUTSOURCE_SOURCE, UI_INPUT_SOURCE_DMP, NULL);
                     enTopState = STATE_TOP_DMP;//STATE_TOP_DMP;//STATE_TOP_INPUTSOURCE;
-					}
+					}*/
                 break;
 
                 case EXIT_APENGINE_EXIT:

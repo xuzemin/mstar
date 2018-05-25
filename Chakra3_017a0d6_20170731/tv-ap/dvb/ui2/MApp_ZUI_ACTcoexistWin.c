@@ -211,9 +211,9 @@ extern void _MApp_ZUI_API_ConvertTextComponentToDynamic(U16 u16TextOutIndex, DRA
 #define ARC_GWIN_H    81
 #else
 #define MUTE_GWIN_X    20
-#define MUTE_GWIN_Y    84
-#define MUTE_GWIN_W    112
-#define MUTE_GWIN_H    40
+#define MUTE_GWIN_Y    40
+#define MUTE_GWIN_W    36
+#define MUTE_GWIN_H    39
 
 #define MUTE_GWIN_PA_X    20//(PA-power amplifier)
 #define MUTE_GWIN_PA_Y    84
@@ -232,11 +232,16 @@ extern void _MApp_ZUI_API_ConvertTextComponentToDynamic(U16 u16TextOutIndex, DRA
 #endif
 
 #if 1//ENABLE_TEMPERATURE_DETECT
-#define TEMP_DET_GWIN_X   380
+#define TEMP_DET_GWIN_X   381
 #define TEMP_DET_GWIN_Y   190
-#define TEMP_DET_GWIN_W   95
+#define TEMP_DET_GWIN_W   93
 #define TEMP_DET_GWIN_H   100
 #endif
+
+#define TEMP_OVERTOP_GWIN_X   388
+#define TEMP_OVERTOP_GWIN_Y   165
+#define TEMP_OVERTOP_GWIN_W   76
+#define TEMP_OVERTOP_GWIN_H   150
 
 #define BAT_LOW_GWIN_X   331//240
 #define BAT_LOW_GWIN_Y   195//190
@@ -627,8 +632,8 @@ void MApp_ZUI_ACTcoexist_Enable(BOOLEAN bEnable)
 
     DRAWSTYLE * _Zui_Volume_Mute_Pane_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_PANE].pNormalStyle;
     DRAWSTYLE * _Zui_Volume_Mute_Icon_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON].pNormalStyle;
-    DRAWSTYLE * _Zui_Volume_Mute_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_TEXT].pNormalStyle;
-    DRAWSTYLE * _Zui_Volume_Mute_BG_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON_BG].pNormalStyle;
+    //DRAWSTYLE * _Zui_Volume_Mute_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_TEXT].pNormalStyle;
+    //DRAWSTYLE * _Zui_Volume_Mute_BG_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON_BG].pNormalStyle;
     //DRAWSTYLE * _Zui_Volume_Mute_BG_R_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Audio_Volume[HWND_VOLUME_MUTE_ICON_BG_R].pNormalStyle;
 #if (ATSC_CC == ATV_CC)
     if ((IsATVInUse()||IsAVInUse()||IsSVInUse())&& stGenSetting.g_SysSetting.enATVCaptionType != ATV_CAPTION_TYPE_OFF)
@@ -674,14 +679,14 @@ void MApp_ZUI_ACTcoexist_Enable(BOOLEAN bEnable)
 
     MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_PANE,&Wrect);
     _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Pane_Normal_DrawStyle);
-    MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON_BG,&Wrect);
-    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_BG_Normal_DrawStyle);
+    //MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON_BG,&Wrect);
+    //_MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_BG_Normal_DrawStyle);
     //MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON_BG_R,&Wrect);
     //_MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_BG_R_Normal_DrawStyle);
     MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_ICON,&Wrect);
     _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Icon_Normal_DrawStyle);
-    MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_TEXT,&Wrect);
-    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Text_Normal_DrawStyle);
+    //MApp_ZUI_API_GetWindowInitialRect(HWND_VOLUME_MUTE_TEXT,&Wrect);
+    //_MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Volume_Mute_Text_Normal_DrawStyle);
 
     g_GUI_WindowPositionList = t_GUI_WPT;
 
@@ -1205,6 +1210,92 @@ void MApp_UiMenu_TempDetWin_Hide(void)
     }
 }
 #endif
+
+static void MApp_UiMenu_TempOverTopWin_Create(void)
+{
+    printf("MApp_UiMenu_BatLowWin_Create \n"); 
+    GRAPHIC_DC Wdc;
+    RECT    Wrect;
+    WINDOWPOSDATA *t_GUI_WPT;
+
+    BOOLEAN  bCreateOk=FALSE;
+
+    DRAWSTYLE * _Zui_Temp_Overtop_Warning_Window_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Overtop[HWND_TEMP_OVERTOP_WARNING_WINDOW].pNormalStyle;
+    DRAWSTYLE * _Zui_Temp_Det_Hint_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Overtop[HWND_TEMP_OVERTOP_HINT_ICON].pNormalStyle;
+    //DRAWSTYLE * _Zui_Temp_Det_Charge_Text_Normal_DrawStyle =  _GUI_WindowsDrawStyleList_Zui_Temp_Det[HWND_TEMP_DET_HINT2_TEXT].pNormalStyle;
+
+	
+    printf(" MApp_ZUI_ACTcoexist_Delete 1 \n");
+    MApp_ZUI_ACTcoexist_Delete(); 
+    //bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_BAT_LOW, MUTE_GWIN_X, MUTE_GWIN_Y, MUTE_GWIN_W, MUTE_GWIN_H);
+    bCreateOk=MApp_ZUI_ACTcoexist_Create(COWIN_ID_TEMP_OVERTOP, TEMP_OVERTOP_GWIN_X, TEMP_OVERTOP_GWIN_Y, TEMP_OVERTOP_GWIN_W, TEMP_OVERTOP_GWIN_H);
+    if(bCreateOk==FALSE)
+    {
+        printf(" BatOverTopWarning_Create  fail\n"); 
+        return;
+    }
+	
+    
+    Wdc.u8FbID = CoexistWin.u8FBID;
+     
+    u8MuteFBID = CoexistWin.u8FBID;
+    Wdc.u8ConstantAlpha = 0xFF;
+
+    t_GUI_WPT = g_GUI_WindowPositionList;
+    g_GUI_WindowPositionList = _GUI_WindowPositionList_Zui_Temp_Overtop;
+
+    MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_OVERTOP_WARNING_WINDOW,&Wrect);
+ 
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Overtop_Warning_Window_Normal_DrawStyle);
+    MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_OVERTOP_HINT_ICON,&Wrect);
+
+    _MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Det_Hint_Text_Normal_DrawStyle);
+    //MApp_ZUI_API_GetWindowInitialRect(HWND_TEMP_DET_HINT2_TEXT,&Wrect);
+
+    //_MApp_ZUI_API_DrawStyleList(&Wdc, &Wrect, _Zui_Temp_Det_Charge_Text_Normal_DrawStyle);
+
+    g_GUI_WindowPositionList = t_GUI_WPT;
+	u8CoexistWinType = COWIN_ID_TEMP_OVERTOP;
+    //MApp_ZUI_ACTcoexistWin_RestoreGwin();
+}
+
+void MApp_UiMenu_TempOverTopWin_Show(void)
+{
+		if(//(MApp_ZUI_GetActiveOSD() == E_OSD_BAT_PERCENTAGE)||
+	   	(MApp_ZUI_GetActiveOSD() == E_OSD_SCREEN_SAVER))
+	   	   MApp_ZUI_ACT_ExecuteWndAction(EN_EXE_CLOSE_CURRENT_OSD);
+		   
+        if(u8CoexistWinType != COWIN_ID_TEMP_OVERTOP)
+        {
+            printf("u8CoexistWinType != COWIN_ID_BAT_LOW \n"); //change by gchen @ 20110714
+            MApp_UiMenu_TempOverTopWin_Create(); 
+			MApp_ZUI_ACTcoexist_Enable(TRUE);
+			gU8TempHighFlag = 1; 
+			//bTempHighFlag = 1;
+        }
+		else
+		{
+
+		}      
+	
+}
+
+void MApp_UiMenu_TempOverTopWin_Hide(void)
+{
+     U8 u8FBID=0XFF;
+
+    if(u8CoexistWinType == COWIN_ID_TEMP_OVERTOP)
+    {
+        MApp_ZUI_ACTcoexist_Enable(FALSE);
+        u8FBID=MApi_GOP_GWIN_GetFBfromGWIN(CoexistWin.u8GwinID);
+        MApi_GOP_GWIN_DeleteFB(u8FBID);
+        CoexistWin.u8FBID = 0xFF;
+        u8CoexistWinType = COWIN_ID_NONE;
+		gU8TempHighFlag = 0; 
+		//bTempHighFlag = 0;
+    }
+}
+
 
 static void MApp_UiMenu_BatLowWin_Create(void)
 {

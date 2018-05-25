@@ -94,6 +94,9 @@
 #define HDCP_DB_SIZE                    (FLASH_BLOCK_SIZE*FMAP_HDCP_KEY_BANK_COUNT)
 #endif
 
+#define POWER_VIDEO_CHECK_DB_BANK      HDCP_DB_BANK+1 // ((FLASH_SIZE-CM_DATABASE_FLASH_SIZE)/FLASH_BLOCK_SIZE-1) // 7B(8MB)  3B(4MB) //MP333
+#define POWER_VIDEO_CHECK_DB_SIZE       0x10   // FLASH_BLOCK_SIZE*1  //MP333
+
 //-------------------------------------------------------------------------------------
 // Version DB setting database flash map...
 

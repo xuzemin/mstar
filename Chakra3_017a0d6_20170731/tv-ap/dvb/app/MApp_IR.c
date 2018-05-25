@@ -103,7 +103,7 @@
 #include "MsOS.h"
 #include "SysInit.h"
 #include "MApp_Init.h"
-
+#include "MApp_ZUI_ACTcoexistWin.h"
 #include "apiXC.h"
 #include "apiXC_Adc.h"
 #include "MApp_GlobalSettingSt.h"
@@ -123,7 +123,7 @@
 #if (MHEG5_ENABLE)
 #include "msAPI_MHEG5.h"
 #endif
-
+#include "MApp_ZUI_ACTcoexistWin.h"
 #include "MApp_GlobalVar.h"
 #include "MApp_Key.h"
 #include "MApp_IR.h"
@@ -891,7 +891,9 @@ static void MApp_ParseKey(void)
                     }
                 else
                    {
-                    u8KeyCode = KEY_VOLUME_MINUS;
+				   	if(stGenSetting.g_SoundSetting.Volume != 0){
+						u8KeyCode = KEY_VOLUME_MINUS;
+					}
                    }
               #else
                 if ((stKeyStatus.keytype == KEY_TYPE_KEYPAD) )//ZUI_TODO: &&
@@ -1651,12 +1653,15 @@ void MApp_ProcessUserInput(void)
 		  	||(u8KeyPadValue == (KEY_VOLUME_PLUS | KEY_UP_FLAG)))
 		  {
 			u8KeyCode = KEY_VOLUME_PLUS;
+			MApp_UiMenu_TempDetWin_Show();
 		  }
 		  else if((u8KeyPadValue == (KEY_VOLUME_MINUS| KEY_LONG_FLAG))
 		  	||(u8KeyPadValue == (KEY_VOLUME_MINUS | KEY_LIAN_FLAG))
 		  	||(u8KeyPadValue == (KEY_VOLUME_MINUS | KEY_UP_FLAG)))
 		  {
-			u8KeyCode = KEY_VOLUME_MINUS;
+			if(stGenSetting.g_SoundSetting.Volume != 0){
+				u8KeyCode = KEY_VOLUME_MINUS;
+			}
 		  }
 		#endif
 		gU8Timer10ms =0;

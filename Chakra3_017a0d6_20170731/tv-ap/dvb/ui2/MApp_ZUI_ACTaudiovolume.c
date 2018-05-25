@@ -123,7 +123,7 @@
 #include "MApp_KeyToSpeech.h"
 #include "MApp_IR.h"
 #endif
-
+#include "MApp_ZUI_ACTcoexistWin.h"
 /////////////////////////////////////////////////////////////////////
 
 extern BOOLEAN _MApp_ZUI_API_AllocateVarData(void);
@@ -175,9 +175,9 @@ void MApp_ZUI_ACT_AppShowAudioVolume(void)
     MApp_ZUI_API_ShowWindow(HWND_VOLUME_MUTE_PANE, SW_HIDE);
     //MApp_ZUI_API_ShowWindow(HWND_VOLUME_EAS_PANE, SW_HIDE);
 	MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_PANE, SW_SHOW);
-	MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_ICON, SW_SHOW);
-	MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_BAR, SW_SHOW);
-	MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_TEXT, SW_SHOW);
+	//MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_ICON, SW_SHOW);
+	//MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_BAR, SW_SHOW);
+	//MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_TEXT, SW_SHOW);
 	MApp_ZUI_API_ShowWindow(HWND_VOLUME_CONFIG_PANE, SW_HIDE);
     //MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_PAGE_SHOWUP, E_ZUI_STATE_RUNNING);
 
@@ -246,9 +246,17 @@ BOOLEAN MApp_ZUI_ACT_ExecuteAudioVolumeAction(U16 act)
         case EN_EXE_DEC_AUDIO_VOLUME:
         case EN_EXE_INC_AUDIO_VOLUME:
         {
-			MApp_ZUI_API_ResetTimer(HWND_AUDIO_VOLUME_CONFIG_PANE, 0);
+
             U8 tempflag = (act==EN_EXE_INC_AUDIO_VOLUME);
             MApp_FuncExec_AudioVolume(EN_FUNC_AUDIO_VOLUME_ADJ_VOLUME,&tempflag);
+			
+			if(stGenSetting.g_SoundSetting.Volume == 0){
+				//MApp_ZUI_API_KillTimer(HWND_AUDIO_VOLUME_CONFIG_PANE, 0);
+				MApp_ZUI_API_ShowWindow(HWND_AUDIO_VOLUME_CONFIG_PANE, SW_HIDE);
+				MApp_UiMenu_MuteWin_Show();
+			}else{
+				MApp_ZUI_API_ResetTimer(HWND_AUDIO_VOLUME_CONFIG_PANE, 0);
+			}
         #if ENABLE_KEY_TO_SPEECH
             if(!MApp_KeyIsReapeatStatus())
             {
@@ -276,7 +284,7 @@ LPTSTR MApp_ZUI_ACT_GetAudioVolumeDynamicText(HWND hwnd)
         {
             U8 tempflag;
             MApp_FuncExec_AudioVolume(EN_FUNC_AUDIO_VOLUME_GET_VOLUME,&tempflag);
-            return MApp_ZUI_API_GetU16String(tempflag/5);
+            return MApp_ZUI_API_GetU16String(tempflag/VOLUME_STEP);
         }
     }
 

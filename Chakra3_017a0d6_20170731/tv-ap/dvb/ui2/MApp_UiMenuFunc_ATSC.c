@@ -402,7 +402,7 @@ BOOLEAN MApp_UiMenuFunc_AdjAudioMode(BOOLEAN action)
 #if 1//(AUDIO_MODE_USE_EQUALIZER==ENABLE)
     if(stGenSetting.g_SoundSetting.SoundMode == SOUND_MODE_USER)
     {
-        //MApp_Aud_SetEqValue();
+        MApp_Aud_SetEqValue(); //MP333 gchen @ 20180425 // EQ
     }
 #endif
 

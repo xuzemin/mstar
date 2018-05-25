@@ -4471,7 +4471,7 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                 {
                     if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
                     {
-                        stGenSetting.g_SoundSetting.Volume+= 5;
+                        stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
                         msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
                     }
                 }
@@ -4479,7 +4479,7 @@ BOOLEAN MApp_ZUI_ACT_HandleDmpKey(VIRTUAL_KEY_CODE key)
                 {
                     if( stGenSetting.g_SoundSetting.Volume > 0 )
                     {
-                        stGenSetting.g_SoundSetting.Volume-= 5;
+                        stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
                         msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
                     }
                 }
@@ -15687,12 +15687,12 @@ LPTSTR MApp_ZUI_ACT_GetDmpDynamicText(HWND hwnd)
             if (msAPI_CEC_ARC_Is_Connect() == TRUE)
           #endif */
             {
-                return MApp_ZUI_API_GetU16String(msAPI_CEC_ARC_GetARCAudioVolume()/5); // anvi22
+                return MApp_ZUI_API_GetU16String(msAPI_CEC_ARC_GetARCAudioVolume()/VOLUME_STEP); // anvi22
             }
             else
         #endif
             {
-                return MApp_ZUI_API_GetU16String(stGenSetting.g_SoundSetting.Volume/5);
+                return MApp_ZUI_API_GetU16String(stGenSetting.g_SoundSetting.Volume/VOLUME_STEP);
             }
 
 		case HWND_DMP_KEYSTONE_CONFIG_TEXT:    //xzm 20171228 for keystone text

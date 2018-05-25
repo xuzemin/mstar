@@ -2752,6 +2752,13 @@ BOOLEAN MApp_ZUI_ACT_HandleMainPageKey(VIRTUAL_KEY_CODE key)
 			_u16FactoryKeys = (_u16FactoryKeys<<4)|(key - VK_UP);
 			switch (_u16FactoryKeys)
 				{
+				case 0x0404:
+					MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_CLOSE, E_ZUI_STATE_TERMINATE);
+					_enTargetMenuState = STATE_MENU_GOTO_OSDPAGE;
+					MApp_OSDPage_SetOSDPage(E_OSD_DESIGN_MENU);				
+					//MApp_ZUI_ACT_ExecuteInputSourceAction(EN_EXE_GOTO_FACTORY_MENU);
+					break;
+
 				case 0x0044:
 					MApp_ZUI_ACT_TransitionEffectBegin(EN_EFFMODE_CLOSE, E_ZUI_STATE_TERMINATE);
 					_enTargetMenuState = STATE_MENU_GOTO_OSDPAGE;

@@ -186,9 +186,9 @@
     #define debugAudioPrint(a,b)
 #endif
 
-#define AUD_DEBUG(msg) //msg
+#define AUD_DEBUG(msg) msg //MP333 20180419
 
-#define  AUDIO_API_TRACE(msg)    //msg     //This is used for audio API function Trace
+#define  AUDIO_API_TRACE(msg)    //msg     //This is used for audio API function Trace //MP333 20180419
 
 
 //================================================================================
@@ -681,6 +681,7 @@ void msAPI_AUD_InitAudioSystem(THR_TBL_TYPE code *ThrTbl)
     MApi_AUDIO_SetCommAudioInfo(Audio_Comm_infoType_setNR_Threshold,0x90,0);
   #endif
 
+   //MP333 gchen @ 20180420
   #if (SUPPORT_PEQ_TOOL)
       msAPI_AUD_SetPEQ(0, 120, 10, 0, 16);
       msAPI_AUD_SetPEQ(1, 120, 10, 0, 16);
@@ -689,8 +690,10 @@ void msAPI_AUD_InitAudioSystem(THR_TBL_TYPE code *ThrTbl)
       msAPI_AUD_SetPEQ(3, 120, 10, 0, 16);
       msAPI_AUD_SetPEQ(4, 120, 10, 0, 16);
    #endif
+    printf("\r\n 20180419 111111 DISABLE PEQ");//MP333 PEQ debug
     MApi_AUDIO_EnablePEQ(FALSE);
     msAPI_Timer_Delayms(1);
+	printf("\r\n 20180419 111111B ENABLE PEQ");//MP333 PEQ debug
     MApi_AUDIO_EnablePEQ(TRUE);
   #endif
     MApi_AUDIO_ADVSOUND_ProcessEnable(SRS_TSHD);
@@ -4076,6 +4079,7 @@ void msAPI_AUD_SetPEQ(MS_U8 Band, MS_U8 Gain, MS_U8 Foh, MS_U8 Fol, MS_U8 QValue
         AUD_DEBUG(printf("b2:%lx, ",PEQCoef.b2));
         AUD_DEBUG(printf("scale:%d, ",PEQCoef.scale));
         AUD_DEBUG(printf("\n"));
+		printf("\r\n 20180419 111111B ENABLE PEQ");//MP333 PEQ debug
         MApi_AUDIO_EnablePEQ(TRUE);
         MApi_AUDIO_SetPEQCoef(&PEQCoef);
     }

@@ -322,12 +322,12 @@ S32 MApp_ZUI_ACT_BallProgressBarColorWinProc(HWND hWnd, PMSG pMsg)
 
                     //note: we always have at least one ball when value > 0
                     _MApp_ZUI_ACT_BallProgressBarColor_DrawBall(rect_border.left, rect_border.top, 0, param);
-
+					
+					all_count = 100/VOLUME_STEP;//rect_border.width/(BALL_PROGRESS_BAR_BALL_W+BALL_PROGRESS_BAR_BALL_GAP)/2;
                     left_add += BALL_PROGRESS_BAR_BALL_W;
                     fill_left = (S32)(rect_border.width)*value/100;
-                    fill_count = fill_left/(BALL_PROGRESS_BAR_BALL_W+BALL_PROGRESS_BAR_BALL_GAP);
-                    all_count = rect_border.width/(BALL_PROGRESS_BAR_BALL_W+BALL_PROGRESS_BAR_BALL_GAP);
-                    //printf("[]count=%u,%u\n", (U16)fill_count, (U16)all_count);
+                    fill_count = value/all_count;//fill_left/(BALL_PROGRESS_BAR_BALL_W+BALL_PROGRESS_BAR_BALL_GAP);
+                    //printf("[]count=%u,%u,%d\n", (U16)fill_count, (U16)all_count,stGenSetting.g_SoundSetting.Volume);
 
                     for (i = 1; i < fill_count; i++)
                     {

@@ -109,7 +109,7 @@
 #include "MApp_TopStateMachine.h" //gchen  @ 20171220
 #include "Dlp_Optical.h" //gchen  @ 20171222
 #include "drvGPIO.h" //gchen  @ 20171228
-
+#include "GPIO.h"
 #include "MApp_ZUI_ACTcoexistWin.h"
 // Common Definition
 #include "debug.h"
@@ -703,7 +703,15 @@ void MDrv_UART_ExecTestCommand(void)
 			//gchen add @ 20171218
 			//keystone_correction(0);
 			//AMP_ENABLE();
+			#if 0
 			MApp_UiMenu_BatLowWin_Show();
+			MDrv_UART_SetIsPrint(true);
+
+			 int iAd = GetSarAdcLevel(0);
+			 printf("TempAd = %d \n", iAd);
+			#endif
+			printf("msAPI_Scaler_SetTestPattern white\n");
+			Optical_YangMing_SetWhitePattern();
 			break;
 		}
 
@@ -713,6 +721,7 @@ void MDrv_UART_ExecTestCommand(void)
 			//keystone_correction(10);
 			//AMP_DISABLE();
 			MApp_UiMenu_BatLowWin_Hide();
+			//MDrv_UART_SetIsPrint(false);
 			break;
 		}
 
@@ -720,7 +729,9 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//Power_Off();
-			SetOpticalCurrent(900);
+			SetOpticalCurrent(OPTICAL_CURRENT);
+			FAN_ON();
+			MApp_UiMenu_TempDetWin_Show();
 			break;
 		}
 
@@ -729,7 +740,8 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//LEDPWR_ENABLE();
-			MApp_UiMenu_TempDetWin_Show();
+			//MApp_UiMenu_TempDetWin_Show();
+			MApp_UiMenu_TempOverTopWin_Show();
 			break;
 		}
 
@@ -737,7 +749,8 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//LEDPWR_DISABLE();
-			MApp_UiMenu_TempDetWin_Hide();
+			//MApp_UiMenu_TempDetWin_Hide();
+			MApp_UiMenu_TempOverTopWin_Hide();
 			break;
 		}
 
@@ -745,7 +758,8 @@ void MDrv_UART_ExecTestCommand(void)
 		case 0x6d:
 		{
 			//gchen add @ 20171218
-			
+			MApp_UiMenu_TempDetWin_Hide();
+			FAN_OFF();
 			//Optical_SetRes_854x480();
 
 			//MsOS_DelayTask(3000);
@@ -759,9 +773,14 @@ void MDrv_UART_ExecTestCommand(void)
 			//Optical_Led_OpenANDClose(1);
 		
 			//MsOS_DelayTask(3000);
+			
+			Optical_YangMing_InputSourceSelect();
+			SetOpticalCurrent((U32)900);
 			MUTE_On();
 			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, 0, 0);
 			dpp2600_config_blank(FALSE);
+			MsOS_DelayTask(1000);
+			LEDPWR_DISABLE();
 			break;
 		}
 
@@ -769,6 +788,10 @@ void MDrv_UART_ExecTestCommand(void)
 		{
 			//gchen add @ 20171218
 			//Optical_Led_OpenANDClose(0);
+			LEDPWR_ENABLE();
+			MsOS_DelayTask(1000);
+			Optical_YangMing_InputSourceSelect();
+			SetOpticalCurrent((U32)OPTICAL_CURRENT);
 
 			//MsOS_DelayTask(3000);
 			dpp2600_config_blank(TRUE);
@@ -1929,6 +1952,8 @@ void MDrv_UART_DecodeExtCommand(void)
 #if (HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
          case uartExtDev_FLASH_HDCP:
          {
+		MDrv_UART_SetIsPrint(false);
+		MsOS_DelayTask(10);
              static U16 g_wHDCP_KeyChkSum;
 			// static U16 g_wHDCP_KeyChkSumTEMP;
              static U16 g_HDCP_KeyCounter;
@@ -1936,8 +1961,37 @@ void MDrv_UART_DecodeExtCommand(void)
 			 //printf("UART_EXT_CMD = %d\n",UART_EXT_CMD);
              switch(UART_EXT_CMD)
              {
+		    //MP333
+		    case 0x04:
+		    {
+			MDrv_UART_SetIsPrint(false);
+			putcharb(0xCC);
+			
+			//set i2c white pattern
+			Optical_YangMing_SetWhitePattern();
+		    }
+		    break;
+			 
+             case URCMD_FLASH_HDCP_CHECK:
+		    {
+				MDrv_UART_SetIsPrint(false);
+				if(MApp_DB_LoadHDCP_KEY((MS_U8 *)u8HdcpKey))
+				{
+					//if have hdcp
+					putcharb(0xAA);
+				}
+				else
+				{
+					//no hdcp
+					putcharb(0xBB);
+				}
+		    }
+		    break;
+			
                  case URCMD_FLASH_HDCP_WRITE_START:  // mothod 1/2
 				 {
+			MDrv_UART_SetIsPrint(false);
+			MsOS_DelayTask(10);
 /*
                     {
                         printf("URCMD_FLASH_HDCP_WRITE_START:\n");

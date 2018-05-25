@@ -16113,7 +16113,7 @@ void msAPI_Pan_Task(void)
            //printf("msAPI_Pan_decoding\n");
            msAPI_Timer_ResetWDT();
            MApi_XC_Mux_SourceMonitor(TRUE);
-           MApp_ScreenMuteMonitor(MAIN_WINDOW);
+           MApp_ScreenMuteMonitor(MAIN_WINDOW); // MP333 //gchen @ 20180509
            if ((msAPI_Timer_GetTime0() - u32TimeMarker > 7000))
            {
               // printf("msAPI_Pan_decoding error\n");

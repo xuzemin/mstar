@@ -105,7 +105,7 @@
 #include "MsCommon.h"
 #include "apiXC.h"
 #include "apiXC_Adc.h"
-
+#include "MApp_DataBase.h"
 #include "drvXC_HDMI_if.h"
 #include "apiXC_Sys.h"
 #include "apiXC_PCMonitor.h"
@@ -1824,6 +1824,12 @@ static  FACTORY_MENU_ITEM _ZUI_TBLSEG _FactoryMenuItem[]=
         EN_FACTORY_PAGE_ROOT, EN_FACTORY_PAGE_OTHER,
         2, en_str_UART_DEBUG, FALSE
     },
+    {
+        // UART DEBUG
+        EN_FACTORY_PAGE_OTHER,
+        EN_FACTORY_PAGE_ROOT, EN_FACTORY_PAGE_OTHER,
+        3, en_strOSD_TESTVIDEO, FALSE
+    },
 #if (ENABLE_UART_MSG_TO_USB)
     //==Usb Dump=============================================
     {
@@ -2105,7 +2111,6 @@ static  FACTORY_MENU_ITEM _ZUI_TBLSEG _FactoryMenuItem[]=
         4,en_str_HDMI,FALSE
     },
  #endif
-
 };
 
 #if(LOG_FACTORYMENU_SHOWITEM)
@@ -4060,6 +4065,14 @@ static REDRAW_TYPE _MApp_ZUI_ACT_FactoryMenuDecIncValue(U8 u8Item, BOOLEAN bInc)
                          mdrv_uart_connect(E_UART_PORT0, E_UART_OFF);
                     }
                     return EN_REDRAW_ITEM;
+				case 3:
+				#if 0
+					MApp_DB_GEN_Set_DataChanged(TRUE);
+					stGenSetting.g_SysSetting.uPowerOnTime = 0;
+					stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+				#endif
+					MApp_DB_SetPowerOnVideo_Data(FALSE);
+					return EN_REDRAW_ITEM;
             }
             break;
 
@@ -6144,6 +6157,16 @@ static LPTSTR _MApp_ZUI_ACT_GetFactoryMenuValueText(U8 u8Item)
                     u16TempID=en_str_None; //avoid string table to large
                 }
                 break;
+				case 3:
+                if(stGenSetting.g_SysSetting.bEnPrint)
+                {
+                    u16TempID=en_str_On;
+                }
+                else
+                {
+                    u16TempID=en_str_Off; //avoid string table to large
+                }
+                break;
 
             #else
                 case 0:
@@ -6741,7 +6764,7 @@ BOOLEAN MApp_ZUI_ACT_ExecuteFactoryMenuAction(U16 act)
     {
         case EN_EXE_FACTORY_MENU_GOTO_BAR_ADJUST:
             if(_eFactoryMenuPage == EN_FACTORY_PAGE_SW_INFO_PAGE||_eFactoryMenuPage == EN_FACTORY_PAGE_ADC_ADJUST||
-               _eFactoryMenuPage == EN_FACTORY_PAGE_PICTURE_MODE|| _eFactoryMenuPage == EN_FACTORY_PAGE_WHITE_BALANCE)
+               _eFactoryMenuPage == EN_FACTORY_PAGE_PICTURE_MODE|| _eFactoryMenuPage == EN_FACTORY_PAGE_WHITE_BALANCE)	
             {
                if(MApp_ZUI_API_GetFocus() == HWND_FACTORY_MENU_ITEM0)
                {
@@ -7398,7 +7421,7 @@ LPTSTR MApp_ZUI_ACT_GetFactoryMenuDynamicText(HWND hwnd)
                 }
                 break;
         #endif
-					  snprintf((char*)CHAR_BUFFER, 30, "MP-333_V0.30");//wht121013_2
+					  snprintf((char*)CHAR_BUFFER, 30, "MP-333_V1.31");//wht121013_2
 					  FS_ASCII2Unicode((U8*)CHAR_BUFFER);
 					  return CHAR_BUFFER;
     }

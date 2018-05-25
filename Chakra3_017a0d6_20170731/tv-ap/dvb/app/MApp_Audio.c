@@ -198,35 +198,65 @@ extern U32 MApp_CI_GetCurrentOpCicamId( void );
 U16 TvVolumeTable[] =
 //              Volume  Table     (High Byte : Integer part  ; Low Byte : Fraction part)
 { //         1           2                3             4         5            6            7                 8         9            10
-                                                                                                       0x7F00,    //  00
-    0x4700,    0x4400,    0x4100,    0x3E00,    0x3C00,    0x3A00,    0x3800,    0x3600,    0x3400,    0x3200,    //  10
-    0x3000,    0x2E00,    0x2D00,    0x2C00,    0x2B00,    0x2A00,    0x2900,    0x2800,    0x2700,    0x2600,    //  20
-    0x2500,    0x2400,    0x2300,    0x2200,    0x2100,    0x2000,    0x1F00,    0x1E04,    0x1E00,    0x1D04,    //  30
-    0x1D00,    0x1C04,    0x1C00,    0x1B04,    0x1B00,    0x1A04,    0x1A00,    0x1904,    0x1900,    0x1804,    //  40
-    0x1800,    0x1704,    0x1700,    0x1604,    0x1600,    0x1504,    0x1502,    0x1500,    0x1406,    0x1404,    //  50
-    0x1402,    0x1400,    0x1306,    0x1304,    0x1302,    0x1300,    0x1206,    0x1204,    0x1202,    0x1200,    //  60
-    0x1106,    0x1104,    0x1102,    0x1100,    0x1006,    0x1004,    0x1002,    0x1000,    0x0F07,    0x0F06,    //  70
-    0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x0F01,    0x0F00,    0x0E07,    0x0E06,    0x0E05,    0x0E04,    //  80
-    0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x0D07,    0x0D06,    0x0D05,    0x0D04,    0x0D03,    0x0D02,    //  90
-    0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x0C05,    0x0C04,    0x0C03,    0x0C02,    0x0C01,    0x0C00    //  100
+
+                                                                                                 0x7F00,    //  00
+    0x4700,    0x4400,    0x4100,    0x3E00,    0x3C00,    0x3A00,    0x3800,    0x3600,    0x3400,    0x3E00,    //  10
+    0x3000,    0x2E00,    0x2D00,    0x2C00,    0x2B00,    0x2A00,    0x2900,    0x2800,    0x2700,    0x3404,    //  20
+    0x2500,    0x2400,    0x2300,    0x2200,    0x2100,    0x2000,    0x1F00,    0x1E04,    0x1E00,    0x2F04,    //  30
+    0x1D00,    0x1C04,    0x1C00,    0x1B04,    0x1B00,    0x1A04,    0x1A00,    0x1904,    0x1900,    0x2A04,    //  40
+    0x1800,    0x1704,    0x1700,    0x1604,    0x1600,    0x1504,    0x1502,    0x1500,    0x1406,    0x2404,    //  50
+    0x1402,    0x1400,    0x1306,    0x1304,    0x1302,    0x1300,    0x1206,    0x1204,    0x1202,    0x1E04,    //  60
+    0x1106,    0x1104,    0x1102,    0x1100,    0x1006,    0x1004,    0x1002,    0x1000,    0x0F07,    0x1B04,    //  70
+    0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x0F01,    0x0F00,    0x0E07,    0x0E06,    0x0E05,    0x1804,    //  80
+    0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x0D07,    0x0D06,    0x0D05,    0x0D04,    0x0D03,    0x1504,    //  90
+    0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x0C05,    0x0C04,    0x0C03,    0x0C02,    0x0C01,    0x1204    //  100 
 };
+
 
 
 U16 TvVolumeTable_HDMI[] =
 //              Volume  Table     (High Byte : Integer part  ; Low Byte : Fraction part)
+#if 1
 { //  1           2          3         4         5          6           7           8         9          10
                                                                                                        0x7F00,    //  00
-    0x4700,    0x4400,    0x4100,    0x4700,    0x4700,    0x2800,    0x3800,    0x3600,    0x3400,    0x4400,    //  10
-    0x3000,    0x2E00,    0x2D00,    0x2C00,    0x4100,    0x2A00,    0x2900,    0x2800,    0x2700,    0x3E00,    //  20
-    0x2500,    0x2400,    0x2300,    0x2200,    0x3C00,    0x2000,    0x1F00,    0x1E04,    0x1E00,    0x3A00,    //  30
-    0x1D00,    0x1C04,    0x1C00,    0x1B04,    0x3800,    0x1A04,    0x1A00,    0x1904,    0x1900,    0x3400,    //  40
-    0x1800,    0x1704,    0x1700,    0x1604,    0x3200,    0x1504,    0x1502,    0x1500,    0x1406,    0x3000,    //  50
-    0x1402,    0x1400,    0x1306,    0x1304,    0x2E00,    0x1300,    0x1206,    0x1204,    0x1202,    0x2D00,    //  60
-    0x1106,    0x1104,    0x1102,    0x1100,    0x2C00,    0x1004,    0x1002,    0x1000,    0x0F07,    0x2B00,    //  70
-    0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x2A00,    0x0F00,    0x0E07,    0x0E06,    0x0E05,    0x2900,    //  80
-    0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x2700,    0x0D06,    0x0D05,    0x0D04,    0x0D03,    0x2500,    //  90
-    0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x2300,    0x0C04,    0x0C03,    0x0C02,    0x0C01,    0x2100    //  100
+    0x4700,    0x4400,    0x4100,    0x3E00,    0X3600,    0x2800,    0x3800,    0x3600,    0x3400,    0X2E00,    //  10
+    0x3000,    0x2E00,    0x2D00,    0x2C00,    0X2600,    0x2A00,    0x2900,    0x2800,    0x2700,    0X2300,    //  20
+    0x2500,    0x2400,    0x2300,    0x2200,    0X1600,    0x2000,    0x1F00,    0x1E04,    0x1E00,    0X2100,    //  30
+    0x1D00,    0x1C04,    0x1C00,    0x1B04,    0X0F00,    0x1A04,    0x1A00,    0x1904,    0x1900,    0X2000,    //  40
+    0x1800,    0x1704,    0x1700,    0x1604,    0x0E00,    0x1504,    0x1502,    0x1500,    0x1406,    0X1F00,    //  50
+    0x1402,    0x1400,    0x1306,    0x1304,    0X0B00,    0x1300,    0x1206,    0x1204,    0x1202,    0x1C00,    //  60
+    0x1106,    0x1104,    0x1102,    0x1100,    0X0800,    0x1004,    0x1002,    0x1000,    0x0F07,    0x1A00,    //  70
+    0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x0600,    0x0F00,    0x0E07,    0x0E06,    0x0E05,    0x1900,    //  80
+    0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x0400,    0x0D06,    0x0D05,    0x0D04,    0x0D03,    0x1704,    //  90
+    0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x0200,    0x0C04,    0x0C03,    0x0C02,    0x0C01,    0x1604    //  100
 };
+#else
+{ //         1           2                3             4         5            6            7              8         9            10
+                                                                                                    
+   0x7F00,    //  00
+    0x4700,    0x4400,    0x4100,    0x3E00,    0x3C00,    0x3A00,    0x3800,    0x3600,    0x3400, 
+   0x3200,    //  10
+    0x3000,    0x2E00,    0x2D00,    0x2C00,    0x2B00,    0x2A00,    0x2900,    0x2800,    0x2700, 
+   0x2600,    //  20
+    0x2500,    0x2400,    0x2300,    0x2200,    0x2100,    0x2000,    0x1F00,    0x1E04,    0x1E00, 
+   0x1D04,    //  30
+    0x1D00,    0x1C04,    0x1C00,    0x1B04,    0x1B00,    0x1A04,    0x1A00,    0x1904,    0x1900, 
+   0x1804,    //  40
+    0x1800,    0x1704,    0x1700,    0x1604,    0x1600,    0x1504,    0x1502,    0x1500,    0x1406, 
+   0x1404,    //  50
+    0x1402,    0x1400,    0x1306,    0x1304,    0x1302,    0x1300,    0x1206,    0x1204,    0x1202, 
+   0x1200,    //  60
+    0x1106,    0x1104,    0x1102,    0x1100,    0x1006,    0x1004,    0x1002,    0x1000,    0x0F07, 
+   0x0F06,    //  70
+    0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x0F01,    0x0F00,    0x0E07,    0x0E06,    0x0E05, 
+   0x0E04,    //  80
+    0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x0D07,    0x0D06,    0x0D05,    0x0D04,    0x0D03, 
+   0x0D02,    //  90
+    0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x0C05,    0x0C04,    0x0C03,    0x0C02,    0x0C01, 
+   0x0C00    //  100
+};
+#endif
+
 #if(ENABLE_AUDIO_SURROUND_DBX == ENABLE)
 ////////////////////////////////DBX table ////////////////////////////////
 /** Total Sonics presets */
@@ -1309,9 +1339,23 @@ void MApp_Audio_OpSearchAdAudio(void)
 //Set the sound mode. Depend on global variable stGenSetting.g_SoundSetting.SoundMode.
 void MApp_Audio_AdjustSoundMode(void)
 {
-     MApi_AUDIO_EnableTone(TRUE);
-     MApi_AUDIO_SetBass(stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].Bass);
-     MApi_AUDIO_SetTreble(stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].Treble);
+#if (SOUNDMODE == SOUNDMODE_EQ)
+    MApi_AUDIO_EnableEQ(TRUE);
+    MApi_AUDIO_EnableTone(FALSE);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_1, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ);
+  	MApi_AUDIO_SetEq(E_EQUALIZER_BAND_6, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ); //MP333
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_7, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ); //MP333
+#else
+    MApi_AUDIO_EnableEQ(FALSE);
+    MApi_AUDIO_EnableTone(TRUE);
+    //mapping to -16~+15dB
+    MApi_AUDIO_SetBass(stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].Bass);
+    MApi_AUDIO_SetTreble(stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].Treble);
+#endif
 }
 
 /*
@@ -1424,8 +1468,22 @@ void MApp_Aud_AudioDelay_Init(void)
 
 void MApp_Aud_PEQ_Init(void)
 {
+    ST_AUDIO_PEQ.u8_PEQOnOff = TRUE;
+    ST_AUDIO_PEQ.u8_Gain1Value = 82;
+    ST_AUDIO_PEQ.u8_Q1Value = 15;
+    ST_AUDIO_PEQ.u16_Fo1Value = 0x1AF4;
+
+    ST_AUDIO_PEQ.u8_Gain2Value = 40;
+    ST_AUDIO_PEQ.u8_Q2Value = 27;
+    ST_AUDIO_PEQ.u16_Fo2Value = 0x046A;
+
+    ST_AUDIO_PEQ.u8_Gain3Value = 130;
+    ST_AUDIO_PEQ.u8_Q3Value = 25;
+    ST_AUDIO_PEQ.u16_Fo3Value = 0x0C80;
+	
     if(ST_AUDIO_PEQ.u8_PEQOnOff)
     {
+    	printf("MApp_Aud_PEQ_Init---\n");
         msAPI_AUD_SetPEQ(0, ST_AUDIO_PEQ.u8_Gain1Value, (U8)(ST_AUDIO_PEQ.u16_Fo1Value/100), (U8)(ST_AUDIO_PEQ.u16_Fo1Value%100), ST_AUDIO_PEQ.u8_Q1Value);
         msAPI_AUD_SetPEQ(1, ST_AUDIO_PEQ.u8_Gain2Value, (U8)(ST_AUDIO_PEQ.u16_Fo2Value/100), (U8)(ST_AUDIO_PEQ.u16_Fo2Value%100), ST_AUDIO_PEQ.u8_Q2Value);
         msAPI_AUD_SetPEQ(2, ST_AUDIO_PEQ.u8_Gain3Value, (U8)(ST_AUDIO_PEQ.u16_Fo3Value/100), (U8)(ST_AUDIO_PEQ.u16_Fo3Value%100), ST_AUDIO_PEQ.u8_Q3Value);
@@ -1434,26 +1492,29 @@ void MApp_Aud_PEQ_Init(void)
 
 void MApp_Aud_EQ_Init(void)
 {	
-	MDrv_WriteByteMask(0x110A00,0x80,0x80);
-	MDrv_WriteByteMask(0x110A2F,0x80,0x80);
-	MDrv_WriteByteMask(0x110A50,0x80,0x80);
-	//MDrv_WriteByteMask(0x110A2F,0x10,0x10);
 	
-	//MDrv_WriteByteMask(0x110A50,0x80,0x80);
-	
-	printf("WriteByteMask---\n");
+	printf("MApp_Aud_EQ_Init---\n");
 	
     MApi_AUDIO_EnableEQ(TRUE);
-
+    stGenSetting.g_SoundSetting.SoundMode = SOUND_MODE_USER;
+    stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ = 0;
+    stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ = 50;
+    
     MApi_AUDIO_SetEq(E_EQUALIZER_BAND_1, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8120HZ);
 
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_2, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8200HZ);
 
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_5_KHZ);
+    #if 0
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_3, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8500HZ);
 
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_5KHZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_4, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_1_dot_2_KHZ);
 
-    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u810KHZ);
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_5, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_3KHZ);
+
+    MApi_AUDIO_SetEq(E_EQUALIZER_BAND_6, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u8_7_dot_5_KHZ);
+
+    MApi_AUDIO_SetEq(MS_U8 u8band, MS_U8 u8level)(E_EQUALIZER_BAND_7, stGenSetting.g_SoundSetting.astSoundModeSetting[stGenSetting.g_SoundSetting.SoundMode].u812KHZ);
+    #endif
 }
 
 /********************************************************************************/
@@ -1652,15 +1713,24 @@ void MApp_Audio_AdjustMainVolume(BYTE VolumePercent)
 #if(ENABLE_SOUND_NONLINEAR_CURVE)
     VolumePercent = MApp_NonLinearCalculate(MApp_GetNonLinearCurve(NONLINEAR_CURVE_VOLUME),VolumePercent);
 #endif
-	if(IsHDMIInUse() && EAR_PHONE_get_level()){
+	if(IsHDMIInUse())
+	{
+		if(EAR_PHONE_get_level())
+		{
 			printf("MApp_Audio_AdjustMainVolume 111 volume line hdmi\n");
 		    value1 = (BYTE)((TvVolumeTable_HDMI[VolumePercent]>>8)&0xFF);
 			value2 = (BYTE)(TvVolumeTable[VolumePercent]&0xFF);
-	}else{
+		}else{
 			printf("MApp_Audio_AdjustMainVolume 111 volume line ear \n");
 			value1 = (BYTE)((TvVolumeTable[VolumePercent]>>8)&0xFF);
 			value2 = (BYTE)(TvVolumeTable[VolumePercent]&0xFF);
+		}
 	}
+	else
+	{
+			printf("MApp_Audio_AdjustMainVolume 111 volume other\n");
+		       value1 = (BYTE)((TvVolumeTable_HDMI[VolumePercent]>>8)&0xFF);
+			value2 = (BYTE)(TvVolumeTable[VolumePercent]&0xFF);	}
 
 #if ( (CHIP_FAMILY_TYPE == CHIP_FAMILY_NASA)    \
     ||(CHIP_FAMILY_TYPE == CHIP_FAMILY_EULER)   \
@@ -1673,10 +1743,7 @@ void MApp_Audio_AdjustMainVolume(BYTE VolumePercent)
     //printf("value1=%u, value2=%u\n", value1, value2);
     MApi_AUDIO_SetAbsoluteVolume(AUDIO_PATH_MAIN_SPEAKER,value1,value2);
     MApi_AUDIO_SetAbsoluteVolume(AUDIO_PATH_HP,value1,value2);
-	//<<add by gchen @ 20180206 //I2S Volume Change
-	MApi_AUDIO_SetAbsoluteVolume(AUDIO_T3_PATH_I2S,value1,value2);
-	MApi_AUDIO_SetAbsoluteVolume(AUDIO_AUOUT1_OUTPUT,value1,value2);
-	//>>add by gchen @ 20180206
+
 #endif
 
 
@@ -2441,6 +2508,14 @@ void MApp_Aud_SetTreble ( U8 u8Treble )
     //MApi_AUDIO_SetTreble( u8Treble );
 }
 
+void MApp_Aud_SetEqValue(void)
+{
+    MApi_AUDIO_SetEq(1-1, stGenSetting.g_SoundSetting.astSoundEqSetting.u8_150Hz);
+    MApi_AUDIO_SetEq(2-1, stGenSetting.g_SoundSetting.astSoundEqSetting.u8_500Hz);
+    MApi_AUDIO_SetEq(3-1, stGenSetting.g_SoundSetting.astSoundEqSetting.u8_1000Hz);
+    MApi_AUDIO_SetEq(4-1, stGenSetting.g_SoundSetting.astSoundEqSetting.u8_2000Hz);
+    MApi_AUDIO_SetEq(5-1, stGenSetting.g_SoundSetting.astSoundEqSetting.u8_4000Hz);
+}
 #endif
 
 #if ENABLE_SOUNDTRACK_CHECKER_NEW

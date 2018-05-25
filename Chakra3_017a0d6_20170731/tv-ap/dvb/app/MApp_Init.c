@@ -129,7 +129,7 @@
 #include "drvSYS.h"
 #include "drvPM.h"
 #include "drvGPIO.h"
-
+#include "drvUART.h"
 #include "apiGOP.h"
 #include "apiXC_Ace.h"
 #include "apiXC_Dlc.h"
@@ -473,7 +473,11 @@ extern void *hash_sbrk(unsigned int size);
 #if ((MARLON_SUPPORT_STR) &&(STR_ENABLE == ENABLE))
 extern void msAPI_ALL_STRBackup(BOOLEAN bIsNormalStandBy);
 #endif
-
+extern void MApp_DB_SaveGenSetting(void);
+#if(ENABLE_POWERON_VIDEO)
+extern void msAPI_Pan_Task(void);
+#endif
+U16 gu1msTimeCount;
 //U8  u8Switch2Scart;
 //U8  u8IsAutoSleep_Skip_Logo;
 U32 gSystemStartTimeForRemider;
@@ -615,24 +619,73 @@ void MApp_Init_UIVariable(void)
   #endif
 }
 
-#define sample_num_temp   20
-#define BAT_LOW_AD			144//121 //6.6v
-#define BAT_MIDDLE_AD		149//130			
-#define BAT_HIGH_AD			153//142 //7.4v
+#define sample_num_temp   	50 //20
+#define BAT_LOW_AD			131//135//115//144//121 //6.6v
+#define BAT_MIDDLE_AD		139//128//149//130			
+#define BAT_HIGH_AD			145//142//153//142 //7.4v
+
+#define TEMP_HIGH_AD	    40//33  //Temp is 78 degree ad is 40//Temp is 85 degree ad is 33
+#define TEMP_LOW_MIN	    3
+
+void Detect_TempAD(void)
+{
+		U8 i = 1;
+		U16 iTempADSum = 0;
+		U16 iTempGetAD = 0;
+		
+		//static U8 gU8TemperCountNum = 0;
+		for(i = 1; i <= sample_num_temp; i++)
+		{
+			iTempADSum = GetSarAdcLevel(0) + iTempADSum;
+		}
+		iTempGetAD = iTempADSum / sample_num_temp;
+		printf(" iTempGetAD == %d \n", iTempGetAD);
+
+		if(iTempGetAD <= TEMP_HIGH_AD && iTempGetAD > TEMP_LOW_MIN)
+		{
+			// Temp is high
+			gU32TempHighCount ++;
+
+			if(gU32TempHighCount >= 10)
+			{
+				if(gU8TempHighFlag)
+				{
+					
+				}
+				else
+				{
+					//gU8TempHighFlag = 1; 
+					// Temp High 5s Show Logo
+					MApp_UiMenu_TempOverTopWin_Show();
+				}
+			}
+
+			if(gU32TempHighCount >= 30) //15s Power Down
+			{
+				printf(" gU32TempHighCount Power Down \n");
+				msAPI_Power_PowerDown_EXEC();
+			}
+		}
+		else
+		{
+			// Temp Low
+		}
+}
+
 
 void Detect_BatAD(void)
 {
 		U8 i = 1;
-		U16 iTempADSum = 0;
+		U16 iBatADSum = 0;
 		U16 iGetAD = 0;
 		
 		//static U8 gU8TemperCountNum = 0;
 		for(i = 1; i <= sample_num_temp; i++)
 		{
-			iTempADSum = GetSarAdcLevel(1) + iTempADSum;
+			iBatADSum = GetSarAdcLevel(1) + iBatADSum;
 		}
-		iGetAD = iTempADSum / sample_num_temp;
-		//printf(" iGetAD == %d \n", iGetAD);
+		iGetAD = iBatADSum / sample_num_temp;
+		printf(" iGetAD == %d \n", iGetAD);
 
 		if(iGetAD > BAT_HIGH_AD)
 		{
@@ -712,6 +765,7 @@ void Detect_BatAD(void)
 			}
 			
 			//if((iCountPowerLow % 10) == 0)
+			if(gU8BatLowPowerOffType != 2) // MP333 Stop Flash LED
 			{
 				if(gU8BatLowLedRedFlag)
 				{
@@ -725,6 +779,18 @@ void Detect_BatAD(void)
 					BAT_LED_R_ON();
 					gU8BatLowLedRedFlag = 1;
 				}
+			}
+			else
+			{
+				if(msAPI_Timer_DiffTimeFromNow(gU32PowerOffStartTime) > 1000*30)
+				{
+					//Fan Off // MP333 @ 20180503
+					FAN_OFF();
+				}
+				BAT_LED_G_OFF();
+				BAT_LED_R_OFF();
+				gU8BatLowLedRedFlag = 0;
+
 			}
 		}
 
@@ -1703,6 +1769,7 @@ void MApp_PreInit_TTX_And_TurnOfTTX(void)
     // This function will be called when changing input source
     //    MApp_TTX_InitVBITeletext();
 
+
 }
 #endif
 
@@ -2022,8 +2089,10 @@ void MApp_PreInit_Audio_Setting_Init(void)
 
     MApp_Aud_Banlace_Init();
 
+	//<< MP333
 	MApp_Aud_EQ_Init();
-	
+	MApp_Aud_PEQ_Init();
+	//>> MP333
     /* init audio after Audio switch*/
     msAPI_AUD_I2S_Amp_Reset(); // 0 ms
 
@@ -2219,45 +2288,129 @@ void MApp_PreInit_Panel_Init(void)
 	gU8EarPhoneChangeFlag = EAR_PHONE_get_level(); //add by gchen  @ 20111021 //ear phone volume line
 	printf("\ngU8EarPhoneChangeFlag1 = %d\n",gU8EarPhoneChangeFlag);
 #endif
-
-	LEDPWR_ENABLE(); //gchen @ 20171208
-	MsOS_DelayTask(100);
-	#if 0
+	//MP333 Check BatAD //20180503
+	#if 1
 	int i = 0;
-	for(i=0;i<100;i++)
+	int iGetADStart = 0;
+	int iTempADSumStart = 0;
+	for(i = 1; i <= 20; i++)
 	{
-		if(Opt_Check_get_level())
-		{
-			printf("MApi_PNL_En() LEDPWR_ENABLE 11111A;\n");
-			
-			MsOS_DelayTask(10);
-		}
-		else
-		{
-			printf("MApi_PNL_En() LEDPWR_ENABLE 11111B;\n");
-			MsOS_DelayTask(50);
-			i = 120;
-		}
+		iTempADSumStart = GetSarAdcLevel(1) + iTempADSumStart;
 	}
+	iGetADStart = iTempADSumStart / 20;
+	printf("\n iGetADStart Bat Start  1 = %d\n",iGetADStart);
+	if((DC_get_level()) && (iGetADStart < BAT_LOW_AD + 9))
+	{
+		
+		//Flash RED LED
+		MDrv_Sys_DisableWatchDog();	
+		printf("\r\n !!!!! should go to standby batlow!!!!!2222 \n");
+
+		#if 0
+			BAT_LED_G_OFF();
+			for(i = 0; i < 10; i++)
+			{
+				BAT_LED_R_ON();
+				MsOS_DelayTask(500);
+				BAT_LED_R_OFF();
+				MsOS_DelayTask(500);
+			}
+			
+			//ShutDown
+			 printf("\r\n !!!!! should go to standby batlow!!!!! \n");
+			FAN_OFF();
+			BAT_LED_R_OFF();
+			BAT_LED_G_OFF();
+			MUTE_On();
+		#endif
+		
+		//MP333 //gchen @ 20180512 
+		if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 1 || stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 2)
+		{
+
+		}
+		else if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 0)
+		{
+			stGenSetting.g_SysSetting.u8BatLowPowerOffFlag = 2;
+		}
+		
+		BAT_LED_R_OFF();
+		BAT_LED_G_OFF();
+		MUTE_On();
+		while(DC_get_level())
+		{
+			printf("\r\n !!!!! should go to standby batlow!!!!!3333 \n");
+			MsOS_DelayTask(500);
+		}
+		MApp_SaveSysSetting(); //gchen @ 20180302
+		MApp_DB_SaveDataBase_RightNow(SAVE_DB_FLAG_CHECK_DB_CH_CHANGED);
+	    	//msAPI_Power_PowerDown_EXEC();
+
+	}
+	//else
 	#endif
-	dpp2600_config_blank(false);
-	Optical_YangMing_InputSourceSelect();
-	SetOpticalCurrent((U32)900);
-	MsOS_DelayTask(900);
-	dpp2600_config_blank(false);
-	Optical_YangMing_InputSourceSelect();
-	
-	MsOS_DelayTask(500);
-	SetOpticalCurrent((U32)900);
-	MsOS_DelayTask(900);
-	//stGenSetting.g_SysSetting.ProjectionType=EN_FRONT_CEILING;
-	devOPE_Long_Axis_Flip(TRUE);
-	devOPE_Short_Axis_Flip(TRUE);
-	MsOS_DelayTask(300);
-	//Optical_YangMing_InputSourceSelect();
-	//MsOS_DelayTask(300);
-	dpp2600_config_blank(TRUE);
-    DEBUG_BOOT_TIME(DEBUG_FUNC_TIME_END());
+	{
+		 //<< MP333 //20180512
+		stGenSetting.g_SysSetting.u8BatLowPowerOffFlag = 0;
+		MApp_SaveSysSetting();
+		MApp_DB_SaveDataBase_RightNow(SAVE_DB_FLAG_CHECK_DB_CH_CHANGED);
+		
+		MDrv_Sys_EnableWatchDog(); 
+		FAN_ON();
+		 //>>MP333 //20180512
+		 
+		OPT_RESET_PIN_HIGH();
+		MsOS_DelayTask(300);
+		LEDPWR_ENABLE(); //gchen @ 20171208
+		MsOS_DelayTask(50);
+		
+		
+		
+		OPT_RESET_PIN_LOW();
+		MsOS_DelayTask(200);
+		OPT_RESET_PIN_HIGH();
+
+
+		MsOS_DelayTask(450);
+
+		
+		U16 iTempADSum = 0;
+		U16 iTempGetAD = 0;
+		
+		//static U8 gU8TemperCountNum = 0;
+		for(i = 1; i <= sample_num_temp; i++)
+		{
+			iTempADSum = GetSarAdcLevel(0) + iTempADSum;
+		}
+		iTempGetAD = iTempADSum / sample_num_temp;
+		printf("iTempGetAD Start === %d--\n",iTempGetAD);
+		if(iTempGetAD < 3){
+			OPT_RESET_PIN_LOW();
+			MsOS_DelayTask(400);
+			OPT_RESET_PIN_HIGH();
+		}
+
+		dpp2600_config_blank(false);
+		Optical_YangMing_InputSourceSelect();
+		SetOpticalCurrent((U32)OPTICAL_CURRENT);
+		MsOS_DelayTask(900);
+		dpp2600_config_blank(false);
+		Optical_YangMing_InputSourceSelect();
+		
+		MsOS_DelayTask(500);
+		SetOpticalCurrent((U32)OPTICAL_CURRENT);
+		MsOS_DelayTask(900);
+		//stGenSetting.g_SysSetting.ProjectionType=EN_FRONT_CEILING;
+		devOPE_Long_Axis_Flip(TRUE);
+		devOPE_Short_Axis_Flip(TRUE);
+		MsOS_DelayTask(300);
+		//Optical_YangMing_InputSourceSelect();
+		//MsOS_DelayTask(300);
+		dpp2600_config_blank(TRUE);
+
+	}
+	FAN_ON(); // MP333 //20180512
+    	DEBUG_BOOT_TIME(DEBUG_FUNC_TIME_END());
 }
 
 void MApp_PreInit_EnableDCC_DDC2BI_Init(void)
@@ -2933,6 +3086,111 @@ void MApp_PreInit_PVR_Init(void)
     msAPI_PVRFS_SetDeviceIndex(0);
     MApp_UiPvr_Init();
 #endif
+
+#if(ENABLE_POWERON_VIDEO)
+	printf("stGenSetting.g_SysSetting.uPowerOnTime = %d--\n",stGenSetting.g_SysSetting.uPowerOnTime);
+	stGenSetting.g_SysSetting.uPowerOnTime++;
+	printf("stGenSetting.g_SysSetting.uPowerOnTime = %d--\n",stGenSetting.g_SysSetting.uPowerOnTime);
+	MApp_SaveSysSetting(); //gchen @ 20180302
+	MApp_DB_SaveDataBase_RightNow(SAVE_DB_FLAG_CHECK_DB_CH_CHANGED);
+	//MApp_SaveGenSetting();  // MP333 change by gchen @ 20180504
+	//MApp_DB_GEN_Set_DataChanged(TRUE);
+	//MApp_DB_SaveGenSetting(); // MP333 change by gchen @ 20180504
+
+	//MUTE_On();
+	BOOLEAN bIsVolumeNegative = FALSE;
+	
+	static U8 u8HdcpKey[HDCP_KEY_SIZE] = {0};
+
+
+	gU8PanTaskFlag = 0;
+	if(MApp_DB_LoadHDCP_KEY((MS_U8 *)u8HdcpKey))
+	{
+		 if((MApp_DB_LoadPowerOnVideo_CHECK() == FALSE) && (stGenSetting.g_SysSetting.uPowerOnTime < 20))
+		{
+			printf("stGenSetting.g_SysSetting.uPowerOnTime = %d--\n",stGenSetting.g_SysSetting.uPowerOnTime);
+			gU8PanTaskFlag = 1;
+				while(gu1msTimeCount <= 110*60)
+				{
+					printf("gu1msTimeCount = %d--\n",gu1msTimeCount);
+								//<<gchen_20170819_1 // if keystone up long press bigger then 10s then out of vidoe on
+					if(stGenSetting.g_SysSetting.iCountVideoSkipTime < 3)
+					{
+						if (EAR_PHONE_get_level()==0)
+						{
+							//stGenSetting.g_SysSetting.iCountVideoSkipTime++;
+							if(!bIsVolumeNegative){
+								stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+								bIsVolumeNegative = TRUE;
+							}
+							stGenSetting.g_SysSetting.iCountVideoSkipTime = 5;
+							printf("\n---comher1 iCountVideoSkipTime plus = %d--\n", stGenSetting.g_SysSetting.iCountVideoSkipTime);
+						}/*
+						else if(PowerKey_get_level()==0)
+						{
+							//iCountVideoSkipTime++;
+							
+							//MApp_Standby_Init(); //gchen @ 20180302
+							printf("\n---comher1 2 iCountVideoSkipTime plus = %d--\n", iCountVideoSkipTime);
+							msAPI_Power_PowerDown_EXEC();
+						}*/
+						else if(Volume_positive_get_level() == 0){
+							if(bIsVolumeNegative){
+								stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+								bIsVolumeNegative = FALSE;
+							}
+							stGenSetting.g_SysSetting.iCountVideoSkipTime++;
+
+						}
+						else if(Volume_negative_get_level() == 0){
+							#if 0
+							if(!bIsVolumeNegative){
+								stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+								bIsVolumeNegative = TRUE;
+							}
+							stGenSetting.g_SysSetting.iCountVideoSkipTime = 5;
+							#endif
+						}
+						else
+						{
+							stGenSetting.g_SysSetting.iCountVideoSkipTime=0;
+						}
+						MUTE_Off();
+						FAN_ON();
+						BAT_LED_R_ON();
+						BAT_LED_G_ON();
+						msAPI_Pan_Task();
+					}
+					else
+					{
+						printf("\n---comher1 break--\n");
+						break;
+					}
+				}
+				//MApp_DB_SetPowerOnVideo_Data(TRUE);
+				if(bIsVolumeNegative){
+					//MApp_DB_GEN_Set_DataChanged(TRUE);
+					//stGenSetting.g_SysSetting.uPowerOnTime = 0;
+					stGenSetting.g_SysSetting.iCountVideoSkipTime = 0;
+					MApp_DB_SetPowerOnVideo_Data(FALSE);
+				}
+				else
+				{
+					stGenSetting.g_SysSetting.iCountVideoSkipTime = 5;
+					MApp_DB_SetPowerOnVideo_Data(TRUE);
+				}
+				gu1msTimeCount = 0;
+				gU8PanTaskFlag = 0;
+				
+
+				stGenSetting.g_SysSetting.fAfterUpdate = FALSE;
+				MApp_SaveSysSetting(); //gchen @ 20180302
+				MApp_DB_SaveDataBase_RightNow(SAVE_DB_FLAG_CHECK_DB_CH_CHANGED);
+				 // MP333 change by gchen @ 20180504
+		}
+	}
+
+#endif
 }
 
 void MApp_PreInit_Before_ChangeSource(void)
@@ -3238,6 +3496,7 @@ void MApp_Power_On_Init_On(void)
 	
 	//gU8BatLowHavePowerOffFlag = 0;
 	//gU8BatLowPowerOffFlag = 0; //MP333
+	gU8PanTaskFlag = 0;
 	gU8BatLowPowerOffType = 0;
 	gU8BatLowHaveShowFlag = 0;
 	gU32BatLowStartTime = msAPI_Timer_GetTime0();
@@ -3245,6 +3504,10 @@ void MApp_Power_On_Init_On(void)
 	gU32BatCheckStartTime = msAPI_Timer_GetTime0();
 	gU32PowerOffStartTime = msAPI_Timer_GetTime0();
 	gU8BatLowShowingFlag = 0;
+	
+	gU8TempHighFlag = 0;
+	gU32TempHighCount = 0;
+	
 	gU8BatType = 0;
 	gU16BatLowCount = 0;
 	gU8BatLowLedRedFlag = 1;
@@ -3294,7 +3557,10 @@ void MApp_Power_On_Init_On(void)
 	//MApp_TopStateMachine_SetTopState(STATE_TOP_DMP); //gchen @ 20171220
 
     MApp_Preparation();
-
+	
+	if(stGenSetting.g_SoundSetting.Volume == 0){
+		MApp_UiMenu_MuteWin_Show();
+	}
 
 #if ENABLE_SBTVD_CM_APP
     if(IS_SBTVD_APP)

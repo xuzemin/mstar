@@ -147,6 +147,9 @@ INTERFACE U16 gU16BatLowCount;
 INTERFACE U8 gU8BatLowLedRedFlag;
 INTERFACE U8 gU8BatLowPowerOffType;
 INTERFACE U32 gU32PowerOffStartTime; 
+INTERFACE U8 gU8TempHighFlag;
+INTERFACE U32 gU32TempHighCount;
+INTERFACE U8 gU8PanTaskFlag; // MP333 // gchen @ 20180509 //TestVideo Black Screen
 //>>MP333
 
 

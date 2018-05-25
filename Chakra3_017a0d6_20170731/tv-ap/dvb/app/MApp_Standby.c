@@ -172,7 +172,7 @@
 
 #include "MApp_ZUI_ACTcoexistWin.h" //gchen @ 20180320 //MP333
 
-#define STDBY_DBGINFO(y)        y
+#define STDBY_DBGINFO(y)        //y
 
 /********************************************************************************/
 /*                               Local                                      */
@@ -300,11 +300,21 @@ void MApp_Standby_Init(void)
 {
     STDBY_DBGINFO(printf(">> Enter Standby mode \n"));
 
+	/*//<<add by gchen @ 20180302
+	if(stGenSetting.g_SysSetting.uPowerOnTime < 30)
+	{
+		stGenSetting.g_SysSetting.uPowerOnTime = 31;
+		printf("Enter PM/Standby mode uPowerOnTime = %d \n", stGenSetting.g_SysSetting.uPowerOnTime);
+	}
+	*/
     MApp_Standby_TurnOffAudio();
 
     MApp_Standby_Process();
 
     msAPI_Key_PowerDown_Mode(STANDBY_MODE);
+	
+	printf("Enter PM/Standby mode \n");
+
 }
 
 //

@@ -283,11 +283,12 @@ void MApp_ZUI_ACT_AppShowScreenSaver(void)
     }
 
     MApp_ZUI_API_ShowWindow(HWND_MAINFRAME, SW_HIDE);
-    MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_BG_PANE, SW_SHOW);
+    MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_BG_PANE, SW_HIDE);
     MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_FRAME, SW_HIDE);
     MApp_ZUI_API_ShowWindow(HWND_SUB_SCREEN_SAVER_FRAME_L, SW_HIDE);
     MApp_ZUI_API_ShowWindow(HWND_SUB_SCREEN_SAVER_FRAME_R, SW_HIDE);
 
+	MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_FRAME_ICON, SW_SHOW);
     #if (ENABLE_PIP)
     if(MApp_Get_PIPMode() != EN_PIP_MODE_OFF)
     {
@@ -317,7 +318,7 @@ void MApp_ZUI_ACT_AppShowScreenSaver(void)
     else
     #endif
     {
-        MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_FRAME, SW_SHOW);
+        MApp_ZUI_API_ShowWindow(HWND_SCREEN_SAVER_FRAME, SW_HIDE);
     }
     //#endif
 #if ENABLE_ATSC_TTS

@@ -3517,7 +3517,7 @@ BOOLEAN MApp_ZUI_ACT_HandleEpgKey(VIRTUAL_KEY_CODE key)
         case VK_VOLUME_PLUS:
             if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
             {
-                stGenSetting.g_SoundSetting.Volume+= 5;
+                stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             }
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);
@@ -3526,7 +3526,7 @@ BOOLEAN MApp_ZUI_ACT_HandleEpgKey(VIRTUAL_KEY_CODE key)
         case VK_VOLUME_MINUS:
             if ( stGenSetting.g_SoundSetting.Volume > 0 )
             {
-                stGenSetting.g_SoundSetting.Volume-= 5;
+                stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             }
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);

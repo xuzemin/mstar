@@ -959,7 +959,7 @@ static void _MApp_APEngine_ProcessKey_Game(void)
         case KEY_VOLUME_PLUS:
             if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
             {
-                stGenSetting.g_SoundSetting.Volume+= 5;
+                stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             }
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);
@@ -968,7 +968,7 @@ static void _MApp_APEngine_ProcessKey_Game(void)
         case KEY_VOLUME_MINUS:
             if ( stGenSetting.g_SoundSetting.Volume > 0 )
             {
-                stGenSetting.g_SoundSetting.Volume-= 5;
+                stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             }
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_AUDIOMUTE, E_AUDIO_BYUSER_MUTEOFF, E_AUDIOMUTESOURCE_ACTIVESOURCE);
@@ -1213,8 +1213,8 @@ static void _MApp_APEngine_ProcessKey_Cowork(void)
                 break;
 
             case KEY_VOLUME_PLUS:
+				MApp_UiMenu_MuteWin_Hide();
             case KEY_VOLUME_MINUS:
-                MApp_UiMenu_MuteWin_Hide();
                 MApp_UiMenu_ARCDeviceStatusWin_Hide();
                 MApp_ZUI_ACT_StartupOSD(E_OSD_AUDIO_VOLUME);
                 _MApp_APEngine_ProcessAudioVolumeKey(u8KeyCode);

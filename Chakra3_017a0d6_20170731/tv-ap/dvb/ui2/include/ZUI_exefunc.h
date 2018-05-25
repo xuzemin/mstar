@@ -416,7 +416,6 @@ typedef enum
 	
     EN_EXE_DEC_KEYSTONEANGLE,                    //xzm @20171228 add keystone
     EN_EXE_INC_KEYSTONEANGLE,                   //xzm @20171228 add keystone
-	
 	EN_EXE_DEC_PROJECTION_TYPE,//wht121101_1
     EN_EXE_INC_PROJECTION_TYPE,//wht121101_1
 	EN_EXE_INC_KEYSTONE_TYPE,//xzm180129

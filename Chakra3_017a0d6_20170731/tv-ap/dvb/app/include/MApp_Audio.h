@@ -173,7 +173,7 @@ INTERFACE void MApp_Aud_AutoVolume_Init(void);
 INTERFACE void MApp_Aud_AudioDelay_Init(void);
 #endif
 INTERFACE void MApp_Aud_PEQ_Init(void);
-INTERFACE void MApp_Aud_EQ_Init(void);
+INTERFACE void MApp_Aud_EQ_Init(void); // MP333
 /*
      MApp_Aud_SetSurroundMode is used to set a specific surround mode.
 

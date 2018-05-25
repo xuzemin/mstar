@@ -971,11 +971,13 @@ typedef struct
 {
     U8 Bass;
     U8 Treble;
-    U8 u8120HZ;//120HZ
-    U8 u8500HZ; //500HZ
-    U8 u8_1_dot_5_KHZ;///1.5KHZ
-    U8 u8_5KHZ;//5KHZ
-    U8 u810KHZ; //10KHZ
+    U8 u8120HZ;
+    U8 u8200HZ;
+    U8 u8500HZ;
+    U8 u8_1_dot_2_KHZ;
+    U8 u8_3KHZ;
+    U8 u8_7_dot_5_KHZ;
+    U8 u812KHZ;
     BOOLEAN UserMode;
     U8 Balance;
     EN_AUD_MODE      enSoundAudioChannel;
@@ -1339,7 +1341,12 @@ typedef struct
     U8 fSubTitleOn:1;               // 0=Off, 1= On menu setting
     U8 fEpop:1;                      // 0=Off, 1= On
 	U8 Reserved2 : 1;
-
+	BOOLEAN bEnPrint;
+	U8 fAfterUpdate; //wht120829_1
+//#if ENABLE_POWERON_VIDEO //gchen @ 20180108 //test video
+	U8 uPowerOnTime;
+	U8 iCountVideoSkipTime;
+	U8 u8BatLowPowerOffFlag; // MP333 //gchen @ 20180512 // bat low bug fix
 #if ENABLE_OAD
     U8 bOADActiveStandbyMode:1;
 #endif

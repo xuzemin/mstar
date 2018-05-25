@@ -162,6 +162,7 @@
 #define SW_CONFIG_TRUNK_MELODY_32M_AtvMM_CUS_SZ         0x0163
 
 #define ENABLE_854x480_UI ENABLE //gchen @ 20171214
+#define VOLUME_STEP	10 //MP333 gchen @ 20180426
 
 
 // MARLON
@@ -413,14 +414,13 @@
 #endif //#if (ENABLE_VE == DISABLE)
 
 /***************************************************************************************/
-
-#define ENABLE_MUSIC_EQ_MODE 				DISABLE
+#define ENABLE_MUSIC_EQ_MODE 				ENABLE
 #define ENABLE_FIX_GREENPANEL_BUG        	DISABLE//wht121220_3 ENABLE   //wht120814_1
 #define NEW_MENU_ADJUST_MODE      DISABLE//ENABLE  //wht121116_1
 #define SOUNDMODE_EQ                        ENABLE
 #define SOUNDMODE_TONE                      ENABLE
-#define SOUNDMODE                           SOUNDMODE_TONE
-#define SOUND_EQMODE_ENABLE					DISABLE//ENABLE
+#define SOUNDMODE                           SOUNDMODE_EQ
+#define SOUND_EQMODE_ENABLE					ENABLE
 #define ENABLE_BRAZIL_CC_DETECT_FLAG        DISABLE
 #define EANBLE_V56_IO_KEY					ENABLE //gchen @ 20180202 //IO Key Control
 #define ENABLE_CHINESE                    DISABLE//ENABLE   //wht121020_2
@@ -529,7 +529,7 @@
 #endif
 
 #ifndef ENABLE_UART2
-    #define ENABLE_UART2                            ENABLE //DISABLE //gchen @ 20180118
+    #define ENABLE_UART2                            DISABLE
 #endif
 
 #ifndef ENABLE_ARC_CHANGE_SPDIF

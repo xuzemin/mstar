@@ -113,9 +113,9 @@ extern "C" {
 #if (ENABLE_EASMONITOR)
 #define COWIN_ID_EAS 		0x04
 #endif
-
-#define COWIN_ID_TEMP_DET	  4	
-#define COWIN_ID_BAT_LOW	  2	
+#define COWIN_ID_TEMP_OVERTOP	5	
+#define COWIN_ID_TEMP_DET	  	4	
+#define COWIN_ID_BAT_LOW	  	2	
 INTERFACE U8 u8CoexistWinType;  //Mute or count down win
 INTERFACE void MApp_ARC_KeyProc_Mute(void);// anvi22
 
@@ -134,6 +134,10 @@ INTERFACE void MApp_ZUI_ACTcoexist_RealDelete( void);
 
 INTERFACE void MApp_UiMenu_TempDetWin_Hide(void);
 INTERFACE void MApp_UiMenu_TempDetWin_Show(void);
+
+INTERFACE void MApp_UiMenu_TempOverTopWin_Hide(void);
+INTERFACE void MApp_UiMenu_TempOverTopWin_Show(void);
+
 INTERFACE void MApp_UiMenu_BatLowWin_Show(void);
 INTERFACE void MApp_UiMenu_BatLowWin_Hide(void);
 INTERFACE void MApp_UiMenu_CountDownWin_Draw(void);

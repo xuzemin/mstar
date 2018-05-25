@@ -161,6 +161,103 @@
 U32 u32Enable_Change_Timer=0;
 #endif
 
+#if ENABLE_POWERON_VIDEO
+void MApp_DB_SetPowerOnVideo_Data(bool bSetVideoOn)
+{
+	static U8 u8VideoOnData[POWER_VIDEO_CHECK_SIZE];
+	int j = 0;
+
+	if(bSetVideoOn)
+	{
+		
+		printf("MApp_DB_SetPowerOnVideo_Data TRUE \n");
+		for(j = 0; j < POWER_VIDEO_CHECK_SIZE; j++)
+		{
+			u8VideoOnData[j] = j;
+		}
+		MApp_DB_SavePowerOnVideo_Data(u8VideoOnData);
+	}
+	else
+	{
+		
+		printf("MApp_DB_SetPowerOnVideo_Data FALSE \n");
+		for(j = 0; j < POWER_VIDEO_CHECK_SIZE; j++)
+		{
+			u8VideoOnData[j] = 0xff;
+		}
+		MApp_DB_SavePowerOnVideo_Data(u8VideoOnData);
+	}
+}
+
+void MApp_DB_SavePowerOnVideo_Data(U8 *pu32VideoCheckData)
+{
+    U32 dst;
+
+    MDrv_FLASH_WriteProtect_Disable_Range_Set((SYSTEM_BANK_SIZE * POWER_VIDEO_CHECK_DB_BANK)-VIDEO_CHECK_OFFSET, VIDEO_CHECK_OFFSET); // MDrv_FLASH_WriteProtect(DISABLE); // <-@@@
+
+    dst = (SYSTEM_BANK_SIZE * POWER_VIDEO_CHECK_DB_BANK) - VIDEO_CHECK_OFFSET;
+
+    MDrv_FLASH_AddressErase(dst, 0x20, TRUE);
+
+    MDrv_FLASH_Write(dst, POWER_VIDEO_CHECK_DB_SIZE, pu32VideoCheckData);
+
+    printf("MApp_DB_SavePowerOnVideo_Data 000 \n");
+    printf("POWER_VIDEO_CHECK_DB_BANK 0x%x\n", POWER_VIDEO_CHECK_DB_BANK);
+    printf("dst 0x%x\n", dst);
+
+
+    MDrv_FLASH_WriteProtect(ENABLE);
+
+}
+
+bool MApp_DB_LoadPowerOnVideo_CHECK(void)
+{
+	U32 dst;
+	U16 i;
+	
+	U16 iCountFF;
+	iCountFF = 0;
+	bool bResult; 
+	
+	U8 u8VideoCheck[POWER_VIDEO_CHECK_SIZE];	
+	bResult = false;
+	
+	dst = (SYSTEM_BANK_SIZE * POWER_VIDEO_CHECK_DB_BANK)-VIDEO_CHECK_OFFSET;
+
+	MDrv_FLASH_Read(dst,POWER_VIDEO_CHECK_SIZE, u8VideoCheck);
+
+
+	printf("MApp_DB_LoadPowerOnVideo_CHECK\n");
+	printf("POWER_VIDEO_CHECK_DB_BANK 0x%x\n", POWER_VIDEO_CHECK_DB_BANK);
+
+
+	for(i=0;i<POWER_VIDEO_CHECK_SIZE;i++)
+	{
+		printf("%x ", u8VideoCheck[i]);
+		if(u8VideoCheck[i] == 0xff)
+		{
+			iCountFF++;
+			//printf("iCountFF %d = %d \n", i,iCountFF);
+		}
+	}
+	printf("\n");
+
+	if(iCountFF >= POWER_VIDEO_CHECK_SIZE)
+	{
+		bResult = false;
+		printf("All is FF , iCountFF false = %d \n", iCountFF);
+	}
+	else
+	{
+		bResult = true;
+		printf("iCountFF true = %d \n", iCountFF);
+	}
+
+	return bResult;
+}
+
+#endif
+
 
 #if (HDCP_KEY_TYPE==HDCP_KEY_IN_DB)
 //*************************************************************************
@@ -172,10 +269,15 @@ U32 u32Enable_Change_Timer=0;
 
 extern MS_U8 _u8HdcpKey[HDCP_KEY_SIZE];
 
-void MApp_DB_LoadHDCP_KEY(MS_U8 *u8HdcpKey)
+int MApp_DB_LoadHDCP_KEY(MS_U8 *u8HdcpKey)
 {
     U32 dst;
     U16 i;
+
+    bool bResult; //add by gchen @ 20180426  MP333 HDCP Check 
+    U16 iCountFF;
+	iCountFF = 0;
+	bResult = false;
 
     dst = (SYSTEM_BANK_SIZE * HDCP_DB_BANK) ;
 
@@ -191,9 +293,28 @@ void MApp_DB_LoadHDCP_KEY(MS_U8 *u8HdcpKey)
     {
         printf("%x ", u8HdcpKey[i]);
         if(i%16==15) printf("\n");
-    }
 
-    printf("\n");
+		if(u8HdcpKey[i] == 0xff)
+		{
+			iCountFF++;
+			//printf("iCountFF %d = %d \n", i,iCountFF);
+		}
+	}
+
+        printf("\n");
+	   printf("iCountFF = %d \n", iCountFF);
+	if(iCountFF >= 290)
+	{
+		bResult = false;
+		printf("MApp_DB_LoadHDCP_KEY false\n");
+	}
+	else
+	{
+		bResult = true;
+		printf("MApp_DB_LoadHDCP_KEY true\n");
+	}
+	
+    return bResult; 
 }
 
 void MApp_DB_SaveHDCP_KEY( U32 u16Offset)
@@ -244,7 +365,7 @@ U16 MApp_DB_LoadHDCP_KEY_For_331(void)
     for(i=0;i<HDCP_KEY_SIZE;i++)
     {
 		g_wHDCP_KeyChkSum += u8HdcpKey[i];	
-		printf("0x%x ", u8HdcpKey[i]);
+		//printf("0x%x ", u8HdcpKey[i]);
         if(i%16==15) printf("\n");
     }
 
@@ -260,12 +381,13 @@ void MApp_DB_SaveHDCP_KEY_For_331( U32 u32Offset,U8 *pu32HdcpKey)
 {
     U32 dst;
 
-    msAPI_Flash_Set_WriteProtect_Disable_Range(SYSTEM_BANK_SIZE * HDCP_DB_BANK, SYSTEM_BANK_SIZE);
+    msAPI_Flash_Set_WriteProtect_Disable_Range(SYSTEM_BANK_SIZE * HDCP_DB_BANK, SYSTEM_BANK_SIZE  - VIDEO_CHECK_OFFSET);
 	//msAPI_Flash_Set_WriteProtect(DISABLE); // <-@@@
 
     dst = (SYSTEM_BANK_SIZE * HDCP_DB_BANK) + u32Offset;
 
-    MDrv_FLASH_AddressErase(dst, SYSTEM_BANK_SIZE, TRUE);
+    MDrv_FLASH_AddressErase(dst, SYSTEM_BANK_SIZE - VIDEO_CHECK_OFFSET, TRUE); //MP333
+    //MApp_DB_FLASH_AddressErase_For_331();
 
     MDrv_FLASH_Write(dst, HDCP_KEY_SIZE, pu32HdcpKey);
 

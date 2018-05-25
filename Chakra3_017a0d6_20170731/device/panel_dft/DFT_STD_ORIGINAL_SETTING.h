@@ -90,8 +90,8 @@
 #define VIVID_COLOR_TEMP            MS_COLOR_TEMP_MEDIUM
 
 #define STANDARD_BACKLIGHT          80 // 100
-#define STANDARD_CONTRAST           50
-#define STANDARD_BRIGHTNESS         50//48
+#define STANDARD_CONTRAST           53
+#define STANDARD_BRIGHTNESS         42//48
 #define STANDARD_SATURATION         50
 #define STANDARD_SHARPNESS          50
 #define STANDARD_HUE                50

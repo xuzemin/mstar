@@ -115,7 +115,7 @@
 #define DEFAULT_RF_CHANNEL                      CHAN_AIR_MIN
 #define DEFAULT_CABLE_SYSTEM                    CABLE_SYSTEM_AUTO //Mantis 960766 fixed//CABLE_SYSTEM_STD
 
-#define DEFAULT_VOLUME_SETTING                  20
+#define DEFAULT_VOLUME_SETTING                  50
 #define DEFAULT_AD_MIX_SETTING                  25
 #define DEFAULT_BALANCE_SETTING                 50
 #define DEFAULT_TIME_ZONE                       EN_D1_Clock_TimeZone_Eastern

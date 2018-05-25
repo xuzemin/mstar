@@ -41,7 +41,7 @@ static U8 s_EdidTbl_au8SAD[EDID_TBL_SAD_SIZE] = {
 };
 #endif
 
-#define DEBUG_EDID_TBL(x)  // x
+#define DEBUG_EDID_TBL(x)   x //gchen @ 20180416
 
 void MApp_Edid_CorrectCheckSum(U8* pu8EdidTbl)
 {

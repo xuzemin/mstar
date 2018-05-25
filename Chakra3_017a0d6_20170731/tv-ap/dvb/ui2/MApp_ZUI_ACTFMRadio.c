@@ -485,7 +485,7 @@ BOOLEAN MApp_ZUI_ACT_HandleFMRadioKey(VIRTUAL_KEY_CODE key)
         case VK_VOLUME_PLUS:
             if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
             {
-                stGenSetting.g_SoundSetting.Volume+= 5;
+                stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
 #if ENABLE_KEY_TO_SPEECH
                 if(!MApp_KeyIsReapeatStatus())
@@ -502,7 +502,7 @@ BOOLEAN MApp_ZUI_ACT_HandleFMRadioKey(VIRTUAL_KEY_CODE key)
         case VK_VOLUME_MINUS:
             if ( stGenSetting.g_SoundSetting.Volume > 0 )
             {
-                stGenSetting.g_SoundSetting.Volume-= 5;
+                stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
                 msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
 #if ENABLE_KEY_TO_SPEECH
                 if(!MApp_KeyIsReapeatStatus())

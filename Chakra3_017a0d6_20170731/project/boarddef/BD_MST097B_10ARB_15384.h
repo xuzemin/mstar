@@ -235,31 +235,40 @@
 #define PIN_130_IS_GPIO             GPIO_IN              //(GPIO102,PAD_GPIO34): Ear-phone Enable (H:On)
 
 //gchen @ 20171208
-#define PIN_65_IS_GPIO				GPIO_OUT_LOW //gchen @ 20171208 //set PROJ_ON HIGH
-#define PIN_66_IS_GPIO				GPIO_OUT_HIGH 
-#define PIN_107_IS_GPIO             GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2  //gchen @ 20180317 //MP333
-#define PIN_108_IS_GPIO             GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2 //gchen @ 20180317 //MP333
-#define PIN_106_IS_GPIO				GPIO_OUT_LOW //gchen @ 20180317 //MP333
-#define PIN_105_IS_GPIO				GPIO_OUT_LOW //gchen @ 20180317 //MP333
-#define PIN_104_IS_GPIO				GPIO_IN //gchen @ 20180317 //MP333
-#define PIN_103_IS_GPIO				GPIO_IN //gchen @ 20180317 //MP333
 
+//#define PIN_101_IS_GPIO				GPIO_OUT_HIGH
+#define PIN_65_IS_GPIO				GPIO_OUT_LOW//GPIO_OUT_HIGH //gchen @ 20171208 //set PROJ_ON HIGH //20180427 Fan
+#define PIN_66_IS_GPIO				GPIO_IN 
+#define PIN_107_IS_GPIO             		GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2  //gchen @ 20180317 //MP333
+#define PIN_108_IS_GPIO             		GPIO_IN //GPIO_NONE //gchen @ 20180118 //uart2 //gchen @ 20180317 //MP333
+#define PIN_106_IS_GPIO				GPIO_IN//GPIO_OUT_LOW //gchen @ 20180317 //MP333
+#define PIN_105_IS_GPIO				GPIO_IN//GPIO_OUT_LOW //gchen @ 20180317 //MP333
+//#define PIN_104_IS_GPIO				GPIO_IN //gchen @ 20180317 //MP333
+#define PIN_103_IS_GPIO				GPIO_OUT_LOW //GPIO_IN //gchen @ 20180317 //MP333
+#define PIN_102_IS_GPIO				GPIO_OUT_LOW //GPIO_IN //gchen @ 20180317 //MP333
 //#define PIN_108_IS_GPIO				GPIO_OUT_HIGH //gchen @ 20171222
 
-#define LEDPWR_ENABLE()             mdrv_gpio_set_high(PIN_65)
-#define LEDPWR_DISABLE()            mdrv_gpio_set_low(PIN_65)
+#define LEDPWR_ENABLE()              mdrv_gpio_set_high(PIN_101)//(PIN_65)
+#define LEDPWR_DISABLE()            mdrv_gpio_set_low(PIN_101)//(PIN_65)
+#define OPT_RESET_PIN_HIGH()	mdrv_gpio_set_high(PIN_66)
+#define OPT_RESET_PIN_LOW()	mdrv_gpio_set_low(PIN_66)
 #define AMP_ENABLE()				_FUNC_NOT_USED() //mdrv_gpio_set_low(PIN_132)
 #define AMP_DISABLE()				_FUNC_NOT_USED() //mdrv_gpio_set_high(PIN_132)
 #define EarPhone_OFF()				_FUNC_NOT_USED()//mdrv_gpio_set_high(PIN_131) //gchen @ 20180206 //remove earphone amp
 #define EarPhone_ON()				_FUNC_NOT_USED()//mdrv_gpio_set_low(PIN_131)
 
-#define BAT_LED_G_ON()					mdrv_gpio_set_high(PIN_105)
-#define BAT_LED_R_ON()					mdrv_gpio_set_high(PIN_106)
-#define BAT_LED_G_OFF()					mdrv_gpio_set_low(PIN_105)
-#define BAT_LED_R_OFF()					mdrv_gpio_set_low(PIN_106)
+#define BAT_LED_G_ON()					mdrv_gpio_set_high(PIN_103) //(PIN_105)
+#define BAT_LED_R_ON()					mdrv_gpio_set_high(PIN_102) //(PIN_106)
+#define BAT_LED_G_OFF()					mdrv_gpio_set_low(PIN_103) //(PIN_105)
+#define BAT_LED_R_OFF()					mdrv_gpio_set_low(PIN_102) //(PIN_106)
 #define EAR_PHONE_NULL				0
 
+#define FAN_OFF()					mdrv_gpio_set_low(PIN_65) // MP333 Fan Control
+#define FAN_ON()					mdrv_gpio_set_high(PIN_65)  // MP333 Fan Control
 
+#define SW_DET_PIN			PIN_120 //PIN_106
+#define OPTICAL_CURRENT		1000 // MP333 Optical Current
+#define OPTICAL_CURRENT_LOW	450 // MP333 Optical Current
 
 //------Chip Type---------------------------------------------------------------
 #include "chip/MSD91RBNx.h"
@@ -368,9 +377,9 @@
 #define AUDIO_SOURCE_DVI3           AUDIO_SOURCE_PC
 #define AUDIO_SOURCE_KTV            AUDIO_NULL_INPUT
 
-#define AUDIO_PATH_MAIN_SPEAKER     AUDIO_PATH_MAIN // add for IIC //AUDIO_PATH_0 //AUDIO_PATH_MAIN //gchen @ 20171218
+#define AUDIO_PATH_MAIN_SPEAKER     AUDIO_PATH_MAIN // add for IIC //AUDIO_PATH_0 //AUDIO_PATH_MAIN//gchen @ 20171218
 #define AUDIO_PATH_SRC              AUDIO_PATH_NULL
-#define AUDIO_PATH_HP               AUDIO_PATH_NULL //AUDIO_PATH_1 //AUDIO_PATH_NULL //AUDIO_PATH_2 //gchen @ 20171218
+#define AUDIO_PATH_HP               AUDIO_PATH_2 //gchen @ 20171218
 #define AUDIO_PATH_MONITOROUT       AUDIO_PATH_NULL
 #define AUDIO_PATH_SCART1           AUDIO_PATH_NULL   // always output ATV/DTV sound
 #define AUDIO_PATH_SCART2           AUDIO_PATH_NULL   // always output ATV/DTV sound
@@ -379,12 +388,12 @@
 #define AUDIO_PATH_SIFOUT           AUDIO_PATH_NULL
 #define AUDIO_PATH_SPEAKER          AUDIO_PATH_2
 
-#define AUDIO_OUTPUT_MAIN_SPEAKER   AUDIO_AUOUT1_OUTPUT //gchen @ 20171218
+#define AUDIO_OUTPUT_MAIN_SPEAKER   AUDIO_AUOUT3_OUTPUT//AUDIO_AUOUT1_OUTPUT //gchen @ 20171218 //AUDIO_AUOUT1_OUTPUT
 #define AUDIO_OUTPUT_HP             AUDIO_NULL_OUTPUT//AUDIO_AUOUT1_OUTPUT //AUDIO_AUOUT2_OUTPUT //gchen @ 20171218
 #define AUDIO_OUTPUT_MONITOROUT     AUDIO_NULL_OUTPUT
 #define AUDIO_OUTPUT_SCART1         AUDIO_NULL_OUTPUT  // define NULL when no used
 #define AUDIO_OUTPUT_SCART2         AUDIO_NULL_OUTPUT  // define NULL when no used
-#define AUDIO_OUTPUT_LINEOUT        AUDIO_AUOUT3_OUTPUT
+#define AUDIO_OUTPUT_LINEOUT        AUDIO_AUOUT1_OUTPUT//AUDIO_AUOUT3_OUTPUT
 #define AUDIO_OUTPUT_SIFOUT         AUDIO_NULL_OUTPUT
 
 //-----------------------Add GPIO switch setting -------------------------

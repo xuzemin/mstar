@@ -2083,6 +2083,8 @@ void MApp_MultiTasks(void)
 	  MDrv_UART2_MCU_RXD();
 #endif
 
+	if(gU8BatLowPowerOffType != 2) // MP333 // gchen  @ 20180511 //Bat low sound bug
+	{
 	#if (ENABLE_EAR_PHONE_VALUME_LINE) //MP333
 	if(EAR_PHONE_get_level() != gU8EarPhoneChangeFlag)
 	{
@@ -2105,6 +2107,7 @@ void MApp_MultiTasks(void)
 			MUTE_On();
 			EarPhone_OFF();
 		}
+	}
 		
 
 #if( DEBUG_MULTI_TASK_TOTAL_TIME )
@@ -2294,6 +2297,22 @@ void MApp_MultiTasks(void)
 	if(msAPI_Timer_DiffTimeFromNow(gU32BatCheckStartTime) >= 500)
 	{
 		gU32BatCheckStartTime = msAPI_Timer_GetTime0();
+
+		// MP333 @ 20180503 // Check Source 
+		#if 1
+		if(Optical_YangMing_ReadSource() == 1)
+		{
+			printf(" Optical_YangMing_ReadSource == 1\n");
+			Optical_YangMing_InputSourceSelect();
+			MsOS_DelayTask(500);
+			SetOpticalCurrent((U32)OPTICAL_CURRENT);
+			MsOS_DelayTask(900);
+			devOPE_Long_Axis_Flip(TRUE);
+			devOPE_Short_Axis_Flip(TRUE);		
+		}
+		#endif
+		
+		Detect_TempAD(); // add by gchen @ 20180505 //MP333 
 		
 		if(DC_get_level())
 		{
@@ -2312,7 +2331,8 @@ void MApp_MultiTasks(void)
 						gU32PowerOffStartTime = msAPI_Timer_GetTime0();
 						MApp_UiMenu_TempDetWin_Show();
 						gU8BatLowPowerOffType = 1;
-							
+						//add by gchen @ 20180416 //set led current
+						SetOpticalCurrent((U32)OPTICAL_CURRENT_LOW);
 					}
 					else if(gU8BatLowPowerOffType == 1)
 					{
@@ -2333,13 +2353,18 @@ void MApp_MultiTasks(void)
 			//this is dc mode
 			if(gU8BatLowPowerOffType == 2)
 			{
+				FAN_ON(); // MP333 Fan Control //20180503
 				dpp2600_config_blank(TRUE);
 				msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
+				//add by gchen @ 20180416 //set led current
+				SetOpticalCurrent((U32)OPTICAL_CURRENT);
 				MUTE_Off();	
 			}
 			else if(gU8BatLowPowerOffType == 1)
 			{
 				MApp_UiMenu_TempDetWin_Hide();
+				SetOpticalCurrent((U32)OPTICAL_CURRENT);
+				//add by gchen @ 20180416 //set led current
 			}
 			//set led
 			BAT_LED_G_OFF();
@@ -2355,14 +2380,14 @@ void MApp_MultiTasks(void)
 		if(gU8BatLowShowingFlag == 1)
 		{
 			gU32BatLowDiffTime = msAPI_Timer_DiffTimeFromNow(gU32BatLowStartTime);
-			if(gU32BatLowDiffTime >= 3000)
+			if(gU32BatLowDiffTime >= 5000)
 			{
 				MApp_UiMenu_BatLowWin_Hide();
 				gU8BatLowShowingFlag = 0;
 			}
 		}
 	}
-	
+
 	//check sw det
 	if(PowerOff_get_level())
 	{
@@ -2371,11 +2396,28 @@ void MApp_MultiTasks(void)
 	}
 	else
 	{
-		printf(" PowerOff_get_level false 2\n");
-		msAPI_Power_PowerDown_EXEC();
-		printf(" PowerOff_get_level false 3\n");
+		BAT_LED_R_OFF();
+		BAT_LED_G_OFF();
+		MUTE_On();
+		
+		if(gU8BatLowPowerOffType != 2)
+		{
+			printf(" PowerOff_get_level false 2\n");
+			msAPI_Power_PowerDown_EXEC();
+			printf(" PowerOff_get_level false 3\n");
+		}
+		else
+		{
+			MDrv_Sys_DisableWatchDog();
+			while(DC_get_level())
+			{
+				printf("\r\n !!!!! should go to standby batlow!!!!!4444 \n");
+				MsOS_DelayTask(500);
+			}
+			printf(" DC IN WHEN BAT LOW 222 \n");
+			MDrv_Sys_EnableWatchDog(); 
+		}
 	}
-	
 	
 	//>>gchen @ 20180321 //MP333
     MT_CHECK_POINT();
@@ -2990,7 +3032,8 @@ void MApp_MultiTasks(void)
       #if (ENABLE_TIME_LOG)
         if ( u32UseTime > u16StdTime )
         {
-            printf(" MultiTask %u use %u at %u!\n", s_MultiTask_u32Counter, u32UseTime, u32TaskEndTime );
+			// MP333 gchen @ 20180509
+            //printf(" MultiTask %u use %u at %u!\n", s_MultiTask_u32Counter, u32UseTime, u32TaskEndTime );
         }
       #endif
     }
@@ -3285,13 +3328,38 @@ void MApp_PreProcessUserInput(void)
             break;
         case KEY_VOLUME_PLUS: //disable MUTE win before show volume bar
         	//printf("KEY_VOLUME_PLUS 11111\n");
-			//MApp_UiMenu_BatLowWin_Show();
 			//LEDPWR_ENABLE();
+			#if 0
+			Optical_YangMing_InputSourceSelect();
+			SetOpticalCurrent((U32)OPTICAL_CURRENT);
+			MUTE_On();
+			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, 0, 0);
+			dpp2600_config_blank(FALSE);
+			MsOS_DelayTask(1000);
+			LEDPWR_DISABLE();
+			{
+                MApp_UiMenu_ARCDeviceStatusWin_Hide();
+                MApp_UiMenu_MuteWin_Hide();
+            }
+			#endif
+			//U8 u8GetSource = Optical_YangMing_ReadSource();
+			//printf("KEY_VOLUME_PLUS u8GetSource = %d \n", u8GetSource);
 			//break;
         case KEY_VOLUME_MINUS:
 			//MApp_UiMenu_BatLowWin_Hide();
 			//LEDPWR_DISABLE();
 			//printf("KEY_VOLUME_MINUS 11111\n");
+			#if 0
+			LEDPWR_ENABLE();
+			MsOS_DelayTask(1000);
+			Optical_YangMing_InputSourceSelect();
+			SetOpticalCurrent((U32)OPTICAL_CURRENT);
+
+			//MsOS_DelayTask(3000);
+			dpp2600_config_blank(TRUE);
+			msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
+			MUTE_Off(); 
+			#endif
           #if ENABLE_DMP
             if (MApp_TopStateMachine_GetTopState() != STATE_TOP_DMP)
           #endif

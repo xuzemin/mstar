@@ -135,7 +135,9 @@
 #if DTV_COUNT_DOWN_TIMER_PATCH
 extern U8 u8DTVCountDownTimer;
 #endif
-
+#if ENABLE_POWERON_VIDEO //gchen  @ 20180108 //test video
+extern U16                gu1msTimeCount;
+#endif
 extern void mdrv_dvi_clock_70mhz_swpatch2(INPUT_SOURCE_TYPE_t enInputSourceType);
 
 #ifdef ENABLE_MINI_DUMP
@@ -259,6 +261,9 @@ static void TimerISR(void)
         if((u8DTVCountDownTimer != 0xFF) && (u8DTVCountDownTimer > 0))
             u8DTVCountDownTimer--;
         #endif
+		#if ENABLE_POWERON_VIDEO //gchen @ 20180108 //test video
+		gu1msTimeCount++;
+		#endif
     }
 
     //--------------------------------

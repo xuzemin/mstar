@@ -276,7 +276,9 @@
 #define BIN_ID_JPEG_BOOT_LOGO_DVB       0x0300  //~75KB   //@..\..\..\tv-ap\dvb\ui2\logo\insignia_logo.jpg
 
 #define BIN_ID_MELODY_ON_DVB            0x0701  //~55KB   //@..\..\..\tv-ap\dvb\ui2\logo\mp3.mp3
-
+#if ENABLE_POWERON_VIDEO
+#define BIN_ID_VIDEO_ON_DVB             0x0703  //~55KB   //@..\..\..\tv-ap\dvb\ui2\logo\video.mp4
+#endif
 // PANEL.BIN
 #define BIN_ID_PANEL                    0x0747  //~2KB     //@..\..\..\core\bin\common\PanelBin\Panel.Bin
 

@@ -357,7 +357,7 @@ int Debug_Log_MemPrintf(U8 u8GroupIdx, const char *fmt, ...);
 //******************************************************************************
 //
 
-#define ENABLE_TIME_LOG     ENABLE//ENABLE//DISABLE
+#define ENABLE_TIME_LOG     ENABLE//DISABLE 
 
 //
 //******************************************************************************

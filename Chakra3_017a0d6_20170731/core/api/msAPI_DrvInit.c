@@ -574,6 +574,12 @@ void msAPI_Power_PowerDown_EXEC(void)
     MDrv_Power_ExecutePowerDown2PM51(&PmWakeCfg, &PmPowerDownCfg);
 #endif
 
+    //MP333
+    if (!MDrv_Sys_IsWatchDogEnabled())
+        MDrv_Sys_EnableWatchDog();
+    else
+        MDrv_Sys_DisableWatchDog();        
+	
     MDrv_Sys_StopCpu(1);
 }
 #endif

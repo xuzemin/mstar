@@ -2388,7 +2388,7 @@ static BOOLEAN _MApp_KTV_Volume_Adjust(U16 act)
     {
         if ( stGenSetting.g_SoundSetting.Volume > 0 )
         {
-            stGenSetting.g_SoundSetting.Volume-= 5;
+            stGenSetting.g_SoundSetting.Volume-= VOLUME_STEP;
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             MApp_ZUI_API_ShowWindow(HWND_KTV_SONG_PLAY_VOLUME, SW_SHOW);
         }
@@ -2397,7 +2397,7 @@ static BOOLEAN _MApp_KTV_Volume_Adjust(U16 act)
     {
         if ( stGenSetting.g_SoundSetting.Volume < MAX_NUM_OF_VOL_LEVEL )
         {
-            stGenSetting.g_SoundSetting.Volume+= 5;
+            stGenSetting.g_SoundSetting.Volume+= VOLUME_STEP;
             msAPI_AUD_AdjustAudioFactor(E_ADJUST_VOLUME, stGenSetting.g_SoundSetting.Volume, 0);
             MApp_ZUI_API_ShowWindow(HWND_KTV_SONG_PLAY_VOLUME, SW_SHOW);
         }

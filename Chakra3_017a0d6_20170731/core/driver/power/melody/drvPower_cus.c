@@ -170,11 +170,13 @@ int GetEarphoneState(void) //gchen @ 20171218
 
 int Volume_positive_get_level(void) //add by xzm @20171222
 {
-    return mdrv_gpio_get_level( PIN_103 ) ? _HIGH : _LOW; 
+    //return mdrv_gpio_get_level( PIN_103 ) ? _HIGH : _LOW; 
+    return mdrv_gpio_get_level( PIN_108 ) ? _HIGH : _LOW; 
 }
 int Volume_negative_get_level(void) //add by xzm @20171222
 {
-    return mdrv_gpio_get_level( PIN_104 ) ? _HIGH : _LOW;
+    //return mdrv_gpio_get_level( PIN_104 ) ? _HIGH : _LOW;
+    return mdrv_gpio_get_level( PIN_107 ) ? _HIGH : _LOW; 
 }
 
 int Opt_Check_get_level(void) //MP333
@@ -185,11 +187,13 @@ int Opt_Check_get_level(void) //MP333
 //MP333 Power Off det PIN_108
 int PowerOff_get_level(void)
 {
-	return mdrv_gpio_get_level( PIN_108 ) ? _HIGH : _LOW;
+	//return mdrv_gpio_get_level( PIN_108 ) ? _HIGH : _LOW;
+	return mdrv_gpio_get_level(SW_DET_PIN) ? _HIGH : _LOW;
 }
 
 int DC_get_level(void)
 {
-    return mdrv_gpio_get_level( PIN_107) ? _HIGH : _LOW;
+    //return mdrv_gpio_get_level( PIN_107) ? _HIGH : _LOW;
+    return mdrv_gpio_get_level(PIN_105) ? _HIGH : _LOW;
 }
 //others move to drvPower_std.c

@@ -163,7 +163,7 @@
 
 #define ENABLE_854x480_UI ENABLE //gchen @ 20171214
 #define VOLUME_STEP 	10 //10 //MP333 gchen @ 20180426
-#define VOLUME_THRESHOLD 	0x11 //MP333 // gchen @ 20180526
+#define VOLUME_THRESHOLD 	0x0C //MP333 // gchen @ 20180526
 #define VOLUME_AT	0 //MP333 // gchen @ 20180526 //0:20ms 1:100ms 2: 200ms 3:1000ms
 #define VOLUME_RT 	2 //MP333 // gchen @ 20180526 //2: 100ms
 

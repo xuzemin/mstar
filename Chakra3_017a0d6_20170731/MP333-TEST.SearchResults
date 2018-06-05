@@ -1,23 +1,19 @@
----- OsdTables Matches (18 in 13 files) ----
-MApp_ZUI_APItables.c (tv-ap\common\zui):extern OSDPAGETABLE code OsdTables[];
-MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WndMaxNum;
-MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WindowList;
-MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].WindowAlphaDataList;
-MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].bEnableAlpha;
-MApp_ZUI_APItables.c (tv-ap\common\zui):    return OsdTables[id].u8AlphaValue;
-OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_ATV_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
-OSDTbl_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
-OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res1366x768x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res1920x1080x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res960x540x565):OSDPAGETABLE code OsdTables [] =
-OSDTbl_T4_c.inl (tv-ap\dvb\ui2\res960x540xi8):OSDPAGETABLE code OsdTables [] =
----- OsdTables Search Errors Encountered (2) ----
+---- MApp_Edid_Get_Table Matches (14 in 5 files) ----
+AP.map (bin_r2_melody_atv_mm_64mb): .text.MApp_Edid_Get_Table
+AP.map (boot\sboot\bin): .text.MApp_Edid_Get_Table
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_2p0, 0x10, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_1p3_1p4, 0x10, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_2p0, 0x20, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_1p3_1p4, 0x20, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_2p0, 0x30, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_1p3_1p4, 0x30, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_2p0, 0x40, au8EdidTblBuf, &u8PhyAddrPos);
+apiXC_Sys.c (core\api\scaler_front):            bGetEdidResult = MApp_Edid_Get_Table(E_EDID_TBL_HDMI_1p3_1p4, 0x40, au8EdidTblBuf, &u8PhyAddrPos);
+MApp_Edid_Table.c (tv-ap\customer\edid):BOOL MApp_Edid_Get_Table(EnuEdidTblSel eEdidTblSel, U8 u8PhyAddr, U8* pu8EdidTbl, U8* pu8PhyAddrPos)
+MApp_Edid_Table.c (tv-ap\customer\edid):    DEBUG_EDID_TBL( printf("MApp_Edid_Get_Table(eEdidTblSel=%u, u8PhyAddr=0x%X)\n", eEdidTblSel, u8PhyAddr); );
+MApp_Edid_Table.h (tv-ap\customer\edid):BOOL MApp_Edid_Get_Table(EnuEdidTblSel eEdidTblSel, U8 u8PhyAddr, U8* pu8EdidTbl, U8* pu8PhyAddrPos);
+MApp_Edid_Table.h (tv-ap\customer\edid):#define MApp_Edid_Get_VGATable(edidBuf)  (MApp_Edid_Get_Table(E_EDID_TBL_VGA, 0, edidBuf, NULL))
+---- MApp_Edid_Get_Table Search Errors Encountered (2) ----
 The following 2 files could not be processed:
-X:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IAB : File could not be opened.
-X:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IMB : File could not be opened.
+Z:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IAB : File could not be opened.
+Z:\xzm\V56\MP333\MP333-Test\Chakra3_017a0d6_20170731\MP333-TEST.IMB : File could not be opened.

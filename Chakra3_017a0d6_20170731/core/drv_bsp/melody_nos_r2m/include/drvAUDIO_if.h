@@ -1971,7 +1971,6 @@ typedef enum
     Sound_GET_PARAM_Drc_Threshold,
     Sound_GET_PARAM_DMAReader_Buffer_Addr,
     Sound_GET_PARAM_LPF_Status,
-    Sound_GET_PARAM_SIMPLE_TTS_Status,
 } Sound_GET_PARAM_Type;
 
 typedef enum

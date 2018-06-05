@@ -179,7 +179,7 @@ MS_BOOL MDrv_SOUND_SetParam( Sound_SET_Type Type, MS_U32 *p_param );
 MS_BOOL MDrv_SND_ProcessEnable(Sound_ENABLE_Type Type, MS_BOOL enable);
 MS_BOOL MDrv_SND_SetParam( Sound_SET_PARAM_Type Type, MS_U16 param1, MS_U16 param2);
 MS_U16  MDrv_SND_GetParam( Sound_GET_PARAM_Type Type, MS_U16 param1);
-MS_BOOL MDrv_SND_DMA_SetPara(MS_U32 u32Buffer, MS_U32 u32Size);
+
 #ifdef __cplusplus
 }
 #endif

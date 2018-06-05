@@ -347,6 +347,7 @@ MS_BOOL MDrv_AUDIO_HDMI_NonpcmMonitor(void);
 MS_U8   MDrv_AUDIO_HDMI_DolbyMonitor(void);
 AUDIO_HDMI_RX_TYPE MDrv_AUDIO_HDMI_SetNonpcm(MS_U8 u8NonPCM_en);
 void    MDrv_AUDIO_HDMI_AC3_PathCFG(MS_U8 u8Ctrl);
+void MDrv_AUDIO_EnableCh1CH2mixer(MS_BOOL MixerState);
 MS_U16  MDrv_AUDIO_HDMI_GetSynthFreq(void);
 void    MDrv_AUDIO_HDMI_SetDownSample(MS_U8 ratio);
 void    MDrv_AUDIO_HDMI_TX_SetMode(HDMI_TX_OUTPUT_TYPE outType, AUDIO_SOURCE_INFO_TYPE eSource);

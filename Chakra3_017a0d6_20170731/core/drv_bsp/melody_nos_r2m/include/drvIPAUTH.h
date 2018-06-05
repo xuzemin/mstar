@@ -128,7 +128,7 @@ typedef struct
 {
     MS_U32  g_ShmID;
     MS_U32  g_u32ClientCounter;
-    MS_U8   g_IpControl[32];
+    MS_U8   g_IpControl[16];
 }IPAUTH_SHARED_VARS;
 
 

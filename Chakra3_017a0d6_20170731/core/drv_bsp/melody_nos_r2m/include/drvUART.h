@@ -412,6 +412,13 @@ MS_U16 mdrv_uart_set_tx_buffer(MS_U32 uart, void *tx_buffer, MS_U16 len);
 MS_U16 mdrv_uart_set_rx_buffer(MS_U32 uart, void *rx_buffer, MS_U16 len);
 
 ///////////////////////////////////////////////////////////////////////////////
+///@brief enable full buffer callbank,
+///after chakra call MS_U16 mdrv_uart_set_rx_buffer(MS_U32 hUart, void *rx_buffer, MS_U16 len)
+///it will callbank when rx buffer full
+///////////////////////////////////////////////////////////////////////////////
+void mdrv_uart_set_rx_fullbuffer_callback(void);
+
+///////////////////////////////////////////////////////////////////////////////
 /// @brief enable uart rx
 /// @param uart:        uart device handle
 /// @return 0: success, -1: failed

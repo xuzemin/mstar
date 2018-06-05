@@ -134,14 +134,6 @@ typedef enum
     E_DDC2BI_RET_OK,
 } E_DDC2BI_ReturnValue;
 
-typedef enum
-{
-    E_DDC2BI_PATH_ADC = 0,
-    E_DDC2BI_PATH_DVI0,
-    E_DDC2BI_PATH_DVI1,
-    E_DDC2BI_PATH_DVI2,
-    E_DDC2BI_PATH_DVI3,
-} E_DDC2BI_BusPath;
 
 // DDC2Bi receive/transmit status bytes definitions
 #define    DDC2B_CLEAR                  0
@@ -232,18 +224,5 @@ void MDrv_DDC2BI_Init(void);
 MS_BOOL MDrv_DDC2BI_Exit(void);
 void MDrv_DDC2BI_Set_StandardCallBack(CALLBACK_AlignControl align_control);      ///< DDC2BI callback function for Standard
 void MDrv_DDC2BI_Set_CustomerCallBack(CALLBACK_AlignControl align_control);      ///< DDC2BI callback function for Customer
-void MDrv_DDC2BI_Set_BusPath(E_DDC2BI_BusPath eBusPath);
-MS_U32 MDrv_DDC2BI_Get_ID_Reg(void);
-MS_U32 MDrv_DDC2BI_Get_INT_MASK_Reg(void);
-MS_U32 MDrv_DDC2BI_Get_INT_FLAG_Reg(void);
-MS_U32 MDrv_DDC2BI_Get_INT_CLR_Reg(void);
-MS_U32 MDrv_DDC2BI_Get_WB_RP_Reg(void);
-MS_U32 MDrv_DDC2BI_Get_RB_WP_Reg(void);
 
-#define DDC2BI_ID               MDrv_DDC2BI_Get_ID_Reg()
-#define DDC2BI_INT_MASK         MDrv_DDC2BI_Get_INT_MASK_Reg()
-#define DDC2BI_INT_FLAG         MDrv_DDC2BI_Get_INT_FLAG_Reg()
-#define DDC2BI_INT_CLR          MDrv_DDC2BI_Get_INT_CLR_Reg()
-#define DDC2BI_WB_RP            MDrv_DDC2BI_Get_WB_RP_Reg()
-#define DDC2BI_RB_WP            MDrv_DDC2BI_Get_RB_WP_Reg()
 #endif  // _DRVDDC2BI_H_

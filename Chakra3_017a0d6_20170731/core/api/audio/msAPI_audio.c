@@ -665,20 +665,15 @@ void msAPI_AUD_InitAudioSystem(THR_TBL_TYPE code *ThrTbl)
     ||(CHIP_FAMILY_TYPE == CHIP_FAMILY_NUGGET)  \
     ||(0) )
     MApp_Aud_AutoVolume_Init();
-
-  
-	
     MApi_AUDIO_SetAvcMode(2);         // AVC= MStar mode
-    MApi_AUDIO_SetAvcAT(VOLUME_AT);           // Set AVC attack time to 1sec //3
-    MApi_AUDIO_SetAvcRT(VOLUME_RT);           // Set AVC release time to 2sec //1
-    MApi_AUDIO_SetAvcThreshold(VOLUME_THRESHOLD); // -16 dBFS
+    MApi_AUDIO_SetAvcAT(3);           // Set AVC attack time to 1sec
+    MApi_AUDIO_SetAvcRT(1);           // Set AVC release time to 2sec
+    MApi_AUDIO_SetAvcThreshold(0x20); // -16 dBFS
     MApi_AUDIO_SetSurroundXA(0);
     MApi_AUDIO_SetSurroundXB(3);
     MApi_AUDIO_SetSurroundXK(0);
     MApi_AUDIO_SetSurroundLPFGain(2);
 
-    stGenSetting.g_SysSetting.fAutoVolume = TRUE;
-    MApi_AUDIO_EnableAutoVolume((BOOLEAN)stGenSetting.g_SysSetting.fAutoVolume);
     MDrv_AUDIO_SetPowerDownWait(TRUE);
   #if ENABLE_NO_AUDIO_INPUT_AUTO_MUTE
     //@param1 is decided by board's performance , different board may use different value
@@ -705,11 +700,10 @@ void msAPI_AUD_InitAudioSystem(THR_TBL_TYPE code *ThrTbl)
 
 #else
 
-	
     MApi_AUDIO_SetAvcMode(2);         // AVC= MStar mode
-    MApi_AUDIO_SetAvcAT(VOLUME_AT);           // Set AVC attack time to 1sec //3
-    MApi_AUDIO_SetAvcRT(VOLUME_RT);           // Set AVC release time to 2sec //1
-    MApi_AUDIO_SetAvcThreshold(VOLUME_THRESHOLD); // -16 dBFS
+    MApi_AUDIO_SetAvcAT(3);           // Set AVC attack time to 1sec
+    MApi_AUDIO_SetAvcRT(1);           // Set AVC release time to 2sec
+    MApi_AUDIO_SetAvcThreshold(0x20); // -16 dBFS
     MApi_SND_ProcessEnable(Sound_ENABL_Type_DRC, DISABLE); // DRC
     MApi_SND_SetParam1(Sound_SET_PARAM_Drc_Threshold, 0x10, 0); // -8 dBFS
     MApi_AUDIO_SetSurroundXA(0);
@@ -717,9 +711,6 @@ void msAPI_AUD_InitAudioSystem(THR_TBL_TYPE code *ThrTbl)
     MApi_AUDIO_SetSurroundXK(0);
     MApi_AUDIO_SetSurroundLPFGain(2);
 
-    stGenSetting.g_SysSetting.fAutoVolume = TRUE;  // MP333 //gchen @ 20180529
-    MApi_AUDIO_EnableAutoVolume((BOOLEAN)stGenSetting.g_SysSetting.fAutoVolume);
-	
     MDrv_AUDIO_SetPowerDownWait(TRUE);
 
   #if (SUPPORT_PEQ_TOOL)

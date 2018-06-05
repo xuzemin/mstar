@@ -7421,7 +7421,7 @@ LPTSTR MApp_ZUI_ACT_GetFactoryMenuDynamicText(HWND hwnd)
                 }
                 break;
         #endif
-					  snprintf((char*)CHAR_BUFFER, 30, "MP-333_V1.31");//wht121013_2
+					  snprintf((char*)CHAR_BUFFER, 30, "MP-333_V1.40");//wht121013_2
 					  FS_ASCII2Unicode((U8*)CHAR_BUFFER);
 					  return CHAR_BUFFER;
     }

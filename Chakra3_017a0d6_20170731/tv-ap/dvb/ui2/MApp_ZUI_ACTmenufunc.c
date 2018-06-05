@@ -11121,14 +11121,15 @@ GUI_ENUM_DYNAMIC_LIST_STATE MApp_ZUI_ACT_QueryMainMenuItemStatus(HWND hwnd)
         }
 
       #endif // #if (UI_SKIN_SEL ==  UI_SKIN_1366X768X565)
-
-
+	//MP333 //gchen @ 20180526
+	case HWND_MENU_SOUND_AUTO_VOLUME:
+		return EN_DL_STATE_NORMAL;
 ////==================================================================
         case HWND_MENU_CHANNEL_CHANNEL_NO:
         case HWND_MENU_CHANNEL_CHANNEL_LABEL:
         case HWND_MENU_CHANNEL_NON_TV:
         case HWND_MENU_PICTURE_3DNR:
-		case HWND_MENU_SOUND_AUTO_VOLUME:
+		//case HWND_MENU_SOUND_AUTO_VOLUME:
 		case HWND_MENU_SOUND_SURROUND:
         case HWND_MENU_PICTURE_BACKLIGHT:
         case HWND_MENU_PICTURE_DLC:

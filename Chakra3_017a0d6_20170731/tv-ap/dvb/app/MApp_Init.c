@@ -2293,20 +2293,38 @@ void MApp_PreInit_Panel_Init(void)
 	int i = 0;
 	int iGetADStart = 0;
 	int iTempADSumStart = 0;
-	for(i = 1; i <= 20; i++)
+	int iBatOffset = 3;
+	
+	for(i = 1; i <= 200; i++)
 	{
 		iTempADSumStart = GetSarAdcLevel(1) + iTempADSumStart;
 	}
-	iGetADStart = iTempADSumStart / 20;
+	iGetADStart = iTempADSumStart / 200;
 	printf("\n iGetADStart Bat Start  1 = %d\n",iGetADStart);
-	if((DC_get_level()) && (iGetADStart < BAT_LOW_AD + 9))
+
+	//MP333 //gchen @ 20180512 
+	#if 0
+	if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 1 || stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 2)
+	{
+		iBatOffset = 6;
+	}
+	else if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 0)
+	{
+		stGenSetting.g_SysSetting.u8BatLowPowerOffFlag = 2;
+		iBatOffset = 3;
+	}
+	#endif
+	
+		
+	//if((DC_get_level()) && (iGetADStart < BAT_LOW_AD + 9))
+	if((DC_get_level()) && (iGetADStart < BAT_LOW_AD + iBatOffset))
 	{
 		
 		//Flash RED LED
 		MDrv_Sys_DisableWatchDog();	
 		printf("\r\n !!!!! should go to standby batlow!!!!!2222 \n");
 
-		#if 0
+		#if 1
 			BAT_LED_G_OFF();
 			for(i = 0; i < 10; i++)
 			{
@@ -2323,17 +2341,9 @@ void MApp_PreInit_Panel_Init(void)
 			BAT_LED_G_OFF();
 			MUTE_On();
 		#endif
-		
-		//MP333 //gchen @ 20180512 
-		if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 1 || stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 2)
-		{
 
-		}
-		else if(stGenSetting.g_SysSetting.u8BatLowPowerOffFlag == 0)
-		{
-			stGenSetting.g_SysSetting.u8BatLowPowerOffFlag = 2;
-		}
-		
+
+
 		BAT_LED_R_OFF();
 		BAT_LED_G_OFF();
 		MUTE_On();

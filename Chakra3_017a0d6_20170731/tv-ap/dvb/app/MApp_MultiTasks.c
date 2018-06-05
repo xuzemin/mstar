@@ -2100,12 +2100,14 @@ void MApp_MultiTasks(void)
 			//printf(" \n");
 			MUTE_Off();
 			EarPhone_ON();
+			MApi_AUDIO_SetMute(AUDIO_PATH_HP,TRUE); //MP333 //gchen @ 20180531
 		}
 		else
 		{
 			//printf(" \n");
 			MUTE_On();
 			EarPhone_OFF();
+			MApi_AUDIO_SetMute(AUDIO_PATH_HP,FALSE); //MP333 //gchen @ 20180531
 		}
 	}
 		

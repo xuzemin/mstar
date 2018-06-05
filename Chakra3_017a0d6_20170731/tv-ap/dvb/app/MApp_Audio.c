@@ -217,6 +217,7 @@ U16 TvVolumeTable[] =
 U16 TvVolumeTable_HDMI[] =
 //              Volume  Table     (High Byte : Integer part  ; Low Byte : Fraction part)
 #if 1
+/* Max 44 EP V1.30
 { //  1           2          3         4         5          6           7           8         9          10
                                                                                                        0x7F00,    //  00
     0x4700,    0x4400,    0x4100,    0x3E00,    0X3600,    0x2800,    0x3800,    0x3600,    0x3400,    0X2E00,    //  10
@@ -229,6 +230,19 @@ U16 TvVolumeTable_HDMI[] =
     0x0F05,    0x0F04,    0x0F03,    0x0F02,    0x0600,    0x0F00,    0x0E07,    0x0E06,    0x0E05,    0x1900,    //  80
     0x0E03,    0x0E02,    0x0E01,    0x0E00,    0x0400,    0x0D06,    0x0D05,    0x0D04,    0x0D03,    0x1704,    //  90
     0x0D01,    0x0D00,    0x0C07,    0x0C06,    0x0200,    0x0C04,    0x0C03,    0x0C02,    0x0C01,    0x1604    //  100
+};*/
+{ //  1           2          3         4         5          6           7           8         9          10
+                                                                                                       0x7F00,    //  00 //Max 65
+    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    0x2B00,    //  10
+    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    0x1D04,    //  20
+    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    0x1A00,    //  30
+    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    0x1704,    //  40
+    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    0x1502,    //  50
+    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    0x1302,    //  60
+    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    0x1200,    //  70
+    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    0x1006,    //  80
+    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    0x0F06,    //  90
+    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04,    0x0E04    //  100
 };
 #else
 { //         1           2                3             4         5            6            7              8         9            10
@@ -1468,6 +1482,8 @@ void MApp_Aud_AudioDelay_Init(void)
 
 void MApp_Aud_PEQ_Init(void)
 {
+    #if 0 //MP333 //gchen @ 20180529 //PEQ
+    //1130Hz 3200Hz 6900Hz
     ST_AUDIO_PEQ.u8_PEQOnOff = TRUE;
     ST_AUDIO_PEQ.u8_Gain1Value = 82;
     ST_AUDIO_PEQ.u8_Q1Value = 15;
@@ -1480,7 +1496,21 @@ void MApp_Aud_PEQ_Init(void)
     ST_AUDIO_PEQ.u8_Gain3Value = 130;
     ST_AUDIO_PEQ.u8_Q3Value = 25;
     ST_AUDIO_PEQ.u16_Fo3Value = 0x0C80;
-	
+    #else
+    //1500Hz 3000Hz 8000Hz
+    ST_AUDIO_PEQ.u8_PEQOnOff = TRUE;
+    ST_AUDIO_PEQ.u8_Gain1Value = 70;
+    ST_AUDIO_PEQ.u8_Q1Value = 115;
+    ST_AUDIO_PEQ.u16_Fo1Value = 0x1F40; //8000 Hz
+
+    ST_AUDIO_PEQ.u8_Gain2Value = 20;
+    ST_AUDIO_PEQ.u8_Q2Value = 160;
+    ST_AUDIO_PEQ.u16_Fo2Value = 0x05DC; //1500 Hz
+
+    ST_AUDIO_PEQ.u8_Gain3Value = 180;
+    ST_AUDIO_PEQ.u8_Q3Value = 125;
+    ST_AUDIO_PEQ.u16_Fo3Value = 0x0BB8; //3000 Hz
+    #endif
     if(ST_AUDIO_PEQ.u8_PEQOnOff)
     {
     	printf("MApp_Aud_PEQ_Init---\n");
@@ -1671,15 +1701,15 @@ void MApp_Audio_AdjustAVCThreshold(U8 InputSource)
         case E_AUDIOSOURCE_YPbPr:
         case E_AUDIOSOURCE_PC:
         case E_AUDIOSOURCE_HDMI:
-            MApi_AUDIO_SetAvcThreshold(0x20);   //Output Clipping Level = -16 dBFS
+            MApi_AUDIO_SetAvcThreshold(VOLUME_THRESHOLD);   //Output Clipping Level = -16 dBFS
             break;
         case E_AUDIOSOURCE_SCART1:
         case E_AUDIOSOURCE_SCART2:
-            MApi_AUDIO_SetAvcThreshold(0x20);   //Output Clipping Level = -16 dBFS
+            MApi_AUDIO_SetAvcThreshold(VOLUME_THRESHOLD);   //Output Clipping Level = -16 dBFS
             break;
 
         default:
-        MApi_AUDIO_SetAvcThreshold(0x20);     //Output Clipping Level = -16 dBFS
+        MApi_AUDIO_SetAvcThreshold(VOLUME_THRESHOLD);     //Output Clipping Level = -16 dBFS
             break;
     }
 }
@@ -1749,8 +1779,24 @@ void MApp_Audio_AdjustMainVolume(BYTE VolumePercent)
 
     if(VolumePercent != 0)
     {
-        MApi_AUDIO_SetMute(AUDIO_PATH_MAIN_SPEAKER,FALSE);
-        MApi_AUDIO_SetMute(AUDIO_PATH_HP,FALSE); 
+		if(EAR_PHONE_get_level())
+		{
+			//printf(" \n");
+			//MUTE_Off();
+			//EarPhone_ON();
+			//MApi_AUDIO_SetMute(AUDIO_T3_PATH_AUOUT1,TRUE); //MP333 //gchen @ 20180531
+			
+		}
+		else
+		{
+			//printf(" \n");
+			//MUTE_On();
+			//EarPhone_OFF();
+			//MApi_AUDIO_SetMute(AUDIO_T3_PATH_AUOUT1,FALSE); //MP333 //gchen @ 20180531
+			MApi_AUDIO_SetMute(AUDIO_PATH_HP,FALSE); 
+		}
+	 MApi_AUDIO_SetMute(AUDIO_PATH_MAIN_SPEAKER,FALSE);
+        
         //MW_AUD_SetSoundMute(SOUND_MUTE_TV, E_MUTE_OFF); //gchen @ 20171221
     }
 }

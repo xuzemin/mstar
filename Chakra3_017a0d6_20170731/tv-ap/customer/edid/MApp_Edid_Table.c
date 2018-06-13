@@ -147,7 +147,7 @@ BOOL MApp_Edid_Get_Table(EnuEdidTblSel eEdidTblSel, U8 u8PhyAddr, U8* pu8EdidTbl
             memcpy(pu8EdidTbl, EDID_DVI_0, EDID_TBL_SIZE );
             *pu8PhyAddrPos = EDID_PA_POS;
             // Replace physical address
-            pu8EdidTbl[*pu8PhyAddrPos] = u8PhyAddr;
+            pu8EdidTbl[*pu8PhyAddrPos] = 0x00;//u8PhyAddr;
             // Correction checksum
             MApp_Edid_CorrectCheckSum(pu8EdidTbl);
 
